@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Просмотр отчёта</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=Nunito:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/controls.css">
+<link rel="stylesheet" href="../css/sheet.css">
+<link rel="stylesheet" href="../css/play.css">
+<style>
+  .wrap{max-width:52rem}
+  textarea{width:100%;min-height:9rem;font:500 .8rem/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--paper);color:var(--fg);border:1.5px solid var(--line);border-radius:8px;padding:.6rem}
+  .cols{display:grid;gap:1.25rem;grid-template-columns:1fr}
+  @media (min-width:48rem){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+  .card{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:1rem;display:grid;gap:.6rem}
+  .card h2{margin:0;font:400 1.4rem/1.1 var(--hand);color:var(--ink)}
+  dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.2rem .7rem;font-size:.9rem}
+  dt{color:var(--muted)} dd{margin:0;font-weight:700}
+  pre{margin:0;overflow:auto;font:500 .78rem/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:.6rem;max-height:22rem}
+  .err{color:var(--red);font-weight:800}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>Просмотр отчёта</h1>
+    <p class="lead">Вставьте JSON из задачи: снимок разметки показывает экран как он был,
+      а пример пересобирается заново из того же кода, что и в приложении.</p>
+  </header>
+
+  <textarea id="src" placeholder='{"markup":{...},"round":{...}} — или только блок markup'></textarea>
+  <div class="row">
+    <button class="btn" id="go" type="button">Показать</button>
+    <button class="btn alt" id="demo" type="button">Пример отчёта</button>
+  </div>
+  <p id="msg" class="err"></p>
+
+  <div class="cols">
+    <div class="card">
+      <h2>Как это выглядело</h2>
+      <div id="shot"></div>
+    </div>
+    <div class="card">
+      <h2>Пример, пересобранный заново</h2>
+      <div class="sheet"><div id="rebuilt"></div></div>
+      <dl id="facts"></dl>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Последние шаги</h2>
+    <pre id="log"></pre>
+  </div>
+</main>
+
+<script type="module">
+import {buildItem,fitSheet} from '../js/view/item.js';
+import {setLang} from '../js/i18n/index.js';
+import {itemText} from '../js/core/item.js';
+
+const $=s=>document.querySelector(s);
+
+// Снимок разметки восстанавливаем как есть: переменные темы приехали вместе с ним,
+// поэтому светлый отчёт останется светлым, даже если смотрим в тёмной теме.
+function showShot(markup){
+  const host=$('#shot');
+  host.replaceChildren();
+  if(!markup||!markup.html){ host.textContent='снимка разметки нет'; return; }
+  const box=document.createElement('div');
+  box.setAttribute('style',Object.entries(markup.vars||{}).map(([k,v])=>`${k}:${v}`).join(';'));
+  box.innerHTML=markup.html;
+  host.append(box);
+}
+
+function showItem(round,lang){
+  const host=$('#rebuilt');
+  host.replaceChildren();
+  $('#facts').replaceChildren();
+  if(!round||!round.item){ host.textContent='раунд не шёл'; return; }
+  if(lang) setLang(lang);
+  fitSheet(host,round.item);
+  host.append(buildItem(round.item,{
+    typed:(round.vals||[])[0]||'', vals:round.vals||[], active:round.active||0, reveal:false
+  }));
+  const facts={
+    'что это':itemText(round.item),
+    'введено':JSON.stringify(round.vals),
+    'попыток':round.tries,
+    'фаза':round.phase,
+    'пример':(round.i+1)+' из '+round.total
+  };
+  for(const [k,v] of Object.entries(facts)){
+    const dt=document.createElement('dt'); dt.textContent=k;
+    const dd=document.createElement('dd'); dd.textContent=String(v);
+    $('#facts').append(dt,dd);
+  }
+}
+
+function render(){
+  $('#msg').textContent='';
+  let data;
+  try{ data=JSON.parse($('#src').value); }
+  catch(e){ $('#msg').textContent='не разобрать JSON: '+e.message; return; }
+  const markup=data.markup||(data.html?data:null);
+  showShot(markup);
+  showItem(data.round,data.lang);
+  $('#log').textContent=JSON.stringify(data.log||[],null,1);
+}
+
+$('#go').addEventListener('click',render);
+$('#demo').addEventListener('click',()=>{
+  $('#src').value=JSON.stringify({
+    lang:'ru', mode:'clock',
+    round:{mode:'clock',i:2,total:10,tries:1,phase:'answer',vals:['3',''],active:1,
+      item:{view:'clock',h:3,m:45,numerals:'roman'}},
+    log:[{at:Date.now(),type:'show',i:2},{at:Date.now(),type:'answer',vals:['3','15'],right:false,tries:0}]
+  },null,1);
+  render();
+});
+</script>
+</body>
+</html>

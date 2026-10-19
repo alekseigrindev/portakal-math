@@ -1,0 +1,35 @@
+/* Экран решения и экран итога. */
+/* игра */
+.play{display:grid;gap:1rem;max-width:30rem;width:100%;margin-inline:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.count{font-weight:800}
+.pg{display:flex;flex-wrap:wrap;gap:4px}
+.pg span{width:14px;height:14px;border:1.5px solid var(--line);border-radius:3px}
+.pg span.cur{border-color:var(--ink);background:var(--grid)}
+.pg span.ok{background:var(--green);border-color:var(--green)}
+.pg span.miss{background:var(--red);border-color:var(--red)}
+.msg{min-height:1.6rem;margin:0;font-weight:800;text-align:center}
+.msg.good{color:var(--green)} .msg.warn{color:var(--red)}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+.key{min-height:3.6rem;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;
+  font-weight:800;font-size:1.6rem;cursor:pointer}
+.key:active{transform:translateY(1px);background:var(--grid)}
+.key.go{background:var(--ink);color:var(--ink-fg);border-color:var(--ink);font-size:1.05rem}
+.key.sm{font-size:1.3rem}
+
+/* итог */
+.result{display:grid;gap:1rem;max-width:34rem;width:100%;margin-inline:auto}
+.mark-row{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.mark{width:5.5rem;height:5.5rem;border:3px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font:400 3.6rem/1 var(--hand);color:var(--red);transform:rotate(-6deg);flex:none}
+.mark.none{font-size:1.1rem;text-align:center;line-height:1.1;padding:.3rem}
+.res-text{display:grid;gap:.15rem}
+.res-text b{font-size:1.25rem}
+.miss-list{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.45rem}
+.miss-list li{font:400 1.45rem/1 var(--hand);color:var(--ink);padding:.4rem .7rem;border:1.5px solid var(--line);border-radius:6px;background:var(--surface)}
+.row{display:flex;gap:.6rem;flex-wrap:wrap}
+
+/* панель выбора вместо цифр: варианты в столбик, подписи словами */
+.pad.choice{grid-template-columns:1fr}
+.key.word{min-height:3.1rem;font-size:1.05rem;padding:.4rem .8rem;line-height:1.2}
+.key.word[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}

@@ -1,0 +1,53 @@
+/* Телефон: один экран, клавиатура под большим пальцем. */
+/* ---------- телефон ---------- */
+body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
+.key,.chip,.tab,.btn,.lang{-webkit-tap-highlight-color:transparent;user-select:none}
+@media (max-width:560px){
+  .wrap{padding-inline:max(.75rem,env(safe-area-inset-left));padding-block:.9rem 2rem;gap:.9rem}
+  h1{font-size:2rem}
+  .lead{font-size:.92rem;margin-top:.2rem}
+  /* язык — в одну строку с заголовком не нужен: компактный ряд */
+  .langs{justify-content:flex-start}
+  /* вкладки — горизонтальная прокрутка вместо трёх строк кнопок */
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-.75rem;padding:.1rem .75rem .35rem;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;min-width:7.5rem;max-width:11rem;scroll-snap-align:start;font-size:.95rem;line-height:1.15;padding:.5rem .7rem}
+  .panel{padding:.8rem;gap:.85rem}
+  .chip{min-height:2.75rem;padding:.3rem .85rem}
+  .sheet{--cell:min(2.6rem,calc((100vw - 3.5rem)/var(--n,10)))}
+  /* кнопка «Начать» всегда под рукой */
+  .startrow{position:sticky;bottom:0;z-index:5;margin-inline:-.75rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
+    background:linear-gradient(to top,var(--bg) 78%,transparent);justify-items:stretch}
+  .startrow .btn{width:100%}
+  .stat{text-align:center}
+  /* игра: один экран, клавиатура у большого пальца */
+  body.playing .wrap{padding-block:.5rem 0;gap:.5rem;min-height:100dvh;grid-template-rows:auto 1fr}
+  body.playing header{display:none}
+  body.playing #play{min-height:calc(100dvh - 1rem);grid-template-rows:auto auto minmax(0,1fr) auto auto;align-content:stretch;gap:.5rem;max-width:none}
+  body.playing #play .sheet{align-self:center;width:100%;--cell:min(3rem,calc((100vw - 3.5rem)/var(--n,10)))}
+  body.playing .pad{gap:.5rem;padding-bottom:calc(.6rem + env(safe-area-inset-bottom))}
+  body.playing .key{min-height:max(3.4rem,6.8dvh);font-size:1.7rem}
+  body.playing .key.go{font-size:1rem;padding-inline:.2rem}
+  .bond{margin-inline:auto;width:min(14rem,70%)}
+  .msg{min-height:1.5rem}
+  .mark{width:4.6rem;height:4.6rem;font-size:3rem}
+  .row .btn{flex:1 1 100%}
+  .miss-list li{font-size:1.3rem}
+}
+/* низкий экран (телефон лёжа): пример слева, клавиатура справа */
+@media (max-height:480px) and (orientation:landscape){
+  body.playing header{display:none}
+  body.playing .wrap{max-width:none;padding-block:.4rem;padding-inline:max(1rem,env(safe-area-inset-left))}
+  body.playing #play{max-width:none;grid-template-columns:minmax(0,1fr) 15rem;grid-template-rows:auto auto minmax(0,1fr) auto;column-gap:1.25rem;row-gap:.35rem}
+  body.playing #play .topbar,body.playing #play .pg,body.playing #play .sheet,body.playing #play .msg{grid-column:1}
+  body.playing #play .sheet{align-self:center;--cell:min(2.4rem,calc((100vw - 21rem)/var(--n,10)))}
+  body.playing #play .pad{grid-column:2;grid-row:1/5;align-self:center;gap:.4rem}
+  body.playing .key{min-height:2.7rem;font-size:1.3rem}
+  body.playing .key.go{font-size:.9rem}
+}
+@media (max-width:560px){
+  .clock,.shape{margin-inline:auto}
+  body.playing #play .clock{width:min(13rem,62vw)}
+  body.playing #play .shape{width:min(15rem,74vw)}
+  body.playing .pad.choice .key.word{min-height:2.9rem;font-size:1rem}
+}

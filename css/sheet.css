@@ -1,0 +1,97 @@
+/* Лист в клетку: запись примера, рамки пропусков, схема «домик», ряд для счёта. */
+/* лист в клетку */
+.sheet{
+  --cell:min(2.75rem,calc((100vw - 5rem)/var(--n,10)));
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:var(--cell) var(--cell);
+  border:1.5px solid var(--line);border-radius:6px;
+  padding:var(--cell) 0 var(--cell) var(--cell);overflow:hidden;
+}
+.sheet-cap{margin:0 0 .4rem;font-size:.85rem;color:var(--muted)}
+.eq{display:flex;align-items:center;color:var(--ink);width:max-content;max-width:100%}
+.c{width:var(--cell);height:var(--cell);display:flex;align-items:center;justify-content:center;
+  font:400 calc(var(--cell)*.72)/1 var(--hand);flex:none}
+.c.sign{color:var(--fg)}
+.box{display:flex;border:2px solid var(--ink);border-radius:6px;overflow:hidden;background:var(--paper)}
+.box .c + .c{border-left:1.5px dashed var(--ink)}
+.box .c.cur::after{content:"";width:2px;height:58%;background:var(--ink);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.eq.ok .box{border-color:var(--green)} .eq.ok .c{color:var(--green)}
+.eq.ok::after{content:"✓";font:400 calc(var(--cell)*.9)/1 var(--hand);color:var(--green);margin-left:calc(var(--cell)*.25)}
+.eq.bad .box{border-color:var(--red);animation:shake .35s}
+.eq.bad .c{color:var(--red)}
+.eq.reveal .box{border-color:var(--red)} .eq.reveal .box .c{color:var(--red)}
+@keyframes shake{20%{transform:translateX(-6px)}50%{transform:translateX(6px)}80%{transform:translateX(-3px)}}
+
+/* несколько пропусков: активная клетка выделена, остальные можно выбрать касанием */
+.box.multi{cursor:pointer;margin-inline:2px}
+.box.multi:not(.act){border-color:var(--line)}
+.box.act{box-shadow:0 0 0 3px var(--grid)}
+/* схема «домик» */
+.bond{width:min(16rem,100%);margin-left:0}
+.bond svg{display:block;width:100%;height:auto;overflow:visible}
+.bond .ln{stroke:var(--ink);stroke-width:2.5;fill:none}
+.bond .bc{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
+.bond .bn{font:400 36px var(--hand);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.bond .blank .bc{stroke-dasharray:6 5}
+.bond .caret{stroke:var(--ink);stroke-width:2.5;animation:blink 1s steps(1) infinite}
+.bond.ok .blank .bc{stroke:var(--green);stroke-dasharray:none}
+.bond.ok .blank .bn{fill:var(--green)}
+.bond.bad{animation:shake .35s}
+.bond.bad .blank .bc{stroke:var(--red)}
+.bond.bad .blank .bn{fill:var(--red)}
+.bond.reveal .blank .bc{stroke:var(--red);stroke-dasharray:none}
+.bond.reveal .blank .bn{fill:var(--red)}
+/* ряд для ритмического счёта */
+.seq{display:flex;flex-wrap:wrap;align-items:flex-end;row-gap:calc(var(--cell)*.8);color:var(--ink);padding-top:calc(var(--cell)*.4)}
+.pair{display:flex;align-items:flex-end}
+.num{display:flex}
+.hop{position:relative;width:var(--cell);height:var(--cell);flex:none}
+.hop::before{content:"";position:absolute;left:8%;right:8%;top:calc(var(--cell)*.08);height:calc(var(--cell)*.36);
+  border:2px solid var(--red);border-bottom:0;border-radius:999px 999px 0 0}
+.hop.arrow::before{top:50%;height:0;left:10%;right:22%;border:0;border-top:3px solid var(--orange);border-radius:0}
+.hop.arrow::after{content:"";position:absolute;top:50%;right:15%;width:calc(var(--cell)*.3);height:calc(var(--cell)*.3);
+  border-top:3px solid var(--orange);border-right:3px solid var(--orange);transform:translateY(-50%) rotate(45deg)}
+.hop span{position:absolute;left:0;right:0;top:calc(var(--cell)*.5);text-align:center;font:800 calc(var(--cell)*.3)/1 var(--ui);color:var(--red)}
+.seq.ok .box{border-color:var(--green)} .seq.ok .box .c{color:var(--green)}
+.seq.bad .box{border-color:var(--red);animation:shake .35s} .seq.bad .box .c{color:var(--red)}
+.seq.reveal .box{border-color:var(--red)} .seq.reveal .box .c{color:var(--red)}
+@media (prefers-reduced-motion:reduce){.eq.bad .box,.box .c.cur::after,.bond.bad,.bond .caret,.seq.bad .box{animation:none}}
+
+/* разрядный состав: цифра и короткое название разряда рядом */
+.units .unit{display:flex;align-items:center;margin-right:calc(var(--cell)*.3)}
+.units .uw{font:800 .7rem/1 var(--ui);color:var(--muted);margin-left:.1rem;letter-spacing:.02em;white-space:nowrap}
+
+/* часы */
+.clock{display:grid;justify-items:center;gap:.5rem;width:min(15rem,100%)}
+.clock svg{display:block;width:100%;height:auto}
+.clock .cf{fill:var(--paper);stroke:var(--ink);stroke-width:3}
+.clock .ht{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.clock .mt{stroke:var(--line);stroke-width:1.5}
+.clock .cn{font:400 26px var(--hand);fill:var(--ink);text-anchor:middle;dominant-baseline:central}
+.clock .hh{stroke:var(--ink);stroke-width:6.5;stroke-linecap:round}
+.clock .mh{stroke:var(--red);stroke-width:3.5;stroke-linecap:round}
+.clock .pin{fill:var(--ink)}
+.clock .time{display:flex;align-items:center}
+.clock.ok .box{border-color:var(--green)} .clock.ok .box .c{color:var(--green)}
+.clock.bad .box{border-color:var(--red);animation:shake .35s} .clock.bad .box .c{color:var(--red)}
+.clock.reveal .box{border-color:var(--red)} .clock.reveal .box .c{color:var(--red)}
+
+/* фигуры */
+.shape{display:grid;justify-items:center;gap:.45rem;width:min(16rem,100%)}
+.shape svg{display:block;width:100%;height:auto;overflow:visible}
+.shape .fg{fill:none;stroke:var(--ink);stroke-width:3;stroke-linejoin:round}
+.shape .gl{stroke:var(--grid);stroke-width:1.5}
+.shape .fl{font:800 15px var(--ui);fill:var(--red);text-anchor:middle}
+.shape .fn{font:800 14px var(--ui);fill:var(--muted);text-anchor:middle}
+.shape .q{margin:0;font-size:.92rem;color:var(--muted);text-align:center;text-wrap:balance}
+.box.word{min-width:8rem;min-height:2.6rem;padding:.3rem .9rem;justify-content:center;align-items:center;
+  font:400 1.4rem/1.2 var(--hand);color:var(--ink);text-align:center}
+.box.word.empty{border-style:dashed}
+.shape.ok .box,.shape.ok .box .c{color:var(--green);border-color:var(--green)}
+.shape.ok .fg{stroke:var(--green)}
+.shape.bad .box{border-color:var(--red);animation:shake .35s}
+.shape.bad .box,.shape.bad .box .c{color:var(--red)}
+.shape.reveal .box,.shape.reveal .box .c{color:var(--red);border-color:var(--red)}
+@media (prefers-reduced-motion:reduce){.clock.bad .box,.shape.bad .box{animation:none}}

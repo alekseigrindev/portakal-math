@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Тренажёр счёта</title>
+<!-- Критические правила до загрузки шрифтов и таблиц стилей: без них страница «прыгает». -->
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=Nunito:wght@500;700;800&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/controls.css">
+<link rel="stylesheet" href="css/sheet.css">
+<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1 data-i18n="title">Тренажёр счёта</h1>
+    <p class="lead" data-i18n="lead">Примеры с пропущенным числом: сложение и вычитание до 100, таблица умножения и деления, состав числа, ритмический счёт.</p>
+  </header>
+
+  <section id="setup" class="play" style="max-width:none">
+    <div class="langs" role="group" id="langs"></div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="panel">
+      <div id="opts" style="display:grid;gap:1rem"></div>
+    </div>
+    <div class="sheet" aria-hidden="true">
+      <p class="sheet-cap" data-i18n="sampleCap">Так будет выглядеть пример</p>
+      <div id="sample"></div>
+    </div>
+    <div class="startrow">
+      <button class="btn" id="start" type="button"></button>
+      <p class="stat" id="stat"></p>
+      <button class="btn link fb-open" id="reportSetup" type="button" data-i18n="fb.open"></button>
+    </div>
+  </section>
+
+  <section id="play" class="play" hidden>
+    <div class="topbar">
+      <button class="btn link" id="back" type="button" data-i18n="back">← К настройкам</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="pg" id="pg" aria-hidden="true"></div>
+    <div class="sheet"><div id="eqHost"></div></div>
+    <p class="msg" id="msg" aria-live="polite"></p>
+    <div class="pad" id="pad"></div>
+  </section>
+
+  <section id="result" class="result" hidden>
+    <div class="mark-row">
+      <div class="mark" id="mark"></div>
+      <div class="res-text" id="resText"></div>
+    </div>
+    <div id="missBox" hidden>
+      <div class="glabel" style="margin-bottom:.5rem" data-i18n="missTitle">Над этими примерами стоит поработать</div>
+      <ul class="miss-list" id="missList"></ul>
+    </div>
+    <div class="row">
+      <button class="btn" id="again" type="button" data-i18n="again">Ещё раз</button>
+      <button class="btn alt" id="redo" type="button" hidden data-i18n="redo">Повторить ошибки</button>
+      <button class="btn link" id="toSetup" type="button" data-i18n="toSetup">К настройкам</button>
+      <button class="btn link fb-open" id="reportResult" type="button" data-i18n="fb.open"></button>
+    </div>
+  </section>rfrb
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

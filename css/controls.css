@@ -1,0 +1,49 @@
+/* Переключатель языка, вкладки режимов, панель настроек, кнопки. */
+/* переключатель языка */
+.langs{display:flex;gap:.35rem;justify-content:flex-end}
+.lang{min-height:2.25rem;min-width:2.75rem;padding:.2rem .6rem;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);
+  border-radius:6px;font-weight:800;font-size:.85rem;letter-spacing:.04em;cursor:pointer}
+.lang[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+
+/* вкладки */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap}
+.tab{flex:1 1 9rem;min-height:3rem;padding:.55rem .9rem;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);
+  border-radius:8px;font-weight:800;font-size:1rem;cursor:pointer;text-align:center}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+
+/* настройки */
+.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:1rem;display:grid;gap:1rem}
+.group{display:grid;gap:.4rem;min-width:0}
+.glabel{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{min-height:2.5rem;padding:.35rem .95rem;border:1.5px solid var(--line);background:transparent;color:var(--fg);
+  border-radius:999px;font-weight:700;font-size:.98rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.hint{margin:0;font-size:.85rem;color:var(--muted)}
+
+/* кнопки */
+.btn{min-height:3.25rem;padding:.6rem 1.4rem;border-radius:8px;border:2px solid var(--ink);background:var(--ink);color:var(--ink-fg);
+  font-weight:800;font-size:1.1rem;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink)}
+.btn.link{border-color:transparent;background:transparent;color:var(--muted);min-height:2.5rem;padding-inline:.5rem;font-size:1rem}
+.startrow{display:grid;gap:.5rem;justify-items:start}
+.stat{margin:0;color:var(--muted);font-size:.92rem}
+
+/* отчёт об ошибке: кнопка неприметная — она для взрослого, не для ребёнка */
+.fb-open{font-size:.85rem;text-decoration:underline;text-underline-offset:3px}
+.fb{border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--fg);
+  padding:0;max-width:min(30rem,calc(100vw - 2rem));width:100%}
+.fb::backdrop{background:rgba(0,0,0,.45)}
+.fb-body{display:grid;gap:.7rem;padding:1.1rem}
+.fb-title{margin:0;font:400 1.6rem/1.1 var(--hand);color:var(--ink)}
+.fb-note{margin:0;font-size:.85rem;color:var(--muted)}
+.fb-text{font:500 1rem/1.4 var(--ui);color:var(--fg);background:var(--paper);
+  border:1.5px solid var(--line);border-radius:8px;padding:.5rem .6rem;resize:vertical;width:100%}
+.fb-check{display:flex;align-items:center;gap:.5rem;font-size:.9rem}
+.fb-preview{border:1.5px solid var(--line);border-radius:8px;overflow:hidden;background:var(--paper)}
+.fb-preview img{display:block;width:100%;height:auto}
+.fb-status{margin:0;min-height:1.3rem;font-size:.88rem;font-weight:700}
+.fb-status.good{color:var(--green)} .fb-status.warn{color:var(--red)}
+.fb-row{display:flex;gap:.6rem;align-items:center}
+.fb-row .btn{min-height:2.8rem;font-size:1rem}
