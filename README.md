@@ -73,7 +73,7 @@ js/
     dialog.js     окно отчёта
     send.js       отправка и очередь — единственное место про внешний сервис
 api/
-  feedback.js     serverless-функция: создаёт задачу в GitHub
+  feedback.mjs    serverless-функция: создаёт задачу в GitHub
 tools/
   replay.html     просмотр присланного отчёта
 ```
@@ -133,8 +133,16 @@ for(const l of ['tr','pt']) console.log(l, ru.filter(k=>I18N[l][k]===undefined))
 
 ### Сервер
 
-`api/feedback.js` — обычная serverless-функция Vercel: папку `api/` она подхватывает
-и у статического проекта, Next.js для этого не нужен. Переменные окружения:
+`api/feedback.mjs` — обычная serverless-функция Vercel: папку `api/` она подхватывает
+и у статического проекта, Next.js для этого не нужен. Доступна по пути `/api/feedback`.
+
+Расширение `.mjs` обязательно: без `package.json` файл `.js` на Node 18 и 20 считается
+CommonJS и `export default` в нём не разберётся.
+
+При импорте в Vercel: **Framework Preset — Other**, команды сборки и установки
+оставить пустыми, Output Directory не трогать.
+
+Переменные окружения:
 
 ```
 GITHUB_TOKEN   токен с правом issues:write и contents:write

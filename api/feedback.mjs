@@ -5,6 +5,10 @@
 // на Next.js, тело handler переносится в app/api/feedback/route.js
 // как `export async function POST(req)` почти без правок.
 //
+// Расширение .mjs, а не .js, намеренно: без package.json файл .js на Node 18 и 20
+// считается CommonJS, и `export default` там не разберётся. Путь остаётся
+// /api/feedback — расширение в адресе не участвует.
+//
 // Переменные окружения:
 //   GITHUB_TOKEN  — токен с правом issues:write и contents:write на репозиторий
 //   GITHUB_REPO   — "владелец/репозиторий"
