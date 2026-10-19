@@ -99,5 +99,6 @@ export default {
  'foot.contact':'Связаться',
  'theme.toDark':'Тёмная тема',
  'theme.toLight':'Светлая тема',
- 'abort':'Прервать'
+ 'abort':'Прервать',
+ 'feedCats':'Покормить котов'
 };

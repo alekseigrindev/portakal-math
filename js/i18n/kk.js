@@ -173,5 +173,6 @@ export default {
  'foot.contact':'Байланыс',
  'theme.toDark':'Қараңғы түр',
  'theme.toLight':'Жарық түр',
- 'abort':'Тоқтату'
+ 'abort':'Тоқтату',
+ 'feedCats':'Мысықтарды тамақтандыру'
 };

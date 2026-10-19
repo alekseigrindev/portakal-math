@@ -173,5 +173,6 @@ export default {
  'foot.contact':'Зв’язатися',
  'theme.toDark':'Темна тема',
  'theme.toLight':'Світла тема',
- 'abort':'Перервати'
+ 'abort':'Перервати',
+ 'feedCats':'Погодувати котів'
 };

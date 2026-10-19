@@ -173,5 +173,6 @@ export default {
  'foot.contact':'კონტაქტი',
  'theme.toDark':'მუქი თემა',
  'theme.toLight':'ღია თემა',
- 'abort':'შეწყვეტა'
+ 'abort':'შეწყვეტა',
+ 'feedCats':'კატების გამოკვება'
 };

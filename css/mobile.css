@@ -7,14 +7,18 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   h1{font-size:2rem}
   .lead{font-size:.92rem;margin-top:.2rem}
   /* язык — в одну строку с заголовком не нужен: компактный ряд */
-  .site-header-inner{padding:.5rem .75rem;gap:.6rem}
+  .site-header-inner{padding:.5rem .6rem;gap:.45rem}
+  .site-header-controls{gap:.35rem}
   .orange{width:2.1rem;height:2.1rem}
   .brand-name{font-size:1.25rem}
-  /* самые длинные названия (казахское, грузинское) должны влезать без многоточия */
-  .brand-sub{font-size:.7rem}
-  .lang-select{max-width:6.5rem;min-height:2.6rem;font-size:.82rem;
-    padding-right:1.6rem;background-position:calc(100% - .8rem) 55%,calc(100% - .52rem) 55%}
-  .theme-toggle{width:2.6rem;height:2.6rem}
+  /* С кнопкой «покормить котов» в шапке стало четыре элемента, и подзаголовок
+     начал обрезаться многоточием вместе с названием языка. Убираем его:
+     апельсин и само название уже опознают приложение, а полное имя остаётся
+     в заголовке вкладки. Освободившееся место отдаём списку языков. */
+  .brand-sub{display:none}
+  .lang-select{max-width:7rem;min-height:2.6rem;font-size:.82rem;
+    padding:.3rem 1.5rem .3rem .5rem;background-position:calc(100% - .75rem) 55%,calc(100% - .48rem) 55%}
+  .theme-toggle{width:2.4rem;height:2.4rem}
   /* вкладки — горизонтальная прокрутка вместо трёх строк кнопок */
   .tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-.75rem;padding:.1rem .75rem .35rem;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
@@ -61,4 +65,20 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   body.playing #play .clock{width:min(13rem,62vw)}
   body.playing #play .shape{width:min(15rem,74vw)}
   body.playing .pad.choice .key.word{min-height:2.9rem;font-size:1rem}
+}
+@media (max-width:560px){
+  /* В шапке четыре элемента, подписи на всё не хватает: оставляем кота значком,
+     смысл несёт подпись для чтения с экрана. Самое длинное название —
+     казахское «Мысықтарды тамақтандыру» — в строку всё равно не поместилось бы. */
+  .feed-label{display:none}
+  .feed{padding:.3rem .45rem;min-width:2.4rem;justify-content:center}
+  .contacts{gap:.55rem .9rem}
+}
+
+/* Совсем узкие экраны (iPhone SE первого поколения и подобные): четыре элемента
+   в строку не встают. Переносим управление под бренд — шапка выше, но ничего
+   не вылезает за край. */
+@media (max-width:360px){
+  .site-header-inner{flex-wrap:wrap;justify-content:center;row-gap:.4rem}
+  .brand{width:100%;justify-content:center}
 }

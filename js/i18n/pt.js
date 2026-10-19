@@ -99,5 +99,6 @@ export default {
  'foot.contact':'Contato',
  'theme.toDark':'Tema escuro',
  'theme.toLight':'Tema claro',
- 'abort':'Parar'
+ 'abort':'Parar',
+ 'feedCats':'Alimentar os gatos'
 };

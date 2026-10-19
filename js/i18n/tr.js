@@ -99,5 +99,6 @@ export default {
  'foot.contact':'İletişim',
  'theme.toDark':'Koyu tema',
  'theme.toLight':'Açık tema',
- 'abort':'Durdur'
+ 'abort':'Durdur',
+ 'feedCats':'Kedileri doyur'
 };

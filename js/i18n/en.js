@@ -173,5 +173,6 @@ export default {
  'foot.contact':'Contact',
  'theme.toDark':'Dark theme',
  'theme.toLight':'Light theme',
- 'abort':'Stop'
+ 'abort':'Stop',
+ 'feedCats':'Feed the cats'
 };

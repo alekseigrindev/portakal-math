@@ -15,6 +15,13 @@ function applyStatic(){
   const desc=document.querySelector('meta[name="description"]');
   if(desc) desc.content=t('lead');   // с экрана убрали, для ссылок и поиска оставили
   for(const el of document.querySelectorAll('[data-i18n]')) el.textContent=t(el.dataset.i18n);
+  // для элементов, у которых подпись прячется на узком экране: смысл остаётся
+  // в aria-label и во всплывающей подсказке
+  for(const el of document.querySelectorAll('[data-i18n-label]')){
+    const v=t(el.dataset.i18nLabel);
+    el.setAttribute('aria-label',v);
+    el.title=v;
+  }
   const bs=$('#bsKey'); if(bs) bs.setAttribute('aria-label',t('erase'));
   renderFooter();
   renderToggle();
