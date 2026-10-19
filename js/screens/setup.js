@@ -83,16 +83,28 @@ function renderSetup(){
   $('#start').textContent=t('start',{n:S.count});
 }
 
+// Языков семь, кнопками они занимали бы две строки — выпадающий список компактнее
+// и на телефоне открывается системным выбором.
 function renderLangs(){
   const host=$('#langs'); host.replaceChildren();
-  host.setAttribute('aria-label',t('langLabel'));
-  for(const [code,short,name] of LANGS){
-    const b=document.createElement('button');
-    b.type='button'; b.className='lang'; b.textContent=short; b.lang=code; b.title=name;
-    b.setAttribute('aria-label',name); b.setAttribute('aria-pressed',String(S.lang===code));
-    b.addEventListener('click',()=>{ S.lang=code; save(); setLang(code); applyStatic(); renderSetup(); });
-    host.append(b);
+  const label=document.createElement('label');
+  label.className='lang-label';
+  label.setAttribute('for','langSelect');
+  label.textContent=t('langLabel');
+  const sel=document.createElement('select');
+  sel.className='lang-select';
+  sel.id='langSelect';
+  for(const [code,name] of LANGS){
+    const o=document.createElement('option');
+    o.value=code; o.textContent=name; o.lang=code;
+    if(S.lang===code) o.selected=true;
+    sel.append(o);
   }
+  sel.addEventListener('change',()=>{
+    S.lang=sel.value; save(); setLang(sel.value); applyStatic(); renderSetup();
+    $('#langSelect').focus();   // после перерисовки фокус не должен падать в начало страницы
+  });
+  host.append(label,sel);
 }
 
 export {renderSetup};

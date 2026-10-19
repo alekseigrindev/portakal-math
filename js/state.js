@@ -1,5 +1,5 @@
 // Настройки и статистика: значения по умолчанию, чтение из localStorage с проверкой каждого поля.
-import {detectLang} from './i18n/index.js';
+import {detectLang,CODES} from './i18n/index.js';
 import {MODES,RANGES,LIMITS} from './config.js';
 import {ALL as SHAPES_ALL} from './core/shapes.js';
 
@@ -28,7 +28,7 @@ function loadSaved(){
     const c=raw.cfg||{};
     if(MODE_IDS.includes(c.mode)) S.mode=c.mode;
     if([10,15,20].includes(c.count)) S.count=c.count;
-    if(['ru','tr','pt'].includes(c.lang)) S.lang=c.lang;
+    if(CODES.includes(c.lang)) S.lang=c.lang;
     if(c.addsub){
       if(RANGES.includes(c.addsub.range)) S.addsub.range=c.addsub.range;
       if(['plus','minus','both'].includes(c.addsub.ops)) S.addsub.ops=c.addsub.ops;

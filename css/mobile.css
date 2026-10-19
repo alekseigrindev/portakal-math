@@ -1,13 +1,14 @@
 /* Телефон: один экран, клавиатура под большим пальцем. */
 /* ---------- телефон ---------- */
 body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
-.key,.chip,.tab,.btn,.lang{-webkit-tap-highlight-color:transparent;user-select:none}
+.key,.chip,.tab,.btn,.lang-select{-webkit-tap-highlight-color:transparent;user-select:none}
 @media (max-width:560px){
   .wrap{padding-inline:max(.75rem,env(safe-area-inset-left));padding-block:.9rem 2rem;gap:.9rem}
   h1{font-size:2rem}
   .lead{font-size:.92rem;margin-top:.2rem}
   /* язык — в одну строку с заголовком не нужен: компактный ряд */
   .langs{justify-content:flex-start}
+  .lang-select{flex:1 1 auto;min-height:2.75rem}
   /* вкладки — горизонтальная прокрутка вместо трёх строк кнопок */
   .tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-.75rem;padding:.1rem .75rem .35rem;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}

@@ -1,9 +1,14 @@
 /* Переключатель языка, вкладки режимов, панель настроек, кнопки. */
 /* переключатель языка */
-.langs{display:flex;gap:.35rem;justify-content:flex-end}
-.lang{min-height:2.25rem;min-width:2.75rem;padding:.2rem .6rem;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);
-  border-radius:6px;font-weight:800;font-size:.85rem;letter-spacing:.04em;cursor:pointer}
-.lang[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+.langs{display:flex;gap:.5rem;align-items:center;justify-content:flex-end}
+.lang-label{font-size:.8rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lang-select{min-height:2.5rem;padding:.3rem 2rem .3rem .7rem;border:1.5px solid var(--line);
+  background:var(--surface);color:var(--fg);border-radius:8px;
+  font:700 .95rem/1.2 var(--ui);cursor:pointer;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 1rem) 55%,calc(100% - .65rem) 55%;
+  background-size:.35rem .35rem,.35rem .35rem;background-repeat:no-repeat}
+.lang-select:hover{border-color:var(--ink)}
 
 /* вкладки */
 .tabs{display:flex;gap:.5rem;flex-wrap:wrap}
@@ -47,3 +52,16 @@
 .fb-status.good{color:var(--green)} .fb-status.warn{color:var(--red)}
 .fb-row{display:flex;gap:.6rem;align-items:center}
 .fb-row .btn{min-height:2.8rem;font-size:1rem}
+
+/* подвал */
+.site-footer{display:flex;flex-wrap:wrap;gap:.4rem 1rem;align-items:center;justify-content:center;
+  padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  border-top:1.5px solid var(--line);background:var(--surface);
+  font-size:.85rem;color:var(--muted)}
+.site-footer .copy{margin:0}
+.contacts{display:flex;gap:.9rem;align-items:center}
+.contacts a{display:inline-flex;align-items:center;gap:.35rem;min-height:2.25rem;
+  color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1.5px solid transparent}
+.contacts a:hover{border-bottom-color:var(--ink)}
+.contacts svg{width:1.05rem;height:1.05rem;fill:currentColor;flex:none}
+body.playing .site-footer{display:none}

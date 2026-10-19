@@ -95,5 +95,6 @@ export default {
  'fb.sending':'Enviando…',
  'fb.thanks':'Obrigado! Relato enviado.',
  'fb.failed':'Não deu para enviar. O relato foi salvo e sairá na próxima abertura.',
- 'fb.preview':'Imagem que vai junto com o relato'
+ 'fb.preview':'Imagem que vai junto com o relato',
+ 'foot.contact':'Contato'
 };

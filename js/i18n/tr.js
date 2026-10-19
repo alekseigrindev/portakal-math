@@ -95,5 +95,6 @@ export default {
  'fb.sending':'Gönderiliyor…',
  'fb.thanks':'Teşekkürler! Bildirim gönderildi.',
  'fb.failed':'Gönderilemedi. Bildirim kaydedildi, bir sonraki açılışta gidecek.',
- 'fb.preview':'Bildirimle birlikte gidecek görüntü'
+ 'fb.preview':'Bildirimle birlikte gidecek görüntü',
+ 'foot.contact':'İletişim'
 };
