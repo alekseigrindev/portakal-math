@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Тренажёр счёта</title>
 <meta name="description" content="Примеры с пропущенным числом: сложение и вычитание до 100, таблица умножения и деления, состав числа, ритмический счёт.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#f4f8fd" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
 <!-- Критические правила до загрузки шрифтов и таблиц стилей: без них страница «прыгает». -->
@@ -54,17 +57,9 @@ try{
       </h1>
     </div>
     <div class="site-header-controls">
-      <!-- Кот нарисован, а не взят эмодзи: тот рисуется по-своему в каждой
-           системе и спорил бы с рисованным апельсином рядом. -->
       <a class="feed" id="feedCats" href="https://buymeacoffee.com/alekseigrindev"
          target="_blank" rel="noopener noreferrer" data-i18n-label="feedCats">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path class="ear" d="M4.7 2.8 5.2 9.6 10 6.2zM19.3 2.8 18.8 9.6 14 6.2z"/>
-          <ellipse class="head" cx="12" cy="13.6" rx="7.8" ry="6.9"/>
-          <circle class="eye" cx="9.2" cy="12.6" r="1.15"/>
-          <circle class="eye" cx="14.8" cy="12.6" r="1.15"/>
-          <path class="muzzle" d="M12 15.2v1.4"/>
-        </svg>
+        <span class="feed-cat" aria-hidden="true">🐈</span>
         <span class="feed-label" data-i18n="feedCats">Покормить котов</span>
       </a>
       <div class="langs" id="langs"></div>

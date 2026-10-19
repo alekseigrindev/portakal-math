@@ -101,9 +101,6 @@ body.playing .site-footer{display:none}
   color:var(--orange);text-decoration:none;
   font:700 .88rem/1.2 var(--ui);white-space:nowrap}
 .feed:hover{background:var(--orange);color:var(--paper)}
-.feed svg{width:1.3rem;height:1.3rem;flex:none}
-.feed .ear,.feed .head{fill:currentColor}
-.feed .eye{fill:var(--surface)}
-.feed:hover .eye{fill:var(--orange)}
-.feed .muzzle{stroke:var(--surface);stroke-width:1.4;stroke-linecap:round;fill:none}
-.feed:hover .muzzle{stroke:var(--orange)}
+/* Эмодзи сам себе цвет, поэтому ему нужен только размер и ровная базовая линия:
+   иначе строчка кнопки прыгает от системы к системе. */
+.feed-cat{font-size:1.15rem;line-height:1;flex:none}

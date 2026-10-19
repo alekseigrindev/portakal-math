@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Апельсин из шапки. Отдельный файл, а не тот же код: здесь цвета заданы
+       явно — переменные темы страницы сюда не достают. Блик из шапки убран,
+       на 16 пикселях он превращался в грязь. -->
+  <style>
+    .peel{fill:#e0661a}
+    .green{fill:#17803f;stroke:#17803f}
+    @media (prefers-color-scheme:dark){
+      .peel{fill:#ffa24d}
+      .green{fill:#72d99c;stroke:#72d99c}
+    }
+  </style>
+  <circle class="peel" cx="16" cy="19.5" r="11"/>
+  <path class="green" d="M16 8.8V5.6" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <path class="green" d="M16.8 6.6c.9-3.4 4.1-5.4 7.4-4.9.4 3.4-2.2 6.4-5.6 6.6a4.3 4.3 0 0 1-1.8-.4z"/>
+</svg>
