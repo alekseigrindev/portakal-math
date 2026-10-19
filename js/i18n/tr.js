@@ -1,8 +1,8 @@
 export default {
  'title':'Sayı Antrenörü',
  'lead':'Eksik sayılı alıştırmalar: 100’e kadar toplama ve çıkarma, çarpım tablosu ve bölme, sayının bileşenleri, ritmik sayma.',
- 'sampleCap':'Soru şöyle görünecek','start':'Başla · {n} soru','back':'← Ayarlara dön','count':'Soru {i} / {n}',
- 'stat':'Çözülen soru: {done}. İlk denemede doğru: %{pct}.','statEmpty':'İstatistiklerin burada görünecek.',
+ 'sampleCap':'Soru şöyle görünecek','start':'Başla · {n} soru','count':'Soru {i} / {n}',
+ 'stat':'Çözülen soru: {done}. İlk denemede doğru: %{pct}.',
  'missTitle':'Şu sorular üzerinde biraz daha çalışmak iyi olur','again':'Tekrar','redo':'Yanlışları tekrarla','toSetup':'Ayarlara dön','langLabel':'Dil',
  'm.addsub':'Toplama ve çıkarma','m.mul':'Çarpma','m.div':'Bölme','m.comp':'Sayının bileşenleri','m.seq':'Ritmik sayma',
  'o.range':'Sayılar şuna kadar','o.ops':'İşlemler','o.actions':'Soruda işlem sayısı','o.unknown':'Bilinmeyen sayı adedi','o.carry':'Onluğu geçme',
@@ -96,5 +96,8 @@ export default {
  'fb.thanks':'Teşekkürler! Bildirim gönderildi.',
  'fb.failed':'Gönderilemedi. Bildirim kaydedildi, bir sonraki açılışta gidecek.',
  'fb.preview':'Bildirimle birlikte gidecek görüntü',
- 'foot.contact':'İletişim'
+ 'foot.contact':'İletişim',
+ 'theme.toDark':'Koyu tema',
+ 'theme.toLight':'Açık tema',
+ 'abort':'Durdur'
 };

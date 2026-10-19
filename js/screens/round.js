@@ -9,10 +9,28 @@ import {renderPad} from './pad.js';
 import {logEvent} from '../feedback/log.js';
 
 let R=null;
+let clock=null;
+
+const mmss=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+
+// Секундомер идёт вверх и ничем не подгоняет: это отсчёт времени, а не таймер
+// с дедлайном. Детям, которые боятся арифметики, обратный отсчёт только мешает.
+function renderClock(){
+  if(!R) return;
+  $('#timer').textContent=mmss(Math.round((Date.now()-R.t0)/1000));
+}
+function startClock(){
+  stopClock();
+  renderClock();
+  clock=setInterval(renderClock,1000);
+}
+function stopClock(){
+  if(clock){ clearInterval(clock); clock=null; }
+}
 
 function startRound(items,mode){
   R={mode,items,i:0,vals:[''],active:0,tries:0,phase:'answer',res:[],t0:Date.now(),timer:null};
-  resetInput(); show('play'); renderPlay();
+  resetInput(); show('play'); renderPlay(); startClock();
 }
 function renderProgress(){
   const pg=$('#pg'); pg.replaceChildren();
@@ -55,7 +73,11 @@ function missText(it){
 function setMsg(text,cls){ const m=$('#msg'); m.textContent=text||''; m.className='msg'+(cls?' '+cls:''); }
 function renderPlay(){
   logEvent('show',{mode:R.mode,i:R.i,item:R.items[R.i]});
-  $('#count').textContent=t('count',{i:R.i+1,n:R.items.length});
+  // «1 / 10» вместо «Пример 1 из 10»: слово лишнее, пример и так перед глазами.
+  // Полную фразу оставляем для чтения с экрана.
+  const c=$('#count');
+  c.textContent=`${R.i+1} / ${R.items.length}`;
+  c.setAttribute('aria-label',t('count',{i:R.i+1,n:R.items.length}));
   renderProgress(); renderPad(R.items[R.i],R.vals[0]); renderEq('',false); setMsg('');
   updateGoLabel();
 }
@@ -120,6 +142,7 @@ function advance(){
   resetInput(); renderPlay();
 }
 function finish(){
+  stopClock();
   const n=R.items.length;
   const first=R.res.filter(r=>r.first).length;
   const st=stats[R.mode];
@@ -151,7 +174,7 @@ function finish(){
 // Кнопки «ещё раз», «повторить ошибки» и выход: раунд наружу не отдаём, только действия над ним.
 function again(){ if(R) startRound(makeItems(R.mode,S,S.count),R.mode); }
 function redo(){ if(R&&R.miss&&R.miss.length) startRound(R.miss.slice(),R.mode); }
-function quit(){ if(R) clearTimeout(R.timer); R=null; }
+function quit(){ stopClock(); if(R) clearTimeout(R.timer); R=null; }
 const isPlaying=()=>!!R;
 
 // Снимок раунда для отчёта об ошибке: только чтение, сам R наружу не отдаём.

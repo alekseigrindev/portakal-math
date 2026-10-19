@@ -32,12 +32,10 @@ body{
   background-image:linear-gradient(var(--grid-faint) 1px,transparent 1px),linear-gradient(90deg,var(--grid-faint) 1px,transparent 1px);
   background-size:28px 28px;
   color:var(--fg); font:500 1rem/1.5 var(--ui);
-  /* две строки сетки: содержимое тянется, футер прижимается к низу */
-  min-height:100dvh; display:grid; grid-template-rows:1fr auto;
+  /* шапка, тянущееся содержимое, прижатый футер */
+  min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
 }
 .wrap{max-width:40rem;margin:0 auto;padding-inline:1rem;padding-block:1.5rem 3rem;display:grid;gap:1.25rem}
-h1{font:400 clamp(2rem,7vw,2.8rem)/1.05 var(--hand);color:var(--ink);margin:0;text-wrap:balance}
-.lead{margin:.35rem 0 0;color:var(--muted);max-width:34rem}
 button{font-family:var(--ui)}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 

@@ -3,10 +3,9 @@ export default {
  'lead':'Exercises with a missing number: addition and subtraction up to 100, times tables and division, number bonds, skip counting.',
  'sampleCap':'This is what an exercise looks like',
  'start':'Start · {n} exercises',
- 'back':'← Back to settings',
+ 
  'count':'Exercise {i} of {n}',
  'stat':'Exercises solved: {done}. First try: {pct}%.',
- 'statEmpty':'Your statistics will appear here.',
  'missTitle':'These are worth practising again',
  'again':'Again',
  'redo':'Retry mistakes',
@@ -171,5 +170,8 @@ export default {
  'fb.thanks':'Thank you! The report has been sent.',
  'fb.failed':'Could not send. The report is saved and will go out next time you open the app.',
  'fb.preview':'The picture that will go with the report',
- 'foot.contact':'Contact'
+ 'foot.contact':'Contact',
+ 'theme.toDark':'Dark theme',
+ 'theme.toLight':'Light theme',
+ 'abort':'Stop'
 };

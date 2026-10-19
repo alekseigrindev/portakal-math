@@ -7,7 +7,7 @@ const MODE_IDS=MODES.map(m=>m[0]);
 
 const KEY='schetnik-v1';
 const DEF={
-  mode:'addsub', count:10, lang:detectLang(),
+  mode:'addsub', count:10, lang:detectLang(), theme:'auto',
   addsub:{range:20,ops:'both',carry:'any',blank:'operand',actions:'one',unknown:1},
   mul:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
   div:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
@@ -29,6 +29,7 @@ function loadSaved(){
     if(MODE_IDS.includes(c.mode)) S.mode=c.mode;
     if([10,15,20].includes(c.count)) S.count=c.count;
     if(CODES.includes(c.lang)) S.lang=c.lang;
+    if(['auto','light','dark'].includes(c.theme)) S.theme=c.theme;
     if(c.addsub){
       if(RANGES.includes(c.addsub.range)) S.addsub.range=c.addsub.range;
       if(['plus','minus','both'].includes(c.addsub.ops)) S.addsub.ops=c.addsub.ops;

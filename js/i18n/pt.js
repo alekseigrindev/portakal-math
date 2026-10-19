@@ -1,8 +1,8 @@
 export default {
  'title':'Treino de Contas',
  'lead':'Exercícios com número faltando: adição e subtração até 100, tabuada de multiplicação e divisão, composição de números, contagem rítmica.',
- 'sampleCap':'Assim vai aparecer o exercício','start':'Começar · {n} exercícios','back':'← Voltar às configurações','count':'Exercício {i} de {n}',
- 'stat':'Exercícios resolvidos: {done}. Na primeira tentativa: {pct}%.','statEmpty':'Suas estatísticas vão aparecer aqui.',
+ 'sampleCap':'Assim vai aparecer o exercício','start':'Começar · {n} exercícios','count':'Exercício {i} de {n}',
+ 'stat':'Exercícios resolvidos: {done}. Na primeira tentativa: {pct}%.',
  'missTitle':'Vale a pena treinar mais estes exercícios','again':'Outra rodada','redo':'Repetir os erros','toSetup':'Configurações','langLabel':'Idioma',
  'm.addsub':'Adição e subtração','m.mul':'Multiplicação','m.div':'Divisão','m.comp':'Composição de números','m.seq':'Contagem rítmica',
  'o.range':'Números até','o.ops':'Operações','o.actions':'Operações por exercício','o.unknown':'Números desconhecidos','o.carry':'Passar da dezena',
@@ -96,5 +96,8 @@ export default {
  'fb.thanks':'Obrigado! Relato enviado.',
  'fb.failed':'Não deu para enviar. O relato foi salvo e sairá na próxima abertura.',
  'fb.preview':'Imagem que vai junto com o relato',
- 'foot.contact':'Contato'
+ 'foot.contact':'Contato',
+ 'theme.toDark':'Tema escuro',
+ 'theme.toLight':'Tema claro',
+ 'abort':'Parar'
 };

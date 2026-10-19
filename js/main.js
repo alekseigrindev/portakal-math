@@ -10,6 +10,7 @@ import {renderSetup} from './screens/setup.js';
 import {startRound, press, back, go, choose, again, redo, quit} from './screens/round.js';
 import {openDialog} from './feedback/dialog.js';
 import {flushQueue} from './feedback/send.js';
+import {applyTheme,toggleTheme} from './screens/theme.js';
 
 /* ---------- горячие клавиши ---------- */
 document.addEventListener('keydown',e=>{
@@ -27,10 +28,12 @@ $('#again').addEventListener('click',again);
 $('#redo').addEventListener('click',redo);
 $('#toSetup').addEventListener('click',toSetup);
 for(const b of document.querySelectorAll('.fb-open')) b.addEventListener('click',openDialog);
+$('#themeToggle').addEventListener('click',toggleTheme);
 
 /* ---------- запуск ---------- */
 loadSaved();
 setLang(S.lang);
+applyTheme();
 initPad({press,back,go,choose});
 applyStatic();          // здесь же собирается панель ввода — уже на нужном языке
 renderSetup();

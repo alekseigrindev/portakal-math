@@ -4,8 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Тренажёр счёта</title>
+<meta name="description" content="Примеры с пропущенным числом: сложение и вычитание до 100, таблица умножения и деления, состав числа, ритмический счёт.">
+<meta name="theme-color" content="#f4f8fd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
 <!-- Критические правила до загрузки шрифтов и таблиц стилей: без них страница «прыгает». -->
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<script>
+try{
+  var c=JSON.parse(localStorage.getItem('schetnik-v1')||'{}').cfg;
+  if(c&&(c.theme==='dark'||c.theme==='light')) document.documentElement.dataset.theme=c.theme;
+}catch(e){}
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-85P8ZRTRNL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-85P8ZRTRNL');
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Noto Sans Georgian — для грузинских букв, Caveat — для казахских (ә, ғ, қ, ң, ө, ұ, ү, һ):
@@ -18,14 +37,31 @@
 <link rel="stylesheet" href="css/mobile.css">
 </head>
 <body>
-<main class="wrap">
-  <header>
-    <h1 data-i18n="title">Тренажёр счёта</h1>
-    <p class="lead" data-i18n="lead">Примеры с пропущенным числом: сложение и вычитание до 100, таблица умножения и деления, состав числа, ритмический счёт.</p>
-  </header>
+<!-- Шапка вынесена из <main>: это обрамление страницы, а не её содержимое.
+     Описание проекта ушло в meta description — на экране оно только мешало. -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="brand">
+      <svg class="orange" viewBox="0 0 32 32" aria-hidden="true">
+        <circle class="peel" cx="16" cy="20" r="10"/>
+        <path class="shine" d="M10.5 16.5a7 7 0 0 1 5-3.5"/>
+        <path class="stem" d="M16 10.2V7.4"/>
+        <path class="leaf" d="M16.6 8.6c.7-2.9 3.4-4.6 6.2-4.2.3 2.9-1.8 5.4-4.7 5.6a3.6 3.6 0 0 1-1.5-.3z"/>
+      </svg>
+      <h1 class="brand-text">
+        <span class="brand-name"><span class="brand-fruit">portakal</span>-math</span>
+        <span class="brand-sub" data-i18n="title">Тренажёр счёта</span>
+      </h1>
+    </div>
+    <div class="site-header-controls">
+      <div class="langs" id="langs"></div>
+      <button class="theme-toggle" id="themeToggle" type="button"></button>
+    </div>
+  </div>
+</header>
 
+<main class="wrap">
   <section id="setup" class="play" style="max-width:none">
-    <div class="langs" id="langs"></div>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="panel">
       <div id="opts" style="display:grid;gap:1rem"></div>
@@ -42,14 +78,17 @@
   </section>
 
   <section id="play" class="play" hidden>
-    <div class="topbar">
-      <button class="btn link" id="back" type="button" data-i18n="back">← К настройкам</button>
+    <!-- Строка состояния: счётчик и секундомер. Выход перенесён под клавиатуру —
+         наверху он только отвлекал от примера. -->
+    <div class="play-status">
       <span class="count" id="count"></span>
+      <span class="timer" id="timer" aria-hidden="true"></span>
     </div>
     <div class="pg" id="pg" aria-hidden="true"></div>
     <div class="sheet"><div id="eqHost"></div></div>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="pad" id="pad"></div>
+    <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
   </section>
 
   <section id="result" class="result" hidden>
@@ -67,7 +106,7 @@
       <button class="btn link" id="toSetup" type="button" data-i18n="toSetup">К настройкам</button>
       <button class="btn link fb-open" id="reportResult" type="button" data-i18n="fb.open"></button>
     </div>
-  </section>rfrb
+  </section>
 </main>
 
 <!-- Прижат к низу: на короткой странице стоит внизу экрана, на длинной уезжает

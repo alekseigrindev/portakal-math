@@ -73,10 +73,11 @@ function renderSample(){
   host.append(buildItem(it,{vals:[],cursor:false}));
 }
 function renderStat(){
-  const s=stats[S.mode];
-  $('#stat').textContent=s.done
-    ? t('stat',{done:s.done,pct:Math.round(100*s.first/s.done)})
-    : t('statEmpty');
+  const s=stats[S.mode], el=$('#stat');
+  // пока ничего не решали, строки нет вовсе — пустое обещание статистики
+  // только занимало место под кнопкой
+  el.hidden=!s.done;
+  el.textContent=s.done?t('stat',{done:s.done,pct:Math.round(100*s.first/s.done)}):'';
 }
 function renderSetup(){
   renderLangs(); renderTabs(); renderOpts(); renderSample(); renderStat();
@@ -85,15 +86,14 @@ function renderSetup(){
 
 // Языков семь, кнопками они занимали бы две строки — выпадающий список компактнее
 // и на телефоне открывается системным выбором.
+// В шапке место дорого: видимой подписи нет, название остаётся для чтения с экрана.
 function renderLangs(){
   const host=$('#langs'); host.replaceChildren();
-  const label=document.createElement('label');
-  label.className='lang-label';
-  label.setAttribute('for','langSelect');
-  label.textContent=t('langLabel');
   const sel=document.createElement('select');
   sel.className='lang-select';
   sel.id='langSelect';
+  sel.setAttribute('aria-label',t('langLabel'));
+  sel.title=t('langLabel');
   for(const [code,name] of LANGS){
     const o=document.createElement('option');
     o.value=code; o.textContent=name; o.lang=code;
@@ -104,7 +104,7 @@ function renderLangs(){
     S.lang=sel.value; save(); setLang(sel.value); applyStatic(); renderSetup();
     $('#langSelect').focus();   // после перерисовки фокус не должен падать в начало страницы
   });
-  host.append(label,sel);
+  host.append(sel);
 }
 
 export {renderSetup};

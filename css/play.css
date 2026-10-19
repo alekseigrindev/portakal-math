@@ -1,13 +1,18 @@
 /* Экран решения и экран итога. */
 /* игра */
 .play{display:grid;gap:1rem;max-width:30rem;width:100%;margin-inline:auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-.count{font-weight:800}
-.pg{display:flex;flex-wrap:wrap;gap:4px}
-.pg span{width:14px;height:14px;border:1.5px solid var(--line);border-radius:3px}
-.pg span.cur{border-color:var(--ink);background:var(--grid)}
-.pg span.ok{background:var(--green);border-color:var(--green)}
-.pg span.miss{background:var(--red);border-color:var(--red)}
+/* строка состояния: сколько пройдено и сколько идёт раунд */
+.play-status{display:flex;align-items:baseline;justify-content:space-between;gap:.75rem}
+.count{font:800 1rem/1 var(--ui);color:var(--fg);font-variant-numeric:tabular-nums}
+.timer{font:700 .95rem/1 var(--ui);color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* Полоса вместо россыпи квадратиков: при 20 примерах те переносились на две
+   строки и читались как мусор. Деления сохранены — по ним видно каждый пример. */
+.pg{display:flex;gap:2px;height:.45rem}
+.pg span{flex:1;background:var(--grid);border-radius:2px}
+.pg span.cur{background:var(--ink)}
+.pg span.ok{background:var(--green)}
+.pg span.miss{background:var(--red)}
 .msg{min-height:1.6rem;margin:0;font-weight:800;text-align:center}
 .msg.good{color:var(--green)} .msg.warn{color:var(--red)}
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
@@ -33,3 +38,9 @@
 .pad.choice{grid-template-columns:1fr}
 .key.word{min-height:3.1rem;font-size:1.05rem;padding:.4rem .8rem;line-height:1.2}
 .key.word[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}
+
+/* Выход из раунда. Контурная, а не залитая: заливка такого размера под пальцем
+   кричит об опасности, которой здесь нет, и притягивает случайные нажатия. */
+.abort{min-height:2.6rem;margin-top:.25rem;font-size:.95rem;font-weight:700;
+  background:transparent;color:var(--red);border:1.5px solid var(--line)}
+.abort:hover{border-color:var(--red);background:var(--red);color:var(--ink-fg)}
