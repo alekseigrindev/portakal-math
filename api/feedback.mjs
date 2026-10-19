@@ -10,8 +10,9 @@
 // /api/feedback — расширение в адресе не участвует.
 //
 // Переменные окружения:
-//   GITHUB_TOKEN  — токен с правом issues:write и contents:write на репозиторий
-//   GITHUB_REPO   — "владелец/репозиторий"
+//   GITHUB_TOKEN  — токен с правом issues:write и contents:write (обязательно)
+//   GITHUB_REPO   — "владелец/репозиторий"; можно не задавать, если проект
+//                   связан с GitHub: тогда берём из системных VERCEL_GIT_*
 //   MEDIA_BRANCH  — ветка для картинок (по умолчанию feedback-media)
 
 const API='https://api.github.com';
@@ -65,13 +66,14 @@ function clean(report){
 const block=(title,value)=>
   `<details><summary>${title}</summary>\n\n\`\`\`json\n${JSON.stringify(value,null,1)}\n\`\`\`\n\n</details>`;
 
-function issueBody(r,imageUrl){
+function issueBody(r,imageUrl,commit){
   const item=r.round&&r.round.item;
   const lines=[];
   if(r.text) lines.push(r.text.replace(/^/gm,'> '),'');
   if(imageUrl) lines.push(`![экран](${imageUrl})`,'');
   lines.push(
-    `**Раздел:** \`${r.mode}\` · **экран:** \`${r.screen}\` · **язык:** \`${r.lang}\` · **версия:** \`${r.version}\``,
+    `**Раздел:** \`${r.mode}\` · **экран:** \`${r.screen}\` · **язык:** \`${r.lang}\` · **версия:** \`${r.version}\``+
+      (commit?` · **коммит:** ${commit}`:''),
     '');
   if(item) lines.push(block('Пример, на котором возникла ошибка',item));
   if(r.round) lines.push(block('Состояние раунда',r.round));
@@ -106,13 +108,22 @@ async function uploadImage(api,repo,branch,id,dataUrl){
   return `https://raw.githubusercontent.com/${repo}/${branch}/${path}`;
 }
 
+// Связь проекта с GitHub даёт системные переменные Vercel — имя репозитория
+// из них и берём, чтобы не задавать его руками вторым местом.
+function targetRepo(){
+  if(process.env.GITHUB_REPO) return process.env.GITHUB_REPO;
+  const {VERCEL_GIT_REPO_OWNER:owner,VERCEL_GIT_REPO_SLUG:slug}=process.env;
+  return owner&&slug?`${owner}/${slug}`:null;
+}
+
 export default async function handler(req,res){
   if(req.method!=='POST'){
     res.setHeader('allow','POST');
     return res.status(405).json({error:'только POST'});
   }
-  const {GITHUB_TOKEN,GITHUB_REPO,MEDIA_BRANCH='feedback-media'}=process.env;
-  if(!GITHUB_TOKEN||!GITHUB_REPO) return res.status(500).json({error:'сервис не настроен'});
+  const {GITHUB_TOKEN,MEDIA_BRANCH='feedback-media'}=process.env;
+  const repo=targetRepo();
+  if(!GITHUB_TOKEN||!repo) return res.status(500).json({error:'сервис не настроен'});
 
   let body=req.body;
   if(typeof body==='string'){
@@ -124,18 +135,20 @@ export default async function handler(req,res){
   const r=clean(body);
   const api=gh(GITHUB_TOKEN);
   const id=`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+  // сборки у проекта нет, поэтому версию кода берём из коммита, который задеплоен
+  const commit=(process.env.VERCEL_GIT_COMMIT_SHA||'').slice(0,7);
 
   try{
     let imageUrl=null;
     if(body.png){
-      try{ imageUrl=await uploadImage(api,GITHUB_REPO,MEDIA_BRANCH,id,body.png); }
+      try{ imageUrl=await uploadImage(api,repo,MEDIA_BRANCH,id,body.png); }
       catch(e){ imageUrl=null; }   // без картинки задачу всё равно создаём
     }
     const first=(r.text||'').split('\n')[0].slice(0,60);
-    const issue=await api(`/repos/${GITHUB_REPO}/issues`,{method:'POST',
+    const issue=await api(`/repos/${repo}/issues`,{method:'POST',
       body:JSON.stringify({
         title:`[отчёт] ${r.mode}${first?': '+first:''}`,
-        body:issueBody(r,imageUrl),
+        body:issueBody(r,imageUrl,commit),
         labels:['feedback',`mode:${r.mode}`]
       })});
     return res.status(200).json({ok:true,url:issue.html_url});
