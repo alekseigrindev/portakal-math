@@ -1,6 +1,6 @@
 // Экран решения: состояние раунда, ввод ответа, проверка, переход к итогу.
 import {show} from './nav.js';
-import {S,stats,save,progress,addProgress,solvedToday} from '../state.js';
+import {S,stats,save,progress,addProgress} from '../state.js';
 import {t} from '../i18n/index.js';
 import {makeItems,isRight,blankCount,itemText,clockText} from '../core/index.js';
 import {$} from '../view/dom.js';
@@ -180,6 +180,10 @@ function showNewCat(before){
 
 function finish(){
   stopClock();
+  // Раунд кончился, но R ещё живёт: по нему собирается итог и отчёт об ошибке.
+  // Фаза обязана перестать быть 'answer' — иначе press/go/back, у которых
+  // проверка именно на неё, полезут за R.items[R.i], которого уже нет.
+  R.phase='done';
   const n=R.items.length;
   const first=R.res.filter(r=>r.first).length;
   const st=stats[R.mode];
@@ -207,13 +211,6 @@ function finish(){
   food.setAttribute('aria-label',t('res.food',{n}));
   rt.append(b,p,food);
 
-  // addProgress уже отработал выше, поэтому счёт за день включает этот раунд
-  const done=solvedToday(), need=S.goal;
-  const day=document.createElement('span');
-  const reached=done>=need;
-  day.className='day-goal'+(reached?' done':'');
-  day.textContent=reached?t('today.goalDone'):t('today.goal',{a:done,n:need});
-  rt.append(day);
   const miss=R.res.filter(r=>!r.first).map(r=>r.item);
   R.miss=miss;
   const list=$('#missList'); list.replaceChildren();

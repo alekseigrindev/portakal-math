@@ -126,16 +126,9 @@ body.playing .site-footer{display:none}
 .feed-cat{font-size:1.15rem;line-height:1;flex:none}
 .food{margin:0;font:800 .95rem/1 var(--ui);color:var(--orange)}
 /* Строка «сегодня»: корм, серия дней и дневная цель. */
-.today{display:grid;gap:.35rem;width:100%;max-width:18rem}
 .today-row{display:flex;gap:.9rem;align-items:baseline}
 .today-item{font:800 .95rem/1 var(--ui);color:var(--orange)}
 .today-item#streak{color:var(--red)}
-.today-item#goal{margin-left:auto;color:var(--muted);font-variant-numeric:tabular-nums}
-.today-item#goal.done{color:var(--green)}
-.goal-bar{height:.35rem;border-radius:999px;background:var(--grid);overflow:hidden}
-.goal-bar span{display:block;height:100%;width:0;background:var(--orange);
-  border-radius:999px;transition:width .3s}
-.goal-bar span.done{background:var(--green)}
 /* корм в строке «сегодня» — вход в коллекцию */
 .today-link{background:none;border:0;padding:0;margin:0;cursor:pointer;font:inherit;
   color:inherit;text-decoration:underline;text-underline-offset:3px}

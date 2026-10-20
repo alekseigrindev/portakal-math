@@ -6,6 +6,11 @@ import {ALL as SHAPES_ALL,TASKS as SHAPES_TASKS,feasible} from './core/shapes.js
 
 const MODES=[['addsub','m.addsub'],['mul','m.mul'],['div','m.div'],['comp','m.comp'],
   ['place','m.place'],['seq','m.seq'],['clock','m.clock'],['roman','m.roman'],['shapes','m.shapes']];
+// Фигуры временно спрятаны. Код раздела на месте целиком — убран только
+// выбор. MODES остаётся полным: по нему заводится статистика, и спрятанный
+// раздел не теряет накопленного. Вернуть — убрать id из HIDDEN.
+const HIDDEN=['shapes'];
+const SHOWN=MODES.filter(([id])=>!HIDDEN.includes(id));
 const BLANK_OTHER_MUL=[['result','c.result'],['other','c.factor'],['any','c.anyNum']];
 const BLANK_OTHER_DIV=[['result','c.result'],['other','c.divOther'],['any','c.anyNum']];
 const RANGES=[10,20,30,40,50,100];
@@ -71,6 +76,5 @@ const OPTS={
 // global:true — настройка живёт в S, а не в конфиге раздела
 const COUNT_OPT={key:'count',label:'o.count',global:true,choices:[[10,'10'],[15,'15'],[20,'20']]};
 // Цель на день общая для всех разделов, как и число примеров за раз
-const GOAL_OPT={key:'goal',label:'o.goal',global:true,choices:[[10,'10'],[20,'20'],[30,'30']]};
 
-export {MODES,RANGES,LIMITS,OPTS,COUNT_OPT,GOAL_OPT};
+export {MODES,SHOWN,RANGES,LIMITS,OPTS,COUNT_OPT};

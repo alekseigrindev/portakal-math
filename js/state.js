@@ -1,13 +1,16 @@
 // Настройки и статистика: значения по умолчанию, чтение из localStorage с проверкой каждого поля.
 import {detectLang,CODES} from './i18n/index.js';
-import {MODES,RANGES,LIMITS} from './config.js';
+import {MODES,SHOWN,RANGES,LIMITS} from './config.js';
 import {ALL as SHAPES_ALL} from './core/shapes.js';
 
 const MODE_IDS=MODES.map(m=>m[0]);
+// Выбранным может остаться только показываемый раздел: спрятали — вернулись
+// к разделу по умолчанию, а не к пустым вкладкам с выбранной невидимкой.
+const SHOWN_IDS=SHOWN.map(m=>m[0]);
 
 const KEY='schetnik-v1';
 const DEF={
-  mode:'addsub', count:10, lang:detectLang(), theme:'auto', goal:10,
+  mode:'addsub', count:10, lang:detectLang(), theme:'auto',
   addsub:{range:20,ops:'both',carry:'any',blank:'operand',actions:'one',unknown:1},
   mul:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
   div:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
@@ -46,8 +49,6 @@ const dayKey=d=>{
   return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
 };
 
-const solvedToday=()=>progress.days[today()]||0;
-
 // Сколько дней подряд занимались. Вчера считается живым днём: он ещё не
 // кончился в том смысле, что сегодня можно продолжить — серию не обрываем
 // на полпути и никогда не показываем «серия потеряна».
@@ -72,11 +73,10 @@ function loadSaved(){
     const raw=JSON.parse(localStorage.getItem(KEY)||'null');
     if(!raw) return;
     const c=raw.cfg||{};
-    if(MODE_IDS.includes(c.mode)) S.mode=c.mode;
+    if(SHOWN_IDS.includes(c.mode)) S.mode=c.mode;
     if([10,15,20].includes(c.count)) S.count=c.count;
     if(CODES.includes(c.lang)) S.lang=c.lang;
     if(['auto','light','dark'].includes(c.theme)) S.theme=c.theme;
-    if([10,20,30].includes(c.goal)) S.goal=c.goal;
     if(c.addsub){
       if(RANGES.includes(c.addsub.range)) S.addsub.range=c.addsub.range;
       if(['plus','minus','both'].includes(c.addsub.ops)) S.addsub.ops=c.addsub.ops;
@@ -163,4 +163,4 @@ function loadSaved(){
 }
 function save(){ try{ localStorage.setItem(KEY,JSON.stringify({cfg:S,stats,progress})); }catch(e){} }
 
-export {KEY,DEF,S,stats,progress,loadSaved,save,addProgress,today,solvedToday,streakDays};
+export {KEY,DEF,S,stats,progress,loadSaved,save,addProgress,today,streakDays};

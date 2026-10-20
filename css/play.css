@@ -54,8 +54,6 @@
   background:transparent;color:var(--red);border:1.5px solid var(--line)}
 .abort:hover{border-color:var(--red);background:var(--red);color:var(--ink-fg)}
 .food-gain{font-weight:800;color:var(--orange)}
-.day-goal{font-weight:700;color:var(--muted)}
-.day-goal.done{color:var(--green)}
 
 /* ---------- коллекция котов ---------- */
 .cats{display:grid;gap:1rem;max-width:34rem;width:100%;margin-inline:auto}

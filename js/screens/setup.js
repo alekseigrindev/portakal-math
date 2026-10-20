@@ -1,6 +1,6 @@
 // Экран настроек: вкладки режимов, варианты из config.js, пример-образец и статистика.
-import {MODES,OPTS,COUNT_OPT,GOAL_OPT} from '../config.js';
-import {S,stats,save,progress,solvedToday,streakDays} from '../state.js';
+import {SHOWN,OPTS,COUNT_OPT} from '../config.js';
+import {S,stats,save,progress,streakDays} from '../state.js';
 import {LANGS,t,setLang} from '../i18n/index.js';
 import {gen} from '../core/index.js';
 import {$} from '../view/dom.js';
@@ -17,7 +17,7 @@ function chip(text,pressed,onclick,disabled){
 }
 function renderTabs(){
   const host=$('#tabs'); host.replaceChildren();
-  for(const [id,label] of MODES){
+  for(const [id,label] of SHOWN){
     const b=document.createElement('button');
     b.type='button'; b.className='tab'; b.textContent=t(label);
     b.setAttribute('role','tab'); b.setAttribute('aria-selected',String(S.mode===id));
@@ -28,7 +28,7 @@ function renderTabs(){
 function renderOpts(){
   const host=$('#opts'); host.replaceChildren();
   const cfg=S[S.mode];
-  for(const o of [...OPTS[S.mode],COUNT_OPT,GOAL_OPT]){
+  for(const o of [...OPTS[S.mode],COUNT_OPT]){
     if(o.show && !o.show(cfg)) continue;
     const g=document.createElement('div'); g.className='group';
     const l=document.createElement('div'); l.className='glabel'; l.textContent=t(o.label);
@@ -92,7 +92,7 @@ function renderOptsNow(){
 }
 
 function renderToday(){
-  const food=$('#food'), streak=$('#streak'), goal=$('#goal'), fill=$('#goalFill');
+  const food=$('#food'), streak=$('#streak');
 
   food.hidden=!progress.food;
   food.textContent=progress.food?'\u{1F408} '+progress.food:'';
@@ -104,12 +104,6 @@ function renderToday(){
   streak.textContent=days<2?'':'\u{1F525} '+days;
   streak.setAttribute('aria-label',t('today.streak',{n:days}));
 
-  const done=solvedToday(), need=S.goal, reached=done>=need;
-  goal.textContent=done+' / '+need;
-  goal.classList.toggle('done',reached);
-  goal.setAttribute('aria-label',reached?t('today.goalDone'):t('today.goal',{a:done,n:need}));
-  fill.style.width=Math.min(100,Math.round(100*done/need))+'%';
-  fill.classList.toggle('done',reached);
 }
 function renderStat(){
   const s=stats[S.mode], el=$('#stat');
