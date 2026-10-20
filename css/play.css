@@ -77,7 +77,6 @@
 
 /* Значок обратной связи в строке состояния: без собственной высоты,
    в стороне от клавиатуры. */
-.status-right{display:flex;align-items:center;gap:.6rem}
 /* Сам значок маленький, чтобы не поднимать строку состояния, но зона нажатия
    расширена псевдоэлементом: на телефоне каждый лишний пиксель высоты
    отнимается у примера. */
@@ -85,15 +84,13 @@
    постоянного размера — ряд не меняет высоту от языка к языку. */
 .play-foot{display:flex;align-items:stretch;gap:.6rem;margin-top:.25rem}
 .play-foot .abort{flex:1}
-.hint-btn{flex:none;width:2.6rem;min-height:2.6rem;border:1.5px solid var(--line);
+/* Два кружка одного размера: «!» об ошибке и «?» подсказка. Одна форма — одна
+   роль: мелкое необязательное действие рядом с примером. Жёлтый у «!» потому,
+   что его ищут в раздражении и глазами, а не вспоминают, где он лежал. */
+.foot-btn{flex:none;width:2.6rem;min-height:2.6rem;border:1.5px solid var(--line);
   border-radius:50%;background:var(--surface);color:var(--muted);cursor:pointer;
   font:800 1.3rem/1 var(--ui);display:grid;place-items:center}
-.hint-btn:hover{border-color:var(--orange);color:var(--orange)}
-.hint-btn[hidden]{display:none}
-
-.fb-icon{display:inline-flex;align-items:center;justify-content:center;position:relative;
-  width:1.4rem;height:1.4rem;padding:0;flex:none;
-  border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
-.fb-icon::after{content:'';position:absolute;inset:-.55rem}
-.fb-icon svg{width:1.05rem;height:1.05rem;fill:currentColor}
-.fb-icon:hover{color:var(--ink);background:var(--grid)}
+.foot-btn:hover{border-color:var(--orange);color:var(--orange)}
+.foot-btn[hidden]{display:none}
+.foot-btn.warn{border-color:var(--warn);background:var(--warn-bg);color:var(--warn)}
+.foot-btn.warn:hover{background:var(--warn);color:var(--warn-bg)}

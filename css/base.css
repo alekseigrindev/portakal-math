@@ -5,6 +5,12 @@
   --bg:#f4f8fd; --grid-faint:#e2ebf7; --paper:#fcfdff; --grid:#c6d6ec;
   --surface:#ffffff; --line:#b5c6df; --fg:#18233f; --muted:#55627f;
   --ink:#1d3b8b; --ink-fg:#ffffff; --red:#cf3328; --green:#17803f; --orange:#e0661a;
+  --warn:#b5730a; --warn-bg:#fdf1d6;
+  /* Цифры Neucha сидят в своём кегле высоко: в клетке 44px чернила занимают
+     6…31px — сверху зазор 6, снизу 13. --glyph-drop опускает их на половину
+     этой разницы, чтобы зазоры сравнялись. Доля клетки, а не пиксели: клетка
+     меняется с шириной экрана. */
+  --glyph-drop:.086;
   --hand:"Neucha","Noto Sans Georgian","Segoe Print","Comic Sans MS",cursive;
   --ui:"Nunito","Noto Sans Georgian",system-ui,"Segoe UI",Roboto,sans-serif;
 }
@@ -13,18 +19,21 @@
     --bg:#0e1320; --grid-faint:#161e30; --paper:#121a2a; --grid:#26334d;
     --surface:#171f31; --line:#34415f; --fg:#e4ebfa; --muted:#9aa7c6;
     --ink:#93b8ff; --ink-fg:#0e1320; --red:#ff8a80; --green:#72d99c; --orange:#ffa24d; color-scheme:dark;
+    --warn:#f0b429; --warn-bg:#3a2d10;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0e1320; --grid-faint:#161e30; --paper:#121a2a; --grid:#26334d;
   --surface:#171f31; --line:#34415f; --fg:#e4ebfa; --muted:#9aa7c6;
   --ink:#93b8ff; --ink-fg:#0e1320; --red:#ff8a80; --green:#72d99c; --orange:#ffa24d; color-scheme:dark;
+  --warn:#f0b429; --warn-bg:#3a2d10;
 }
 /* В Neucha нет казахских букв, и слово «жаттықтырғышы» рисовалось двумя шрифтами
    сразу. Caveat покрывает весь казахский алфавит, поэтому для него берём её целиком.
    Грузинскому отдельное правило не нужно: грузинских букв в Neucha нет вовсе,
    они целиком уходят в Noto, а цифры остаются рукописными. */
-html[lang="kk"]{--hand:"Caveat","Neucha",cursive}
+/* У Caveat цифры в кегле стоят ровно, опускать их не нужно. */
+html[lang="kk"]{--hand:"Caveat","Neucha",cursive;--glyph-drop:0}
 
 *{box-sizing:border-box}
 body{

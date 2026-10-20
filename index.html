@@ -120,31 +120,25 @@ try{
   </section>
 
   <section id="play" class="play" hidden>
-    <!-- Строка состояния: счётчик и секундомер. Выход перенесён под клавиатуру —
-         наверху он только отвлекал от примера. -->
+    <!-- Строка состояния: только счётчик и секундомер. Всё, что можно нажать,
+         живёт внизу, в одном ряду, — наверху это отвлекало от примера. -->
     <div class="play-status">
       <span class="count" id="count"></span>
-      <span class="status-right">
-        <span class="timer" id="timer" aria-hidden="true"></span>
-        <!-- Значок, а не ссылка: строка состояния не должна расти, а кнопка
-             должна быть подальше от клавиатуры, чтобы её не задевали. -->
-        <button class="fb-icon fb-open" id="reportPlay" type="button" data-i18n-label="fb.open">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.97 0-9 3.13-9 7 0
-            2.2 1.31 4.16 3.36 5.45-.17 1.1-.7 2.28-1.6 3.3 1.9-.2 3.45-.9 4.6-1.7.83.18 1.72.28
-            2.64.28 4.97 0 9-3.13 9-7s-4.03-7.33-9-7.33z"/></svg>
-        </button>
-      </span>
+      <span class="timer" id="timer" aria-hidden="true"></span>
     </div>
     <div class="pg" id="pg" aria-hidden="true"></div>
     <div class="sheet"><div id="eqHost"></div></div>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="pad" id="pad"></div>
-    <!-- Нижний ряд: выход слева, подсказка в правом углу. Кнопка подсказки не
-         на поле задания — там она закрыла бы пример, — и не у клавиатуры,
-         чтобы её не задевали большим пальцем при наборе ответа. -->
+    <!-- Нижний ряд: выход слева, два кружка справа — «!» об ошибке и «?»
+         подсказка. Не на поле задания — там они закрыли бы пример — и не у
+         клавиатуры, чтобы их не задевали большим пальцем при наборе ответа. -->
     <div class="play-foot">
       <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
-      <button class="hint-btn" id="hintBtn" type="button" hidden data-i18n-label="hint.open">
+      <button class="foot-btn warn fb-open" id="reportPlay" type="button" data-i18n-label="fb.open">
+        <span aria-hidden="true">!</span>
+      </button>
+      <button class="foot-btn" id="hintBtn" type="button" hidden data-i18n-label="hint.open">
         <span aria-hidden="true">?</span>
       </button>
     </div>

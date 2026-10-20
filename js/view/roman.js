@@ -7,7 +7,7 @@ function buildRoman(it,opt={}){
   const {typed='',state='',reveal=false,cursor=false}=opt;
   const wrap=document.createElement('div');
   wrap.className='eq'+(state?' '+state:'');
-  for(const ch of it.roman) wrap.append(cell(ch));
+  for(const ch of it.roman) wrap.append(cell(ch,'rn'));
   wrap.append(cell('=','sign'));
   wrap.append(blankBox(it.n,reveal?String(it.n):typed,{cursor:cursor&&!reveal}));
   wrap.setAttribute('role','img');
@@ -47,9 +47,9 @@ function buildRomanHint(cfg={}){
   }
   wrap.append(keys);
 
-  wrap.append(romanLine([['V',''],['I',''],['=','sign'],['5',''],['+','sign'],['1',''],['=','sign'],['6','']]));
+  wrap.append(romanLine([['V','rn'],['I','rn'],['=','sign'],['5',''],['+','sign'],['1',''],['=','sign'],['6','']]));
   // вычитаемая буква красная — глаз находит её раньше, чем читается подпись
-  wrap.append(romanLine([['I','rsub'],['V',''],['=','sign'],['5',''],['−','sign'],['1','rsub'],['=','sign'],['4','']]));
+  wrap.append(romanLine([['I','rn rsub'],['V','rn'],['=','sign'],['5',''],['−','sign'],['1','rsub'],['=','sign'],['4','']]));
   return wrap;
 }
 
