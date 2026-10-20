@@ -26,6 +26,16 @@ const BASE=(()=>{
 
 const langHref=code=>BASE+code+'/';
 
+// Переход на языковую версию по-настоящему, с перезагрузкой. Нужен только на
+// корне: там в адресе языка нет, а значит и <html lang>, и заголовок, и
+// превью — от шаблона, а не от человека. replace, а не assign: голый корень не
+// должен оставаться в истории, иначе «назад» возвращает на него, он снова
+// перебрасывает, и кнопка «назад» перестаёт работать.
+function goToLang(code){
+  if(!CODES.includes(code)) return;
+  location.replace(langHref(code)+location.search+location.hash);
+}
+
 // Адрес меняем без перезагрузки: раунд и набранный ответ смену языка переживают.
 function syncLangUrl(code){
   if(!CODES.includes(code)) return;
@@ -33,4 +43,4 @@ function syncLangUrl(code){
   catch(e){}                       // file:// и прочие адреса, где история запрещена
 }
 
-export {pageLang,langHref,syncLangUrl};
+export {pageLang,langHref,goToLang,syncLangUrl};

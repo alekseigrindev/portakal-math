@@ -13,7 +13,7 @@ import {openDialog} from './feedback/dialog.js';
 import {openHint} from './screens/hint.js';
 import {flushQueue} from './feedback/send.js';
 import {applyTheme,toggleTheme} from './screens/theme.js';
-import {pageLang,syncLangUrl} from './screens/langurl.js';
+import {pageLang,goToLang,syncLangUrl} from './screens/langurl.js';
 
 /* ---------- горячие клавиши ---------- */
 document.addEventListener('keydown',e=>{
@@ -47,7 +47,12 @@ loadSaved();
 const fromUrl=pageLang();
 if(fromUrl && fromUrl!==S.lang){ S.lang=fromUrl; save(); }
 setLang(S.lang);
-syncLangUrl(S.lang);    // адрес в строке браузера можно скопировать и отправить
+// Корень — прихожая, жить на нём незачем: языка в адресе нет, поэтому уводим
+// на /<язык>/, где <html lang>, заголовок и превью уже на нужном языке.
+// S.lang к этому моменту разрешён: сохранённый выбор, иначе язык браузера,
+// иначе английский. Отрисовку ниже увидеть не успеют — переход уже начался.
+if(fromUrl) syncLangUrl(S.lang);   // адрес можно скопировать и отправить
+else goToLang(S.lang);
 applyTheme();
 initPad({press,back,go,choose});
 applyStatic();          // здесь же собирается панель ввода — уже на нужном языке
