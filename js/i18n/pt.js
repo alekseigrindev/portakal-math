@@ -27,7 +27,7 @@ export default {
  'msg.fill1':'Escreva o número nos quadradinhos.','msg.fillAll':'Escreva os números em todos os quadradinhos vazios.',
  'msg.ans1':'Resposta certa: {v}','msg.ansSeq':'Números certos: {v}.','msg.ansPair':'Por exemplo: {v}. Vale qualquer par que torne a igualdade verdadeira.',
  'conj':' e ','go.check':'Verificar','go.nextBox':'Próximo →','go.next':'Continuar','erase':'Apagar',
- 'res.none':'Vamos treinar mais','res.try':'Na primeira tentativa: {a} de {n}','res.time':'Tempo: {t}','mark.hi':'10','mark.mid':'8','mark.low':'6',
+ 'res.try':'Na primeira tentativa: {a} de {n}','res.time':'Tempo: {t}',
  // разрядный состав, часы, римские цифры, фигуры
  'm.place':'Valor posicional',
  'm.clock':'Relógio',
@@ -100,5 +100,20 @@ export default {
  'theme.toDark':'Tema escuro',
  'theme.toLight':'Tema claro',
  'abort':'Parar',
- 'feedCats':'Alimentar os gatos'
+ 'feedCats':'Alimentar os gatos',
+ 'res.stars':'Estrelas: {a} de 3',
+ 'res.food':'Ração para gatos: +{n}',
+ 'food.total':'Ração para gatos: {n}',
+ 'o.goal':'Meta do dia',
+ 'today.streak':'Dias seguidos: {n}',
+ 'today.goal':'Hoje: {a} de {n}',
+ 'today.goalDone':'Meta do dia alcançada!',
+ 'cats.count':'Gatos: {a} de {n}',
+ 'cats.locked':'Vem com {n} de ração',
+ 'cats.got':'Gato {i}',
+ 'cats.next':'Para o próximo gato: {n}',
+ 'cats.all':'Todos os gatos reunidos!',
+ 'cats.title':'Gatos',
+ 'cats.new':'Um gato novo!',
+ 'intro':'Treino de cálculo mental para o ensino fundamental. Escolha um tema e comece a resolver — sem cadastro.'
 };

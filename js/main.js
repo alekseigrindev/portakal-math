@@ -7,6 +7,7 @@ import {show} from './screens/nav.js';
 import {initPad} from './screens/pad.js';
 import {applyStatic} from './screens/shell.js';
 import {renderSetup} from './screens/setup.js';
+import {renderCats} from './screens/cats.js';
 import {startRound, press, back, go, choose, again, redo, quit} from './screens/round.js';
 import {openDialog} from './feedback/dialog.js';
 import {flushQueue} from './feedback/send.js';
@@ -29,6 +30,8 @@ $('#redo').addEventListener('click',redo);
 $('#toSetup').addEventListener('click',toSetup);
 for(const b of document.querySelectorAll('.fb-open')) b.addEventListener('click',openDialog);
 $('#themeToggle').addEventListener('click',toggleTheme);
+$('#food').addEventListener('click',()=>{ renderCats(); show('cats'); });
+$('#catsBack').addEventListener('click',toSetup);
 
 /* ---------- запуск ---------- */
 loadSaved();

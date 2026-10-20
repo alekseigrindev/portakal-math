@@ -7,7 +7,7 @@ const MODE_IDS=MODES.map(m=>m[0]);
 
 const KEY='schetnik-v1';
 const DEF={
-  mode:'addsub', count:10, lang:detectLang(), theme:'auto',
+  mode:'addsub', count:10, lang:detectLang(), theme:'auto', goal:10,
   addsub:{range:20,ops:'both',carry:'any',blank:'operand',actions:'one',unknown:1},
   mul:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
   div:{tables:[2,3,4,5,6,7,8,9],limit:100,blank:'result'},
@@ -21,6 +21,52 @@ const DEF={
 const S=JSON.parse(JSON.stringify(DEF));
 let stats=Object.fromEntries(MODE_IDS.map(m=>[m,{done:0,first:0}]));
 
+// Накопления между заходами. food копится за решённые примеры — за усилие,
+// а не за точность: иначе награда обходит стороной того, кому тренировка
+// нужнее всех. days хранит, сколько решено в каждый день, — из этого потом
+// вырастут серия дней и дневная цель.
+let progress={food:0,days:{}};
+const DAYS_KEPT=180;
+
+const today=()=>{
+  const d=new Date();
+  const p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());   // местная дата, не UTC
+};
+
+// Старые дни выбрасываем: localStorage не резиновый, а для серии нужна
+// только недавняя история.
+function pruneDays(){
+  const keys=Object.keys(progress.days).sort();
+  for(const k of keys.slice(0,Math.max(0,keys.length-DAYS_KEPT))) delete progress.days[k];
+}
+
+const dayKey=d=>{
+  const p=n=>String(n).padStart(2,'0');
+  return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());
+};
+
+const solvedToday=()=>progress.days[today()]||0;
+
+// Сколько дней подряд занимались. Вчера считается живым днём: он ещё не
+// кончился в том смысле, что сегодня можно продолжить — серию не обрываем
+// на полпути и никогда не показываем «серия потеряна».
+function streakDays(){
+  const d=new Date();
+  if(!progress.days[dayKey(d)]) d.setDate(d.getDate()-1);
+  let n=0;
+  while(progress.days[dayKey(d)]){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+
+function addProgress(solved){
+  progress.food+=solved;
+  const d=today();
+  progress.days[d]=(progress.days[d]||0)+solved;
+  pruneDays();
+  save();
+}
+
 function loadSaved(){
   try{
     const raw=JSON.parse(localStorage.getItem(KEY)||'null');
@@ -30,6 +76,7 @@ function loadSaved(){
     if([10,15,20].includes(c.count)) S.count=c.count;
     if(CODES.includes(c.lang)) S.lang=c.lang;
     if(['auto','light','dark'].includes(c.theme)) S.theme=c.theme;
+    if([10,20,30].includes(c.goal)) S.goal=c.goal;
     if(c.addsub){
       if(RANGES.includes(c.addsub.range)) S.addsub.range=c.addsub.range;
       if(['plus','minus','both'].includes(c.addsub.ops)) S.addsub.ops=c.addsub.ops;
@@ -102,8 +149,18 @@ function loadSaved(){
         if(s&&Number.isFinite(s.done)&&Number.isFinite(s.first)) stats[m]={done:s.done,first:s.first};
       }
     }
+    const pr=raw.progress;
+    if(pr){
+      if(Number.isFinite(pr.food)&&pr.food>=0) progress.food=pr.food;
+      if(pr.days&&typeof pr.days==='object'){
+        for(const [d,n] of Object.entries(pr.days)){
+          if(/^\d{4}-\d{2}-\d{2}$/.test(d)&&Number.isFinite(n)&&n>0) progress.days[d]=n;
+        }
+        pruneDays();
+      }
+    }
   }catch(e){}
 }
-function save(){ try{ localStorage.setItem(KEY,JSON.stringify({cfg:S,stats})); }catch(e){} }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify({cfg:S,stats,progress})); }catch(e){} }
 
-export {KEY,DEF,S,stats,loadSaved,save};
+export {KEY,DEF,S,stats,progress,loadSaved,save,addProgress,today,solvedToday,streakDays};

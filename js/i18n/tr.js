@@ -27,7 +27,7 @@ export default {
  'msg.fill1':'Sayıyı kutulara yaz.','msg.fillAll':'Sayıları tüm boş kutulara yaz.',
  'msg.ans1':'Doğru cevap: {v}','msg.ansSeq':'Doğru sayılar: {v}.','msg.ansPair':'Örneğin: {v}. Eşitliği doğru yapan her çift kabul edilir.',
  'conj':' ve ','go.check':'Kontrol et','go.nextBox':'Sonraki →','go.next':'Devam','erase':'Sil',
- 'res.none':'Biraz daha çalışalım','res.try':'İlk denemede: {a} / {n}','res.time':'Süre: {t}','mark.hi':'5','mark.mid':'4','mark.low':'3',
+ 'res.try':'İlk denemede: {a} / {n}','res.time':'Süre: {t}',
  // разрядный состав, часы, римские цифры, фигуры
  'm.place':'Basamak değeri',
  'm.clock':'Saat',
@@ -100,5 +100,20 @@ export default {
  'theme.toDark':'Koyu tema',
  'theme.toLight':'Açık tema',
  'abort':'Durdur',
- 'feedCats':'Kedileri doyur'
+ 'feedCats':'Kedileri doyur',
+ 'res.stars':'{a} / 3 yıldız',
+ 'res.food':'Kedi maması: +{n}',
+ 'food.total':'Kedi maması: {n}',
+ 'o.goal':'Günlük hedef',
+ 'today.streak':'Üst üste gün: {n}',
+ 'today.goal':'Bugün: {a} / {n}',
+ 'today.goalDone':'Günlük hedef tamam!',
+ 'cats.count':'Kedi: {a} / {n}',
+ 'cats.locked':'{n} mamada gelir',
+ 'cats.got':'Kedi {i}',
+ 'cats.next':'Sonraki kediye: {n}',
+ 'cats.all':'Tüm kediler toplandı!',
+ 'cats.title':'Kediler',
+ 'cats.new':'Yeni kedi!',
+ 'intro':'İlkokul için zihinden hesap antrenörü. Bir konu seçin ve çözmeye başlayın — kayıt gerekmez.'
 };

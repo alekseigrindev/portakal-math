@@ -1,9 +1,11 @@
 // Экран решения: состояние раунда, ввод ответа, проверка, переход к итогу.
 import {show} from './nav.js';
-import {S,stats,save} from '../state.js';
+import {S,stats,save,progress,addProgress,solvedToday} from '../state.js';
 import {t} from '../i18n/index.js';
 import {makeItems,isRight,blankCount,itemText,clockText} from '../core/index.js';
 import {$} from '../view/dom.js';
+import {CATS,earnedCount} from '../cats.js';
+import {buildCat} from '../view/cat.js';
 import {fitSheet,buildItem} from '../view/item.js';
 import {renderPad} from './pad.js';
 import {logEvent} from '../feedback/log.js';
@@ -141,6 +143,35 @@ function advance(){
   if(R.i>=R.items.length) return finish();
   resetInput(); renderPlay();
 }
+const STAR='M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.9z';
+
+function renderStars(earned){
+  const host=$('#stars');
+  host.replaceChildren();
+  host.setAttribute('aria-label',t('res.stars',{a:earned}));
+  for(let i=1;i<=3;i++){
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 24 24');
+    svg.setAttribute('aria-hidden','true');
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',STAR);
+    p.setAttribute('class',i<=earned?'on':'off');
+    svg.append(p);
+    host.append(svg);
+  }
+}
+
+// Главная награда показывается сразу после раунда, а не ждёт, пока ребёнок
+// сам зайдёт в коллекцию.
+function showNewCat(before){
+  const now=earnedCount(progress.food);
+  const box=$('#newCat');
+  box.hidden=now<=before;
+  const art=$('#newCatArt');
+  art.replaceChildren();
+  if(!box.hidden) art.append(buildCat(CATS[now-1]));
+}
+
 function finish(){
   stopClock();
   const n=R.items.length;
@@ -149,15 +180,34 @@ function finish(){
   st.done+=n; st.first+=first; save();
   const secs=Math.round((Date.now()-R.t0)/1000);
   const pct=first/n;
-  const mark=$('#mark');
-  if(pct>=0.9){mark.textContent=t('mark.hi');mark.className='mark';}
-  else if(pct>=0.75){mark.textContent=t('mark.mid');mark.className='mark';}
-  else if(pct>=0.5){mark.textContent=t('mark.low');mark.className='mark';}
-  else{mark.textContent=t('res.none');mark.className='mark none';}
+
+  // Корм начисляется за каждый решённый пример, независимо от числа попыток:
+  // награда за усилие, а не за точность.
+  const catsBefore=earnedCount(progress.food);
+  addProgress(n);
+  showNewCat(catsBefore);
+
+  // Одна звезда даётся за сам факт пройденного раунда — «провалить» тренировку
+  // нельзя. Вторая и третья — за аккуратность.
+  const earned=pct>=0.9?3:pct>=0.7?2:1;
+  renderStars(earned);
+
   const rt=$('#resText'); rt.replaceChildren();
   const b=document.createElement('b'); b.textContent=t('res.try',{a:first,n});
   const p=document.createElement('span'); p.textContent=t('res.time',{t:Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0')});
-  rt.append(b,p);
+  const food=document.createElement('span');
+  food.className='food-gain';
+  food.textContent='\u{1F408} +'+n;
+  food.setAttribute('aria-label',t('res.food',{n}));
+  rt.append(b,p,food);
+
+  // addProgress уже отработал выше, поэтому счёт за день включает этот раунд
+  const done=solvedToday(), need=S.goal;
+  const day=document.createElement('span');
+  const reached=done>=need;
+  day.className='day-goal'+(reached?' done':'');
+  day.textContent=reached?t('today.goalDone'):t('today.goal',{a:done,n:need});
+  rt.append(day);
   const miss=R.res.filter(r=>!r.first).map(r=>r.item);
   R.miss=miss;
   const list=$('#missList'); list.replaceChildren();

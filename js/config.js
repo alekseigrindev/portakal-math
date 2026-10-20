@@ -68,6 +68,9 @@ const OPTS={
       presets:[['c.all_n',SHAPES_ALL]]}
   ]
 };
-const COUNT_OPT={key:'count',label:'o.count',choices:[[10,'10'],[15,'15'],[20,'20']]};
+// global:true — настройка живёт в S, а не в конфиге раздела
+const COUNT_OPT={key:'count',label:'o.count',global:true,choices:[[10,'10'],[15,'15'],[20,'20']]};
+// Цель на день общая для всех разделов, как и число примеров за раз
+const GOAL_OPT={key:'goal',label:'o.goal',global:true,choices:[[10,'10'],[20,'20'],[30,'30']]};
 
-export {MODES,RANGES,LIMITS,OPTS,COUNT_OPT};
+export {MODES,RANGES,LIMITS,OPTS,COUNT_OPT,GOAL_OPT};

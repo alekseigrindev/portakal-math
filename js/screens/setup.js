@@ -1,6 +1,6 @@
 // Экран настроек: вкладки режимов, варианты из config.js, пример-образец и статистика.
-import {MODES,OPTS,COUNT_OPT} from '../config.js';
-import {S,stats,save} from '../state.js';
+import {MODES,OPTS,COUNT_OPT,GOAL_OPT} from '../config.js';
+import {S,stats,save,progress,solvedToday,streakDays} from '../state.js';
 import {LANGS,t,setLang} from '../i18n/index.js';
 import {gen} from '../core/index.js';
 import {$} from '../view/dom.js';
@@ -28,7 +28,7 @@ function renderTabs(){
 function renderOpts(){
   const host=$('#opts'); host.replaceChildren();
   const cfg=S[S.mode];
-  for(const o of [...OPTS[S.mode],COUNT_OPT]){
+  for(const o of [...OPTS[S.mode],COUNT_OPT,GOAL_OPT]){
     if(o.show && !o.show(cfg)) continue;
     const g=document.createElement('div'); g.className='group';
     const l=document.createElement('div'); l.className='glabel'; l.textContent=t(o.label);
@@ -50,7 +50,7 @@ function renderOpts(){
         }));
       }
     }else{
-      const target=o.key==='count'?S:cfg;
+      const target=o.global?S:cfg;
       const disabled=o.needs?!o.needs(cfg):false;
       for(const [val,text] of o.choices){
         chips.append(chip(t(text),target[o.key]===val,()=>{target[o.key]=val;save();renderSetup();},disabled));
@@ -72,6 +72,26 @@ function renderSample(){
   fitSheet(host,it);
   host.append(buildItem(it,{vals:[],cursor:false}));
 }
+function renderToday(){
+  const food=$('#food'), streak=$('#streak'), goal=$('#goal'), fill=$('#goalFill');
+
+  food.hidden=!progress.food;
+  food.textContent=progress.food?'\u{1F408} '+progress.food:'';
+  food.setAttribute('aria-label',t('food.total',{n:progress.food}));
+
+  // Один день — это ещё не серия, показываем начиная с двух.
+  const days=streakDays();
+  streak.hidden=days<2;
+  streak.textContent=days<2?'':'\u{1F525} '+days;
+  streak.setAttribute('aria-label',t('today.streak',{n:days}));
+
+  const done=solvedToday(), need=S.goal, reached=done>=need;
+  goal.textContent=done+' / '+need;
+  goal.classList.toggle('done',reached);
+  goal.setAttribute('aria-label',reached?t('today.goalDone'):t('today.goal',{a:done,n:need}));
+  fill.style.width=Math.min(100,Math.round(100*done/need))+'%';
+  fill.classList.toggle('done',reached);
+}
 function renderStat(){
   const s=stats[S.mode], el=$('#stat');
   // пока ничего не решали, строки нет вовсе — пустое обещание статистики
@@ -80,7 +100,9 @@ function renderStat(){
   el.textContent=s.done?t('stat',{done:s.done,pct:Math.round(100*s.first/s.done)}):'';
 }
 function renderSetup(){
-  renderLangs(); renderTabs(); renderOpts(); renderSample(); renderStat();
+  // пояснение показываем, пока ребёнок ещё ни разу не занимался
+  $('#intro').hidden=progress.food>0;
+  renderLangs(); renderTabs(); renderOpts(); renderSample(); renderStat(); renderToday();
   $('#start').textContent=t('start',{n:S.count});
 }
 

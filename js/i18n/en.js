@@ -98,12 +98,12 @@ export default {
  'go.nextBox':'Next →',
  'go.next':'Continue',
  'erase':'Erase',
- 'res.none':'Let’s practise some more',
+ 
  'res.try':'First try: {a} of {n}',
  'res.time':'Time: {t}',
- 'mark.hi':'A',
- 'mark.mid':'B',
- 'mark.low':'C',
+ 
+ 
+ 
  'm.place':'Place value',
  'm.clock':'Clock',
  'm.roman':'Roman numerals',
@@ -174,5 +174,20 @@ export default {
  'theme.toDark':'Dark theme',
  'theme.toLight':'Light theme',
  'abort':'Stop',
- 'feedCats':'Feed the cats'
+ 'feedCats':'Feed the cats',
+ 'res.stars':'Stars: {a} of 3',
+ 'res.food':'Cat food: +{n}',
+ 'food.total':'Cat food: {n}',
+ 'o.goal':'Daily goal',
+ 'today.streak':'Day streak: {n}',
+ 'today.goal':'Today: {a} of {n}',
+ 'today.goalDone':'Daily goal reached!',
+ 'cats.count':'Cats: {a} of {n}',
+ 'cats.locked':'Comes at {n} food',
+ 'cats.got':'Cat {i}',
+ 'cats.next':'To the next cat: {n}',
+ 'cats.all':'All cats collected!',
+ 'cats.title':'Cats',
+ 'cats.new':'A new cat!',
+ 'intro':'A mental maths trainer for primary school. Pick a topic and start solving — no sign-up needed.'
 };

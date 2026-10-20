@@ -70,6 +70,9 @@ try{
 
 <main class="wrap">
   <section id="setup" class="play" style="max-width:none">
+    <!-- Видно только тем, кто ещё не занимался: пришедшему по ссылке родителю
+         нужно объяснить, что это, а возвращающемуся ребёнку это уже мусор. -->
+    <p class="intro" id="intro" data-i18n="intro"></p>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="panel">
       <div id="opts" style="display:grid;gap:1rem"></div>
@@ -80,6 +83,14 @@ try{
     </div>
     <div class="startrow">
       <button class="btn" id="start" type="button"></button>
+      <div class="today">
+        <div class="today-row">
+          <button class="today-item today-link" id="food" type="button"></button>
+          <span class="today-item" id="streak"></span>
+          <span class="today-item" id="goal"></span>
+        </div>
+        <div class="goal-bar"><span id="goalFill"></span></div>
+      </div>
       <p class="stat" id="stat"></p>
       <button class="btn link fb-open" id="reportSetup" type="button" data-i18n="fb.open"></button>
     </div>
@@ -99,9 +110,23 @@ try{
     <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
   </section>
 
+  <section id="cats" class="cats" hidden>
+    <div class="play-status">
+      <button class="btn link" id="catsBack" type="button" data-i18n="toSetup"></button>
+      <span class="today-item" id="catsFood"></span>
+      <span class="today-item" id="catsCount"></span>
+    </div>
+    <div class="cats-grid" id="catsGrid"></div>
+    <p class="cats-next" id="catsNext"></p>
+  </section>
+
   <section id="result" class="result" hidden>
+    <div class="new-cat" id="newCat" hidden>
+      <div id="newCatArt"></div>
+      <p class="new-cat-text" data-i18n="cats.new"></p>
+    </div>
     <div class="mark-row">
-      <div class="mark" id="mark"></div>
+      <div class="stars" id="stars" role="img"></div>
       <div class="res-text" id="resText"></div>
     </div>
     <div id="missBox" hidden>

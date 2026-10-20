@@ -25,9 +25,13 @@
 /* итог */
 .result{display:grid;gap:1rem;max-width:34rem;width:100%;margin-inline:auto}
 .mark-row{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
-.mark{width:5.5rem;height:5.5rem;border:3px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font:400 3.6rem/1 var(--hand);color:var(--red);transform:rotate(-6deg);flex:none}
-.mark.none{font-size:1.1rem;text-align:center;line-height:1.1;padding:.3rem}
+/* Звёзды вместо школьной отметки. Нижняя граница — одна звезда за пройденный
+   раунд: тренировка это место, где ошибаться не страшно, и «3» за старание
+   отбивает охоту возвращаться. */
+.stars{display:flex;gap:.25rem;flex:none}
+.stars svg{width:2.6rem;height:2.6rem}
+.stars .on{fill:var(--orange)}
+.stars .off{fill:none;stroke:var(--line);stroke-width:1.8}
 .res-text{display:grid;gap:.15rem}
 .res-text b{font-size:1.25rem}
 .miss-list{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.45rem}
@@ -44,3 +48,24 @@
 .abort{min-height:2.6rem;margin-top:.25rem;font-size:.95rem;font-weight:700;
   background:transparent;color:var(--red);border:1.5px solid var(--line)}
 .abort:hover{border-color:var(--red);background:var(--red);color:var(--ink-fg)}
+.food-gain{font-weight:800;color:var(--orange)}
+.day-goal{font-weight:700;color:var(--muted)}
+.day-goal.done{color:var(--green)}
+
+/* ---------- коллекция котов ---------- */
+.cats{display:grid;gap:1rem;max-width:34rem;width:100%;margin-inline:auto}
+/* ровно четыре колонки: восемь котов ложатся в две полные строки,
+   а не в шесть с хвостиком */
+.cats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem .6rem;justify-items:center}
+.cat-cell{display:grid;justify-items:center;gap:.2rem}
+.cat-cell svg{width:100%;max-width:4.5rem;height:auto}
+.cat-cell.locked{opacity:.65}
+.cat-cap{font:800 .78rem/1 var(--ui);color:var(--muted)}
+.cats-next{margin:0;text-align:center;font-weight:700;color:var(--muted)}
+.cats-next.done{color:var(--green)}
+
+/* новый кот на экране итога */
+.new-cat{display:flex;align-items:center;gap:.8rem;padding:.6rem .9rem;
+  border:1.5px solid var(--orange);border-radius:12px;background:var(--surface)}
+.new-cat svg{width:3.4rem;height:3.4rem;flex:none}
+.new-cat-text{margin:0;font:400 1.5rem/1.1 var(--hand);color:var(--orange)}

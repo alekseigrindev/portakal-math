@@ -35,7 +35,14 @@ body{
   /* шапка, тянущееся содержимое, прижатый футер */
   min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto;
 }
-.wrap{max-width:40rem;margin:0 auto;padding-inline:1rem;padding-block:1.5rem 3rem;display:grid;gap:1.25rem}
+/* align-content:start обязателен: body стал сеткой ради прижатого футера,
+   из-за чего .wrap растягивался на всю свободную высоту и раздавал её своим
+   строкам — кнопки на экране итога вытягивались в полосы. */
+/* width:100% обязателен: у элемента сетки margin-inline:auto не растягивает,
+   а ужимает по содержимому — экран коллекции схлопывался в две колонки. */
+.wrap{width:100%;max-width:40rem;margin-inline:auto;
+  padding-inline:1rem;padding-block:1.5rem 3rem;
+  display:grid;gap:1.25rem;align-content:start}
 button{font-family:var(--ui)}
 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 
