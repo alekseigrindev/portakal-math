@@ -18,7 +18,11 @@
 .box .c.cur::after{content:"";width:2px;height:58%;background:var(--ink);animation:blink 1s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 .eq.ok .box{border-color:var(--green)} .eq.ok .c{color:var(--green)}
-.eq.ok::after{content:"✓";font:400 calc(var(--cell)*.9)/1 var(--hand);color:var(--green);margin-left:calc(var(--cell)*.25)}
+/* Галочку рисуем всегда, но прозрачной: иначе при верном ответе она
+   дорисовывается и пример на том же шаге меняет ширину. */
+.eq::after{content:"✓";font:400 calc(var(--cell)*.9)/1 var(--hand);color:transparent;
+  margin-left:calc(var(--cell)*.25)}
+.eq.ok::after{color:var(--green)}
 .eq.bad .box{border-color:var(--red);animation:shake .35s}
 .eq.bad .c{color:var(--red)}
 .eq.reveal .box{border-color:var(--red)} .eq.reveal .box .c{color:var(--red)}

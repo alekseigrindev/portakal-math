@@ -81,7 +81,7 @@ function buildShape(it,opt={}){
     if(!chosen) box.classList.add('empty');
     wrap.append(box);
   }else{
-    wrap.append(blankBox(it.x,reveal?String(it.x):typed,{cursor:cursor&&!reveal}));
+    wrap.append(blankBox(it.x,reveal?String(it.x):typed,{cursor:cursor&&!reveal,minCells:2}));
   }
 
   // В заданиях на название, лишнюю и углы фигуру вслух не называем — это и есть ответ.

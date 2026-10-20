@@ -13,7 +13,12 @@
 .pg span.cur{background:var(--ink)}
 .pg span.ok{background:var(--green)}
 .pg span.miss{background:var(--red)}
-.msg{min-height:1.6rem;margin:0;font-weight:800;text-align:center}
+/* Две строки под сообщение зарезервированы всегда: одной строки не хватало,
+   и при длинном тексте клавиатура уезжала вниз на 22 пикселя прямо под
+   пальцем. Три строки нужны только самым длинным переводам на узком
+   экране — там это редкий случай, ради которого не стоит отнимать
+   высоту у листа с примером. */
+.msg{min-height:3rem;margin:0;font-weight:800;text-align:center}
 .msg.good{color:var(--green)} .msg.warn{color:var(--red)}
 .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
 .key{min-height:3.6rem;border:1.5px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;

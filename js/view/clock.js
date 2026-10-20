@@ -41,7 +41,9 @@ function buildClock(it,opt={}){
 
   const row=document.createElement('div');
   row.className='time';
-  const answer=k=>k===0?String(it.h):String(it.m).padStart(2,'0');
+  // Обе рамки всегда по две клетки: часы 1–12, минуты 0–59, больше не бывает.
+  // Иначе при наборе второй цифры строка времени съезжает из-под пальца.
+  const answer=k=>String(k===0?it.h:it.m).padStart(2,'0');
   for(const k of [0,1]){
     if(k) row.append(cell(':','sign'));
     row.append(blankBox(answer(k),reveal?answer(k):(vals[k]||''),

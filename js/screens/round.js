@@ -6,7 +6,7 @@ import {makeItems,isRight,blankCount,itemText,clockText} from '../core/index.js'
 import {$} from '../view/dom.js';
 import {CATS,earnedCount} from '../cats.js';
 import {buildCat} from '../view/cat.js';
-import {fitSheet,buildItem} from '../view/item.js';
+import {fitRound,buildItem} from '../view/item.js';
 import {renderPad} from './pad.js';
 import {logEvent} from '../feedback/log.js';
 
@@ -32,7 +32,9 @@ function stopClock(){
 
 function startRound(items,mode){
   R={mode,items,i:0,vals:[''],active:0,tries:0,phase:'answer',res:[],t0:Date.now(),timer:null};
-  resetInput(); show('play'); renderPlay(); startClock();
+  resetInput(); show('play');
+  fitRound($('#play .sheet'),items);   // размер клетки и высота — на весь раунд
+  renderPlay(); startClock();
 }
 function renderProgress(){
   const pg=$('#pg'); pg.replaceChildren();
@@ -47,7 +49,6 @@ function resetInput(){ R.vals=Array(blankCount(R.items[R.i])).fill(''); R.active
 function renderEq(state,reveal){
   const host=$('#eqHost'); host.replaceChildren();
   const it=R.items[R.i];
-  fitSheet(host,it);
   host.append(buildItem(it,{typed:R.vals[0],vals:R.vals,active:R.active,state,reveal,cursor:R.phase==='answer',onSelect:selectBox}));
 }
 function updateGoLabel(){
