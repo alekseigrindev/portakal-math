@@ -1,6 +1,6 @@
 export default {
  'title':'Sayı Antrenörü',
- 'lead':'Eksik sayılı alıştırmalar: 100’e kadar toplama ve çıkarma, çarpım tablosu ve bölme, sayının bileşenleri, ritmik sayma.',
+ 'lead':'İlkokul için zihinden matematik: 100’e kadar toplama ve çıkarma, çarpma ve bölme, sayının bileşenleri, basamak değeri, ritmik sayma, saat, Roma rakamları. Kayıt gerekmez.',
  'sampleCap':'Soru şöyle görünecek','start':'Başla · {n} soru','count':'Soru {i} / {n}',
  'stat':'Çözülen soru: {done}. İlk denemede doğru: %{pct}.',
  'missTitle':'Şu sorular üzerinde biraz daha çalışmak iyi olur','again':'Tekrar','redo':'Yanlışları tekrarla','toSetup':'Ayarlara dön','langLabel':'Dil',
@@ -129,5 +129,20 @@ export default {
  'hint.roman.s1':'Her harfin kendi değeri vardır — altına yazılmıştır.',
  'hint.roman.s2':'Soldan sağa okuyup toplarız: VI, 5 + 1 yani 6.',
  'hint.roman.s3':'Küçük harf büyüğün önünde duruyorsa çıkarılır: IV, 5 − 1 yani 4, 6 değil.',
+ 'foot.privacy':'Veriler ve çerezler',
+ 'pp.title':'Veriler ve çerezler',
+ 'pp.updated':'Güncellendi: {d}',
+ 'pp.lead':'Uygulama kayıt istemez, reklam göstermez, ad, e-posta ve yaş toplamaz.',
+ 'pp.local.h':'Tarayıcıda ne kalır',
+ 'pp.local.b':'Ayarlar, dil, tema, çözülen soru istatistikleri, kedi maması ve gün serisi tarayıcınızın localStorage’ında tutulur. Bunlar çerez değildir: hiçbir yere gönderilmez, yalnızca bu cihazda görünür. Site verilerini temizlemek hepsini siler.',
+ 'pp.cookie.h':'Çerezler',
+ 'pp.cookie.b':'Çerez hiç kullanılmıyor — ne uygulama ne de sayaç tarafından. Ziyaretleri Vercel Web Analytics sayar: sayfanın kaç kez açıldığını, hangi ülkeden ve ne tür cihazdan olduğunu gösterir; cihazınıza hiçbir şey yazmaz ve sizi başka sitelerde izlemez.',
+ 'pp.third.h':'Diğer sitelere istekler',
+ 'pp.third.b':'Site Vercel üzerinde barındırılıyor, bu yüzden sunucuları IP adresiniz dâhil olağan istek verilerini görür. Yazı tipleri Google Fonts’tan yüklenir ve Google da IP’yi görür. Alt bilgideki bağlantılar ve «Kedileri doyur» düğmesi üçüncü taraf sitelere gider, yalnızca bastığınızda çalışır.',
+ 'pp.report.h':'Hata bildirimi',
+ 'pp.report.b':'Geri bildirim düğmesine kendiniz basıp rapor gönderirseniz; yazdığınız metin, ekrandaki sorunun görüntüsü, seçtiğiniz ayarlar ve turun son adımları gider. Ad ve e-posta sorulmaz.',
+ 'pp.kids.h':'Çocuklar',
+ 'pp.kids.b':'Uygulama ilkokul çocukları için yapıldı, bu yüzden kişisel veri hiç toplanmaz: hesap yok, form yok, reklam profili yok.',
+ 'pp.back':'Antrenöre dön',
  'opts.title':'Ayarlar'
 };

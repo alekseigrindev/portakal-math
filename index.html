@@ -3,8 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Тренажёр счёта</title>
-<meta name="description" content="Примеры с пропущенным числом: сложение и вычитание до 100, таблица умножения и деления, состав числа, ритмический счёт.">
+<title>portakal-math — Тренажёр счёта</title>
+<meta name="description" content="Устный счёт для начальной школы: сложение и вычитание до 100, умножение и деление, состав числа и разряды, ритмический счёт, часы, римские цифры. Без регистрации.">
+<!-- Превью в мессенджерах и соцсетях. Краулер не исполняет js, поэтому язык
+     превью задаётся не переключателем на странице, а адресом: у каждого языка
+     своя страница в своей папке. Копии собирает tools/langs.mjs — после правки
+     этого блока, заголовка или описания его нужно перезапустить. -->
+<!-- share:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="portakal-math">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="portakal-math — Тренажёр счёта">
+<meta property="og:description" content="Устный счёт для начальной школы: сложение и вычитание до 100, умножение и деление, состав числа и разряды, ритмический счёт, часы, римские цифры. Без регистрации.">
+<meta property="og:image" content="og/og-ru.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="portakal-math — Тренажёр счёта">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="x-default" href="./">
+<link rel="alternate" hreflang="en" href="en/">
+<link rel="alternate" hreflang="ka" href="ka/">
+<link rel="alternate" hreflang="kk" href="kk/">
+<link rel="alternate" hreflang="pt" href="pt/">
+<link rel="alternate" hreflang="ru" href="ru/">
+<link rel="alternate" hreflang="tr" href="tr/">
+<link rel="alternate" hreflang="uk" href="uk/">
+<!-- share:end -->
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="favicon.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -18,15 +42,13 @@ try{
   if(c&&(c.theme==='dark'||c.theme==='light')) document.documentElement.dataset.theme=c.theme;
 }catch(e){}
 </script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-85P8ZRTRNL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-85P8ZRTRNL');
-</script>
+<!-- Счётчик посещений Vercel Web Analytics. Стоит прямо здесь и грузится у
+     всех, потому что ничего не пишет на устройство: ни cookie, ни localStorage.
+     Требование спрашивать согласие относится к записи на устройство, поэтому
+     спрашивать нечего — и полосы внизу нет.
+     Адрес свой, а не чужой домен: Vercel отдаёт скрипт со своего края сети.
+     Вне Vercel (локально, GitHub Pages) запрос даёт 404 и ничего не ломает. -->
+<script defer src="/_vercel/insights/script.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,6 +200,7 @@ try{
      клавиатурой и лишняя строка ломает раскладку на телефоне. -->
 <footer class="site-footer">
   <p class="copy" id="copy"></p>
+  <a class="foot-link" id="privacyLink" href="privacy.html"></a>
   <nav class="contacts" id="contacts"></nav>
 </footer>
 

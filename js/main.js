@@ -1,5 +1,5 @@
 // Сборка приложения: панель ввода, горячие клавиши, кнопки экранов и запуск.
-import {S, loadSaved} from './state.js';
+import {S, loadSaved, save} from './state.js';
 import {setLang} from './i18n/index.js';
 import {makeItems} from './core/index.js';
 import {$} from './view/dom.js';
@@ -13,6 +13,7 @@ import {openDialog} from './feedback/dialog.js';
 import {openHint} from './screens/hint.js';
 import {flushQueue} from './feedback/send.js';
 import {applyTheme,toggleTheme} from './screens/theme.js';
+import {pageLang,syncLangUrl} from './screens/langurl.js';
 
 /* ---------- горячие клавиши ---------- */
 document.addEventListener('keydown',e=>{
@@ -41,7 +42,12 @@ $('#catsBack').addEventListener('click',toSetup);
 
 /* ---------- запуск ---------- */
 loadSaved();
+// Язык из адреса сильнее сохранённого: ссылку /tr/ присылают намеренно, и
+// получатель должен увидеть турецкий, даже если раньше выбирал другой.
+const fromUrl=pageLang();
+if(fromUrl && fromUrl!==S.lang){ S.lang=fromUrl; save(); }
 setLang(S.lang);
+syncLangUrl(S.lang);    // адрес в строке браузера можно скопировать и отправить
 applyTheme();
 initPad({press,back,go,choose});
 applyStatic();          // здесь же собирается панель ввода — уже на нужном языке

@@ -1,5 +1,5 @@
 // Подвал: копирайт и контакты.
-import {t} from '../i18n/index.js';
+import {t,getLang} from '../i18n/index.js';
 import {$} from '../view/dom.js';
 
 const OWNER='AlekseiGrinDev';
@@ -38,6 +38,10 @@ const LINKS=[
 
 function renderFooter(){
   $('#copy').textContent='© '+new Date().getFullYear()+' '+OWNER;
+  // Язык в адресе: страница про данные должна открыться на том же языке,
+  // на каком человек читал приложение.
+  const pp=$('#privacyLink');
+  if(pp){ pp.textContent=t('foot.privacy'); pp.href='privacy.html?lang='+getLang(); }
   const host=$('#contacts');
   host.replaceChildren();
   host.setAttribute('aria-label',t('foot.contact'));

@@ -1,6 +1,6 @@
 export default {
  'title':'Counting Trainer',
- 'lead':'Exercises with a missing number: addition and subtraction up to 100, times tables and division, number bonds, skip counting.',
+ 'lead':'Mental maths for primary school: addition and subtraction up to 100, multiplication and division, number bonds, place value, skip counting, clock, Roman numerals. No sign-up.',
  'sampleCap':'This is what an exercise looks like',
  'start':'Start · {n} exercises',
  
@@ -203,5 +203,20 @@ export default {
  'hint.roman.s1':'Every letter has its own value — it is written underneath.',
  'hint.roman.s2':'Read left to right and add them up: VI is 5 + 1, so 6.',
  'hint.roman.s3':'If a smaller letter stands before a bigger one, it is subtracted: IV is 5 − 1, so 4, not 6.',
+ 'foot.privacy':'Data and cookies',
+ 'pp.title':'Data and cookies',
+ 'pp.updated':'Updated: {d}',
+ 'pp.lead':'The app asks for no sign-up, shows no ads and collects no names, emails or ages.',
+ 'pp.local.h':'What stays in your browser',
+ 'pp.local.b':'Settings, language, theme, solved-exercise statistics, cat food and the day streak are kept in your browser’s localStorage. These are not cookies: they are sent nowhere and are visible only on this device. Clearing site data removes them completely.',
+ 'pp.cookie.h':'Cookies',
+ 'pp.cookie.b':'No cookies are used at all — neither by the app nor by the counter. Visits are counted by Vercel Web Analytics: it shows how many times a page was opened, from which country and on what kind of device, and it writes nothing to your device and does not follow you across other sites.',
+ 'pp.third.h':'Requests to other sites',
+ 'pp.third.b':'The site is hosted on Vercel, so its servers see the usual request data, including your IP address. Fonts are loaded from Google Fonts, and Google sees the IP too. The footer links and the “Feed the cats” button lead to third-party sites and only fire when you press them.',
+ 'pp.report.h':'Problem reports',
+ 'pp.report.b':'If you press the feedback button yourself and send a report, it carries your text, a picture of the exercise on screen, your settings and the last steps of the round. No name or email is asked for.',
+ 'pp.kids.h':'Children',
+ 'pp.kids.b':'The app is made for primary-school children, so no personal data is collected at all: no account, no form, no advertising profiles.',
+ 'pp.back':'Back to the trainer',
  'opts.title':'Settings'
 };

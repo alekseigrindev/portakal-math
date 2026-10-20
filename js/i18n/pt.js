@@ -1,6 +1,6 @@
 export default {
  'title':'Treino de Contas',
- 'lead':'Exercícios com número faltando: adição e subtração até 100, tabuada de multiplicação e divisão, composição de números, contagem rítmica.',
+ 'lead':'Cálculo mental para o ensino fundamental: adição e subtração até 100, multiplicação e divisão, composição de números, valor posicional, contagem rítmica, relógio, algarismos romanos. Sem cadastro.',
  'sampleCap':'Assim vai aparecer o exercício','start':'Começar · {n} exercícios','count':'Exercício {i} de {n}',
  'stat':'Exercícios resolvidos: {done}. Na primeira tentativa: {pct}%.',
  'missTitle':'Vale a pena treinar mais estes exercícios','again':'Outra rodada','redo':'Repetir os erros','toSetup':'Configurações','langLabel':'Idioma',
@@ -129,5 +129,20 @@ export default {
  'hint.roman.s1':'Cada letra tem o seu valor — está escrito embaixo.',
  'hint.roman.s2':'Lemos da esquerda para a direita e somamos: VI é 5 + 1, ou seja, 6.',
  'hint.roman.s3':'Se uma letra menor vem antes de uma maior, ela é subtraída: IV é 5 − 1, ou seja, 4, e não 6.',
+ 'foot.privacy':'Dados e cookies',
+ 'pp.title':'Dados e cookies',
+ 'pp.updated':'Atualizado em: {d}',
+ 'pp.lead':'O aplicativo não pede cadastro, não mostra anúncios e não coleta nomes, e-mails nem idade.',
+ 'pp.local.h':'O que fica no navegador',
+ 'pp.local.b':'Configurações, idioma, tema, estatísticas de exercícios resolvidos, ração dos gatos e a sequência de dias ficam no localStorage do seu navegador. Isso não são cookies: nada é enviado e só é visível neste dispositivo. Limpar os dados do site apaga tudo.',
+ 'pp.cookie.h':'Cookies',
+ 'pp.cookie.b':'Nenhum cookie é usado — nem pelo aplicativo nem pelo contador. As visitas são contadas pelo Vercel Web Analytics: ele mostra quantas vezes a página foi aberta, de qual país e em que tipo de aparelho, e não grava nada no seu dispositivo nem acompanha você em outros sites.',
+ 'pp.third.h':'Pedidos a outros sites',
+ 'pp.third.b':'O site é hospedado na Vercel, então seus servidores veem os dados comuns da requisição, incluindo o seu endereço IP. As fontes são carregadas do Google Fonts, e o Google também vê o IP. Os links do rodapé e o botão “Alimentar os gatos” levam a sites de terceiros e só funcionam quando você os aperta.',
+ 'pp.report.h':'Relato de problema',
+ 'pp.report.b':'Se você mesmo apertar o botão de feedback e enviar um relato, vão o seu texto, uma imagem do exercício na tela, as configurações escolhidas e os últimos passos da rodada. Nome e e-mail não são pedidos.',
+ 'pp.kids.h':'Crianças',
+ 'pp.kids.b':'O aplicativo foi feito para crianças do ensino fundamental, por isso nenhum dado pessoal é coletado: sem conta, sem formulário, sem perfis de publicidade.',
+ 'pp.back':'Voltar ao treino',
  'opts.title':'Configurações'
 };

@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Картинки для превью</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=Caveat:wght@400;700&family=Nunito:wght@500;700;800&family=Noto+Sans+Georgian:wght@500;700&display=swap">
+<style>
+  body{margin:0;padding:2rem;font:500 15px/1.5 Nunito,system-ui,sans-serif;background:#f4f8fd;color:#18233f}
+  h1{font:800 1.6rem/1.2 Nunito,sans-serif;margin:0 0 .4rem}
+  p{max-width:46rem}
+  code{background:#fff;border:1px solid #b5c6df;border-radius:5px;padding:.1rem .3rem}
+  .shot{margin:1.5rem 0;display:grid;gap:.5rem;justify-items:start}
+  .shot img{width:min(42rem,100%);height:auto;border:1.5px solid #b5c6df;border-radius:8px;display:block}
+  a.dl{font-weight:800;color:#1d3b8b}
+</style>
+</head>
+<body>
+<h1>Картинки для превью</h1>
+<p>Картинка, которую мессенджер показывает рядом со ссылкой (<code>og:image</code>).
+  У каждого языка своя: в превью должно быть написано то же, что увидит человек,
+  открыв ссылку. Рисуются здесь, а не лежат картинками в репозитории, потому что
+  состоят из тех же слов и того же почерка, что и само приложение, — поменяется
+  название, перерисуются и они.</p>
+<p>Сохранить все семь: кнопки «скачать» ниже, файлы класть в <code>og/</code>.
+  После замены — <code>node tools/langs.mjs</code>.</p>
+<div id="out"></div>
+
+<script type="module">
+import {I18N,CODES} from '../js/i18n/index.js';
+
+const W=1200, H=630;
+const PAPER='#fcfdff', GRID='#c6d6ec', INK='#1d3b8b', FG='#18233f', ORANGE='#e0661a', GREEN='#17803f';
+const CELL=42;                       // клетка тетради, как в приложении
+const HAND=code=>code==='kk'
+  ? '"Caveat","Neucha",cursive'      // в Neucha нет казахских букв
+  : '"Neucha","Noto Sans Georgian",cursive';
+
+// Апельсин из шапки. Цвета заданы явно: переменные темы в canvas не достают.
+const ORANGE_SVG=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+<circle fill="${ORANGE}" cx="16" cy="20" r="10"/>
+<path fill="none" stroke="${PAPER}" stroke-width="2" stroke-linecap="round" opacity=".55" d="M10.5 16.5a7 7 0 0 1 5-3.5"/>
+<path fill="none" stroke="${GREEN}" stroke-width="2" stroke-linecap="round" d="M16 10.2V7.4"/>
+<path fill="${GREEN}" d="M16.6 8.6c.7-2.9 3.4-4.6 6.2-4.2.3 2.9-1.8 5.4-4.7 5.6a3.6 3.6 0 0 1-1.5-.3z"/>
+</svg>`;
+
+function loadOrange(){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>res(img);
+    img.onerror=rej;
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ORANGE_SVG);
+  });
+}
+
+function grid(ctx){
+  ctx.fillStyle=PAPER; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle=GRID; ctx.lineWidth=1;
+  ctx.beginPath();
+  for(let x=CELL;x<W;x+=CELL){ ctx.moveTo(x+.5,0); ctx.lineTo(x+.5,H); }
+  for(let y=CELL;y<H;y+=CELL){ ctx.moveTo(0,y+.5); ctx.lineTo(W,y+.5); }
+  ctx.stroke();
+}
+
+// Текст ужимается, если не влез: казахское название вдвое длиннее английского.
+function fitText(ctx,text,font,size,max){
+  let s=size;
+  for(;s>24;s-=2){
+    ctx.font=font.replace('{s}',s);
+    if(ctx.measureText(text).width<=max) break;
+  }
+  return s;
+}
+
+function rounded(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);     ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+// Пример «в клетку», как на листе в приложении: цифра на клетку, пропуск рамкой.
+// Рисуется от середины кадра, поэтому принимает центр, а не левый край.
+const PARTS=['7','+',null,'=','1','2'];
+function sample(ctx,code,cxMid,y){
+  const c=84, fs=Math.round(c*.72);
+  const drop=code==='kk'?0:c*.086;          // цифры Neucha сидят в кегле высоко
+  const x=cxMid-c*PARTS.length/2;
+  ctx.font=`400 ${fs}px ${HAND(code)}`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  PARTS.forEach((ch,i)=>{
+    const cx=x+c*i+c/2, cy=y+c/2+drop;
+    if(ch===null){
+      ctx.strokeStyle=INK; ctx.lineWidth=3;
+      rounded(ctx,x+c*i+4,y+4,c-8,c-8,10);
+      ctx.stroke();
+      return;
+    }
+    ctx.fillStyle=ch==='+'||ch==='='?FG:INK;
+    ctx.fillText(ch,cx,cy);
+  });
+}
+
+async function draw(code,orange){
+  const cv=document.createElement('canvas');
+  cv.width=W; cv.height=H;
+  const ctx=cv.getContext('2d');
+  grid(ctx);
+
+  // Всё по центру: кадр широкий, и прижатый к левому краю блок оставлял
+  // пустой половину картинки.
+  const mid=W/2;
+  ctx.textBaseline='alphabetic';
+
+  // название проекта: «portakal» апельсиновым, «-math» чернилами
+  ctx.font='800 64px Nunito,sans-serif';
+  const w1=ctx.measureText('portakal').width;
+  const w2=ctx.measureText('-math').width;
+  const icon=116, gap=26;
+  const bx=mid-(icon+gap+w1+w2)/2;
+  ctx.drawImage(orange,bx,114,icon,icon);
+  ctx.textAlign='left';
+  ctx.fillStyle=ORANGE; ctx.fillText('portakal',bx+icon+gap,200);
+  ctx.fillStyle=INK;    ctx.fillText('-math',bx+icon+gap+w1,200);
+
+  // локализованное название — тем же почерком, что и примеры
+  const title=I18N[code].title;
+  const size=fitText(ctx,title,`400 {s}px ${HAND(code)}`,108,W-200);
+  ctx.font=`400 ${size}px ${HAND(code)}`;
+  ctx.textAlign='center';
+  ctx.fillStyle=FG;
+  ctx.fillText(title,mid,356);
+
+  sample(ctx,code,mid,436);
+
+  await new Promise(r=>cv.toBlob(b=>{cv.__blob=b;r();},'image/png'));
+  return cv;
+}
+
+const orange=await loadOrange();
+// Шрифты обязаны быть загружены до отрисовки: canvas не ждёт, он нарисует
+// запасным шрифтом и не скажет об этом.
+await Promise.all([
+  document.fonts.load('800 68px Nunito'),
+  document.fonts.load('400 104px Neucha'),
+  document.fonts.load('400 104px Caveat'),
+  document.fonts.load('500 104px "Noto Sans Georgian"')
+]);
+await document.fonts.ready;
+
+const out=document.querySelector('#out');
+const save=new URLSearchParams(location.search).has('save');
+for(const code of CODES){
+  const cv=await draw(code,orange);
+  const url=URL.createObjectURL(cv.__blob);
+  const box=document.createElement('div');
+  box.className='shot';
+  const img=new Image(); img.src=url; img.alt='og:image — '+code;
+  const a=document.createElement('a');
+  a.className='dl'; a.href=url; a.download=`og-${code}.png`;
+  a.textContent=`скачать og-${code}.png (${Math.round(cv.__blob.size/1024)} КБ)`;
+  box.append(img,a);
+  out.append(box);
+  // Запись прямо в og/ — только с локальным сервером, который это умеет.
+  if(save) await fetch('__save/og/og-'+code+'.png',{method:'PUT',body:cv.__blob});
+}
+document.title='Картинки для превью — готово';
+</script>
+</body>
+</html>

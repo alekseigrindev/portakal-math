@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>portakal-math</title>
+<meta name="robots" content="index,follow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f4f8fd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+<style>:root{color-scheme:light}body{margin:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}</style>
+<script>
+try{
+  var c=JSON.parse(localStorage.getItem('schetnik-v1')||'{}').cfg;
+  if(c&&(c.theme==='dark'||c.theme==='light')) document.documentElement.dataset.theme=c.theme;
+}catch(e){}
+</script>
+<!-- Счётчика здесь нет намеренно: на странице про сбор данных ничего
+     собираться не должно. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=Caveat:wght@400;700&family=Nunito:wght@500;700;800&family=Noto+Sans+Georgian:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/controls.css">
+<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand brand-link" id="home" href="./">
+      <svg class="orange" viewBox="0 0 32 32" aria-hidden="true">
+        <circle class="peel" cx="16" cy="20" r="10"/>
+        <path class="shine" d="M10.5 16.5a7 7 0 0 1 5-3.5"/>
+        <path class="stem" d="M16 10.2V7.4"/>
+        <path class="leaf" d="M16.6 8.6c.7-2.9 3.4-4.6 6.2-4.2.3 2.9-1.8 5.4-4.7 5.6a3.6 3.6 0 0 1-1.5-.3z"/>
+      </svg>
+      <span class="brand-name"><span class="brand-fruit">portakal</span>-math</span>
+    </a>
+    <div class="site-header-controls">
+      <div class="langs" id="langs"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap doc">
+  <h1 id="ppTitle"></h1>
+  <p class="doc-date" id="ppDate"></p>
+  <p class="doc-lead" id="ppLead"></p>
+  <div id="ppBody"></div>
+
+  <p><a class="btn link" id="ppBack" href="./"></a></p>
+</main>
+
+<footer class="site-footer">
+  <p class="copy" id="copy"></p>
+  <a class="foot-link" id="privacyLink" href="privacy.html"></a>
+  <nav class="contacts" id="contacts"></nav>
+</footer>
+
+<script type="module" src="js/privacy.js"></script>
+</body>
+</html>

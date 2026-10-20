@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="uk" data-lang="uk">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>portakal-math — Тренажер лічби</title>
+<meta name="description" content="Усна лічба для початкової школи: додавання і віднімання до 100, множення і ділення, склад числа і розряди, лічба з кроком, годинник, римські цифри. Без реєстрації.">
+<!-- Превью в мессенджерах и соцсетях. Краулер не исполняет js, поэтому язык
+     превью задаётся не переключателем на странице, а адресом: у каждого языка
+     своя страница в своей папке. Копии собирает tools/langs.mjs — после правки
+     этого блока, заголовка или описания его нужно перезапустить. -->
+<!-- share:start -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="portakal-math">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:title" content="portakal-math — Тренажер лічби">
+<meta property="og:description" content="Усна лічба для початкової школи: додавання і віднімання до 100, множення і ділення, склад числа і розряди, лічба з кроком, годинник, римські цифри. Без реєстрації.">
+<meta property="og:image" content="../og/og-uk.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="portakal-math — Тренажер лічби">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" hreflang="x-default" href="../">
+<link rel="alternate" hreflang="en" href="../en/">
+<link rel="alternate" hreflang="pt" href="../pt/">
+<link rel="alternate" hreflang="tr" href="../tr/">
+<link rel="alternate" hreflang="kk" href="../kk/">
+<link rel="alternate" hreflang="ru" href="../ru/">
+<link rel="alternate" hreflang="uk" href="../uk/">
+<link rel="alternate" hreflang="ka" href="../ka/">
+<!-- share:end -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#f4f8fd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1320" media="(prefers-color-scheme: dark)">
+<!-- Критические правила до загрузки шрифтов и таблиц стилей: без них страница «прыгает». -->
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<script>
+try{
+  var c=JSON.parse(localStorage.getItem('schetnik-v1')||'{}').cfg;
+  if(c&&(c.theme==='dark'||c.theme==='light')) document.documentElement.dataset.theme=c.theme;
+}catch(e){}
+</script>
+<!-- Счётчик посещений Vercel Web Analytics. Стоит прямо здесь и грузится у
+     всех, потому что ничего не пишет на устройство: ни cookie, ни localStorage.
+     Требование спрашивать согласие относится к записи на устройство, поэтому
+     спрашивать нечего — и полосы внизу нет.
+     Адрес свой, а не чужой домен: Vercel отдаёт скрипт со своего края сети.
+     Вне Vercel (локально, GitHub Pages) запрос даёт 404 и ничего не ломает. -->
+<script defer src="/_vercel/insights/script.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Noto Sans Georgian — для грузинских букв, Caveat — для казахских (ә, ғ, қ, ң, ө, ұ, ү, һ):
+     в Neucha их нет. Файлы шрифтов скачиваются только тем, кому нужны (unicode-range). -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Neucha&family=Caveat:wght@400;700&family=Nunito:wght@500;700;800&family=Noto+Sans+Georgian:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/controls.css">
+<link rel="stylesheet" href="css/sheet.css">
+<link rel="stylesheet" href="css/play.css">
+<link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+<!-- Шапка вынесена из <main>: это обрамление страницы, а не её содержимое.
+     Описание проекта ушло в meta description — на экране оно только мешало. -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <div class="brand">
+      <svg class="orange" viewBox="0 0 32 32" aria-hidden="true">
+        <circle class="peel" cx="16" cy="20" r="10"/>
+        <path class="shine" d="M10.5 16.5a7 7 0 0 1 5-3.5"/>
+        <path class="stem" d="M16 10.2V7.4"/>
+        <path class="leaf" d="M16.6 8.6c.7-2.9 3.4-4.6 6.2-4.2.3 2.9-1.8 5.4-4.7 5.6a3.6 3.6 0 0 1-1.5-.3z"/>
+      </svg>
+      <h1 class="brand-text">
+        <span class="brand-name"><span class="brand-fruit">portakal</span>-math</span>
+        <span class="brand-sub" data-i18n="title">Тренажёр счёта</span>
+      </h1>
+    </div>
+    <div class="site-header-controls">
+      <a class="feed" id="feedCats" href="https://buymeacoffee.com/alekseigrindev"
+         target="_blank" rel="noopener noreferrer" data-i18n-label="feedCats">
+        <span class="feed-cat" aria-hidden="true">🐈</span>
+        <span class="feed-label" data-i18n="feedCats">Покормить котов</span>
+      </a>
+      <div class="langs" id="langs"></div>
+      <button class="theme-toggle" id="themeToggle" type="button"></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section id="setup" class="play" style="max-width:none">
+    <!-- Виден только тем, кто ещё не занимался: пришедшему по ссылке родителю
+         нужно объяснить пользу, а возвращающемуся ребёнку это уже мусор. -->
+    <div class="intro" id="intro">
+      <p class="intro-lead" data-i18n="intro"></p>
+      <ul class="intro-facts">
+        <li data-i18n="why.mental"></li>
+        <li data-i18n="why.endless"></li>
+        <li data-i18n="why.free"></li>
+      </ul>
+    </div>
+
+    <div class="tabs" role="tablist" id="tabs"></div>
+
+    <div class="sheet" aria-hidden="true">
+      <p class="sheet-cap" data-i18n="sampleCap">Так будет выглядеть пример</p>
+      <div id="sample"></div>
+    </div>
+
+    <!-- Настройки стоят перед «Начать», в порядке чтения: выбрал раздел,
+         посмотрел образец, при желании поправил условия — и начал. Свёрнуты
+         потому, что у «ритмического счёта» их одиннадцать групп, и развёрнутая
+         стена увела бы кнопку за край экрана. Значения по умолчанию разумные,
+         а выбранное видно в заголовке без раскрытия. -->
+    <details class="opts-box" id="optsBox">
+      <summary class="opts-summary">
+        <span class="opts-title" data-i18n="opts.title"></span>
+        <span class="opts-now" id="optsNow"></span>
+      </summary>
+      <div class="panel">
+        <div id="opts" style="display:grid;gap:1rem"></div>
+      </div>
+    </details>
+
+    <div class="startrow">
+      <button class="btn" id="start" type="button"></button>
+      <div class="today-row">
+        <button class="today-item today-link" id="food" type="button"></button>
+        <span class="today-item" id="streak"></span>
+      </div>
+      <p class="stat" id="stat"></p>
+    </div>
+
+    <button class="btn link fb-open" id="reportSetup" type="button" data-i18n="fb.open"></button>
+  </section>
+
+  <section id="play" class="play" hidden>
+    <!-- Строка состояния: только счётчик и секундомер. Всё, что можно нажать,
+         живёт внизу, в одном ряду, — наверху это отвлекало от примера. -->
+    <div class="play-status">
+      <span class="count" id="count"></span>
+      <span class="timer" id="timer" aria-hidden="true"></span>
+    </div>
+    <div class="pg" id="pg" aria-hidden="true"></div>
+    <div class="sheet"><div id="eqHost"></div></div>
+    <p class="msg" id="msg" aria-live="polite"></p>
+    <div class="pad" id="pad"></div>
+    <!-- Нижний ряд: выход слева, два кружка справа — «!» об ошибке и «?»
+         подсказка. Не на поле задания — там они закрыли бы пример — и не у
+         клавиатуры, чтобы их не задевали большим пальцем при наборе ответа. -->
+    <div class="play-foot">
+      <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
+      <button class="foot-btn warn fb-open" id="reportPlay" type="button" data-i18n-label="fb.open">
+        <span aria-hidden="true">!</span>
+      </button>
+      <button class="foot-btn" id="hintBtn" type="button" hidden data-i18n-label="hint.open">
+        <span aria-hidden="true">?</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="cats" class="cats" hidden>
+    <div class="play-status">
+      <button class="btn link" id="catsBack" type="button" data-i18n="toSetup"></button>
+      <span class="today-item" id="catsFood"></span>
+      <span class="today-item" id="catsCount"></span>
+      <button class="btn link fb-open" id="reportCats" type="button" data-i18n="fb.open"></button>
+    </div>
+    <div class="cats-grid" id="catsGrid"></div>
+    <p class="cats-next" id="catsNext"></p>
+  </section>
+
+  <section id="result" class="result" hidden>
+    <div class="new-cat" id="newCat" hidden>
+      <div id="newCatArt"></div>
+      <p class="new-cat-text" data-i18n="cats.new"></p>
+    </div>
+    <div class="mark-row">
+      <div class="stars" id="stars" role="img"></div>
+      <div class="res-text" id="resText"></div>
+    </div>
+    <div id="missBox" hidden>
+      <div class="glabel" style="margin-bottom:.5rem" data-i18n="missTitle">Над этими примерами стоит поработать</div>
+      <ul class="miss-list" id="missList"></ul>
+    </div>
+    <div class="row">
+      <button class="btn" id="again" type="button" data-i18n="again">Ещё раз</button>
+      <button class="btn alt" id="redo" type="button" hidden data-i18n="redo">Повторить ошибки</button>
+      <button class="btn link" id="toSetup" type="button" data-i18n="toSetup">К настройкам</button>
+      <button class="btn link fb-open" id="reportResult" type="button" data-i18n="fb.open"></button>
+    </div>
+  </section>
+</main>
+
+<!-- Прижат к низу: на короткой странице стоит внизу экрана, на длинной уезжает
+     вместе с содержимым. Во время решения примеров скрыт — там экран занят
+     клавиатурой и лишняя строка ломает раскладку на телефоне. -->
+<footer class="site-footer">
+  <p class="copy" id="copy"></p>
+  <a class="foot-link" id="privacyLink" href="privacy.html"></a>
+  <nav class="contacts" id="contacts"></nav>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

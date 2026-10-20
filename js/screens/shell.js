@@ -11,7 +11,9 @@ function applyStatic(){
   // панель пересобирается целиком: её подписи тоже переводятся
   invalidatePad(); renderPad(null);
   document.documentElement.lang=S.lang;
-  document.title=t('title');
+  // То же, что в <title> языковых страниц: иначе краулер и человек видели бы
+  // у одной страницы разные заголовки.
+  document.title='portakal-math — '+t('title');
   const desc=document.querySelector('meta[name="description"]');
   if(desc) desc.content=t('lead');   // с экрана убрали, для ссылок и поиска оставили
   for(const el of document.querySelectorAll('[data-i18n]')) el.textContent=t(el.dataset.i18n);

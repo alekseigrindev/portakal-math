@@ -6,6 +6,7 @@ import {gen} from '../core/index.js';
 import {$} from '../view/dom.js';
 import {fitSheet,buildItem} from '../view/item.js';
 import {applyStatic} from './shell.js';
+import {syncLangUrl} from './langurl.js';
 
 function chip(text,pressed,onclick,disabled){
   const b=document.createElement('button');
@@ -136,7 +137,8 @@ function renderLangs(){
     sel.append(o);
   }
   sel.addEventListener('change',()=>{
-    S.lang=sel.value; save(); setLang(sel.value); applyStatic(); renderSetup();
+    S.lang=sel.value; save(); setLang(sel.value); syncLangUrl(sel.value);
+    applyStatic(); renderSetup();
     $('#langSelect').focus();   // после перерисовки фокус не должен падать в начало страницы
   });
   host.append(sel);

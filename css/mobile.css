@@ -32,6 +32,7 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   .startrow{justify-items:stretch}
   .startrow .btn{width:100%}
   .stat{text-align:center}
+  .doc h1{font-size:1.8rem}
   /* игра: один экран, клавиатура у большого пальца */
   body.playing .wrap{padding-block:.5rem 0;gap:.5rem;min-height:100dvh;grid-template-rows:auto 1fr}
   body.playing header{display:none}
