@@ -74,3 +74,16 @@
   border:1.5px solid var(--orange);border-radius:12px;background:var(--surface)}
 .new-cat svg{width:3.4rem;height:3.4rem;flex:none}
 .new-cat-text{margin:0;font:400 1.5rem/1.1 var(--hand);color:var(--orange)}
+
+/* Значок обратной связи в строке состояния: без собственной высоты,
+   в стороне от клавиатуры. */
+.status-right{display:flex;align-items:center;gap:.6rem}
+/* Сам значок маленький, чтобы не поднимать строку состояния, но зона нажатия
+   расширена псевдоэлементом: на телефоне каждый лишний пиксель высоты
+   отнимается у примера. */
+.fb-icon{display:inline-flex;align-items:center;justify-content:center;position:relative;
+  width:1.4rem;height:1.4rem;padding:0;flex:none;
+  border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
+.fb-icon::after{content:'';position:absolute;inset:-.55rem}
+.fb-icon svg{width:1.05rem;height:1.05rem;fill:currentColor}
+.fb-icon:hover{color:var(--ink);background:var(--grid)}

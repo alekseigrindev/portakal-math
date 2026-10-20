@@ -101,7 +101,16 @@ try{
          наверху он только отвлекал от примера. -->
     <div class="play-status">
       <span class="count" id="count"></span>
-      <span class="timer" id="timer" aria-hidden="true"></span>
+      <span class="status-right">
+        <span class="timer" id="timer" aria-hidden="true"></span>
+        <!-- Значок, а не ссылка: строка состояния не должна расти, а кнопка
+             должна быть подальше от клавиатуры, чтобы её не задевали. -->
+        <button class="fb-icon fb-open" id="reportPlay" type="button" data-i18n-label="fb.open">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5c-4.97 0-9 3.13-9 7 0
+            2.2 1.31 4.16 3.36 5.45-.17 1.1-.7 2.28-1.6 3.3 1.9-.2 3.45-.9 4.6-1.7.83.18 1.72.28
+            2.64.28 4.97 0 9-3.13 9-7s-4.03-7.33-9-7.33z"/></svg>
+        </button>
+      </span>
     </div>
     <div class="pg" id="pg" aria-hidden="true"></div>
     <div class="sheet"><div id="eqHost"></div></div>
@@ -115,6 +124,7 @@ try{
       <button class="btn link" id="catsBack" type="button" data-i18n="toSetup"></button>
       <span class="today-item" id="catsFood"></span>
       <span class="today-item" id="catsCount"></span>
+      <button class="btn link fb-open" id="reportCats" type="button" data-i18n="fb.open"></button>
     </div>
     <div class="cats-grid" id="catsGrid"></div>
     <p class="cats-next" id="catsNext"></p>

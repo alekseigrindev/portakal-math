@@ -7,6 +7,7 @@
   background-size:var(--cell) var(--cell);
   border:1.5px solid var(--line);border-radius:6px;
   padding:var(--cell) 0 var(--cell) var(--cell);overflow:hidden;
+  min-height:var(--round-min-h,0);
 }
 .sheet-cap{margin:0 0 .4rem;font-size:.85rem;color:var(--muted)}
 .eq{display:flex;align-items:center;color:var(--ink);width:max-content;max-width:100%}

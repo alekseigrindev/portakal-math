@@ -121,3 +121,9 @@ body.playing .site-footer{display:none}
   color:inherit;text-decoration:underline;text-underline-offset:3px}
 /* пояснение на первом экране */
 .intro{margin:0;max-width:34rem;color:var(--muted);font-size:.95rem;text-wrap:balance}
+/* выбор вида обращения в окне обратной связи */
+.fb-kinds{display:flex;gap:.45rem}
+.fb-kind{min-height:2.3rem;padding:.3rem .9rem;border:1.5px solid var(--line);
+  background:transparent;color:var(--fg);border-radius:999px;
+  font:700 .92rem var(--ui);cursor:pointer}
+.fb-kind[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg);border-color:var(--ink)}

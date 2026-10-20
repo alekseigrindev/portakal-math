@@ -85,8 +85,8 @@ export default {
  'msg.pick':'Escolha uma resposta.',
  'n.shapeSkip':'Tarefas que não dão com as figuras escolhidas são ignoradas.',
  // отчёт об ошибке
- 'fb.open':'Relatar um erro',
- 'fb.title':'Relatar um erro',
+ 'fb.open':'Feedback',
+ 'fb.title':'Feedback',
  'fb.note':'Enviamos o que está na tela agora e suas configurações. Nome e e-mail não são necessários.',
  'fb.what':'O que deu errado?',
  'fb.withImage':'Anexar a imagem do exercício',
@@ -115,5 +115,8 @@ export default {
  'cats.all':'Todos os gatos reunidos!',
  'cats.title':'Gatos',
  'cats.new':'Um gato novo!',
- 'intro':'Treino de cálculo mental para o ensino fundamental. Escolha um tema e comece a resolver — sem cadastro.'
+ 'intro':'Treino de cálculo mental para o ensino fundamental. Escolha um tema e comece a resolver — sem cadastro.',
+ 'fb.kindProblem':'Problema',
+ 'fb.kindIdea':'Ideia',
+ 'fb.whatIdea':'O que você sugere?'
 };

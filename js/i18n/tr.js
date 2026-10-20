@@ -85,8 +85,8 @@ export default {
  'msg.pick':'Bir cevap seç.',
  'n.shapeSkip':'Seçilen şekillerle yapılamayan görevler atlanır.',
  // отчёт об ошибке
- 'fb.open':'Hata bildir',
- 'fb.title':'Hata bildir',
+ 'fb.open':'Geri bildirim',
+ 'fb.title':'Geri bildirim',
  'fb.note':'Şu anda ekranda olanı ve ayarlarınızı göndeririz. Ad ve e-posta gerekmez.',
  'fb.what':'Ne ters gitti?',
  'fb.withImage':'Sorunun görüntüsünü ekle',
@@ -115,5 +115,8 @@ export default {
  'cats.all':'Tüm kediler toplandı!',
  'cats.title':'Kediler',
  'cats.new':'Yeni kedi!',
- 'intro':'İlkokul için zihinden hesap antrenörü. Bir konu seçin ve çözmeye başlayın — kayıt gerekmez.'
+ 'intro':'İlkokul için zihinden hesap antrenörü. Bir konu seçin ve çözmeye başlayın — kayıt gerekmez.',
+ 'fb.kindProblem':'Hata',
+ 'fb.kindIdea':'Fikir',
+ 'fb.whatIdea':'Ne önerirsiniz?'
 };

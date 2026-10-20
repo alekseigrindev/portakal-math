@@ -159,8 +159,8 @@ export default {
  'say.row':'Four shapes: {v}',
  'msg.pick':'Choose an answer.',
  'n.shapeSkip':'Tasks that cannot be made from the chosen shapes are skipped.',
- 'fb.open':'Report a problem',
- 'fb.title':'Report a problem',
+ 'fb.open':'Feedback',
+ 'fb.title':'Feedback',
  'fb.note':'We will send what is on the screen now and your settings. No name or email needed.',
  'fb.what':'What went wrong?',
  'fb.withImage':'Attach a picture of the exercise',
@@ -189,5 +189,8 @@ export default {
  'cats.all':'All cats collected!',
  'cats.title':'Cats',
  'cats.new':'A new cat!',
- 'intro':'A mental maths trainer for primary school. Pick a topic and start solving — no sign-up needed.'
+ 'intro':'A mental maths trainer for primary school. Pick a topic and start solving — no sign-up needed.',
+ 'fb.kindProblem':'Problem',
+ 'fb.kindIdea':'Idea',
+ 'fb.whatIdea':'What would you suggest?'
 };

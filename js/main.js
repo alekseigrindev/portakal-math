@@ -16,6 +16,10 @@ import {applyTheme,toggleTheme} from './screens/theme.js';
 /* ---------- горячие клавиши ---------- */
 document.addEventListener('keydown',e=>{
   if($('#play').hidden||e.ctrlKey||e.metaKey||e.altKey) return;
+  // С открытым окном обратной связи цифры уходили бы и в текст, и в пример
+  if(document.querySelector('dialog[open]')) return;
+  const t=e.target;
+  if(t&&(t.tagName==='TEXTAREA'||t.tagName==='INPUT'||t.isContentEditable)) return;
   if(/^[0-9]$/.test(e.key)){ press(e.key); e.preventDefault(); }
   else if(e.key==='Backspace'){ back(); e.preventDefault(); }
   else if(e.key==='Enter'){ if(document.activeElement&&document.activeElement.id==='back') return; go(); e.preventDefault(); }

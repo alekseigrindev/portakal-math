@@ -5,8 +5,10 @@ import {buildReport} from './snapshot.js';
 import {visibleSheet,offscreenSheet,release,markupOf,pngOf} from './capture.js';
 import {getLog} from './log.js';
 import {send} from './send.js';
+import {pauseRound,resumeRound} from '../screens/round.js';
 
 let dlg=null, shot=null, note=null, withImg=null, status=null, sendBtn=null, preview=null;
+let kindBtns=null, kind='problem';
 
 function el(tag,cls,text){
   const e=document.createElement(tag);
@@ -22,6 +24,18 @@ function build(){
 
   const h=el('h2','fb-title',t('fb.title'));
   const note1=el('p','fb-note',t('fb.note'));
+
+  // Ошибка и идея приходят из одного места, но разбираются по-разному:
+  // метка ставится сразу, чтобы не угадывать потом по тексту.
+  const kinds=el('div','fb-kinds');
+  kindBtns={};
+  for(const k of ['problem','idea']){
+    const b=el('button','fb-kind');
+    b.type='button';
+    b.addEventListener('click',()=>setKind(k));
+    kinds.append(b);
+    kindBtns[k]=b;
+  }
 
   note=el('textarea','fb-text');
   note.rows=3;
@@ -45,14 +59,26 @@ function build(){
   const cancel=el('button','btn link',t('fb.cancel'));
   cancel.type='button';
   cancel.addEventListener('click',()=>dlg.close());
+  dlg.addEventListener('close',resumeRound);
   sendBtn=el('button','btn',t('fb.send'));
   sendBtn.type='button';
   sendBtn.addEventListener('click',submit);
   row.append(sendBtn,cancel);
 
-  form.append(h,note1,note,imgRow,preview,status,row);
+  form.append(h,note1,kinds,note,imgRow,preview,status,row);
   dlg.append(form);
   document.body.append(dlg);
+}
+
+function setKind(k){
+  kind=k;
+  for(const [key,b] of Object.entries(kindBtns)){
+    b.textContent=t(key==='problem'?'fb.kindProblem':'fb.kindIdea');
+    b.setAttribute('aria-pressed',String(key===kind));
+  }
+  const ph=t(kind==='problem'?'fb.what':'fb.whatIdea');
+  note.placeholder=ph;
+  note.setAttribute('aria-label',ph);
 }
 
 async function submit(){
@@ -63,6 +89,7 @@ async function submit(){
   // висеть на «Отправляем…» без единого слова пользователю
   try{
     const report=buildReport(note.value);
+    report.kind=kind;
     report.markup=shot.markup;
     report.markupRebuilt=shot.rebuilt;   // снимок не с экрана, а пересобран из истории
     await send(report,withImg.checked?shot.png:null);
@@ -82,12 +109,11 @@ async function openDialog(){
   // подписи могли смениться вместе с языком
   dlg.querySelector('.fb-title').textContent=t('fb.title');
   dlg.querySelector('.fb-note').textContent=t('fb.note');
-  note.placeholder=t('fb.what');
-  note.setAttribute('aria-label',t('fb.what'));
   withImg.nextSibling.textContent=t('fb.withImage');
   sendBtn.textContent=t('fb.send');
   dlg.querySelector('.btn.link').textContent=t('fb.cancel');
   note.value='';
+  setKind('problem');
   status.textContent='';
   preview.hidden=true;
   preview.replaceChildren();
@@ -99,6 +125,7 @@ async function openDialog(){
   const node=last?offscreenSheet(last.item):visibleSheet();
 
   shot={markup:markupOf(node),png:null,rebuilt:!!last};
+  pauseRound();                       // время раунда не должно расти, пока пишут
   dlg.showModal();
 
   // картинка собирается дольше разметки — показываем её, когда будет готова

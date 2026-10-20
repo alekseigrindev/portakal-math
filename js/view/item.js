@@ -25,7 +25,7 @@ function fitRound(sheet,items){
   if(!sheet||!items.length) return;
   const n=Math.max(10,...items.map(it=>cellsN(it)+3));
   sheet.style.setProperty('--n',String(n));
-  sheet.style.minHeight='';
+  sheet.style.removeProperty('--round-min-h');
 
   const probe=document.createElement('div');
   probe.className='sheet';
@@ -46,7 +46,11 @@ function fitRound(sheet,items){
     max=Math.max(max,probe.getBoundingClientRect().height);
   }
   probe.remove();
-  sheet.style.minHeight=Math.ceil(max)+'px';
+  // Отдаём высоту переменной, а не свойством: на телефоне игровой экран —
+  // сетка фиксированной высоты, лист там занимает остаток и так постоянен,
+  // а жёсткий min-height мешал ему сжиматься и в режиме часов выталкивал
+  // содержимое за край короткого экрана.
+  sheet.style.setProperty('--round-min-h',Math.ceil(max)+'px');
 }
 const buildItem=(it,opt)=>(VIEWS[it.view]||buildEq)(it,opt);
 

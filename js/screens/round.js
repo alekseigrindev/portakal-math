@@ -12,6 +12,7 @@ import {logEvent} from '../feedback/log.js';
 
 let R=null;
 let clock=null;
+let pausedAt=null;
 
 const mmss=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
 
@@ -225,7 +226,16 @@ function finish(){
 // Кнопки «ещё раз», «повторить ошибки» и выход: раунд наружу не отдаём, только действия над ним.
 function again(){ if(R) startRound(makeItems(R.mode,S,S.count),R.mode); }
 function redo(){ if(R&&R.miss&&R.miss.length) startRound(R.miss.slice(),R.mode); }
-function quit(){ stopClock(); if(R) clearTimeout(R.timer); R=null; }
+function quit(){ stopClock(); pausedAt=null; if(R) clearTimeout(R.timer); R=null; }
+
+// Пока открыто окно обратной связи, секундомер стоит: иначе время раунда
+// вырастет на то, что человек потратил на письмо.
+function pauseRound(){
+  if(R&&pausedAt===null){ pausedAt=Date.now(); stopClock(); }
+}
+function resumeRound(){
+  if(R&&pausedAt!==null){ R.t0+=Date.now()-pausedAt; pausedAt=null; startClock(); }
+}
 const isPlaying=()=>!!R;
 
 // Снимок раунда для отчёта об ошибке: только чтение, сам R наружу не отдаём.
@@ -245,4 +255,4 @@ function roundSnapshot(){
   };
 }
 
-export {startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,roundSnapshot};
+export {startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,roundSnapshot,pauseRound,resumeRound};

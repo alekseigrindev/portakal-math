@@ -49,6 +49,7 @@ function clean(report){
     lang:str(report.lang,5),
     mode:str(report.mode,20),
     text:str(report.text,2000),
+    kind:report.kind==='idea'?'idea':'problem',
     cfg:json(report.cfg),
     round:json(report.round),
     log:json(report.log),
@@ -147,9 +148,9 @@ export default async function handler(req,res){
     const first=(r.text||'').split('\n')[0].slice(0,60);
     const issue=await api(`/repos/${repo}/issues`,{method:'POST',
       body:JSON.stringify({
-        title:`[отчёт] ${r.mode}${first?': '+first:''}`,
+        title:`[${r.kind==='idea'?'идея':'ошибка'}] ${r.mode}${first?': '+first:''}`,
         body:issueBody(r,imageUrl,commit),
-        labels:['feedback',`mode:${r.mode}`]
+        labels:['feedback',r.kind,`mode:${r.mode}`]
       })});
     return res.status(200).json({ok:true,url:issue.html_url});
   }catch(e){
