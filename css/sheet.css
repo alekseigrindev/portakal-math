@@ -78,6 +78,23 @@
 .clock .hh{stroke:var(--ink);stroke-width:6.5;stroke-linecap:round}
 .clock .mh{stroke:var(--red);stroke-width:3.5;stroke-linecap:round}
 .clock .pin{fill:var(--ink)}
+/* Минутное кольцо снаружи — цветом минутной стрелки, чтобы связь «эта стрелка
+   читается по этим числам» была видна без слов. Живёт только в подсказке. */
+.clock .mr{font:700 17px var(--ui);fill:var(--red);text-anchor:middle;dominant-baseline:central}
+.hintface{width:min(17rem,100%)}
+
+/* Подсказка про римские цифры: таблица «буква — цена» и два разбора.
+   --cell задаём сами: клетки живут на листе, а окно подсказки — не лист. */
+.rhint{display:grid;gap:.7rem;justify-items:center}
+.rkeys{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+.rkey{display:grid;justify-items:center;gap:.1rem;min-width:2.3rem;background:var(--paper);
+  border:1.5px solid var(--line);border-radius:8px;padding:.25rem .4rem}
+.rsym{font:400 1.5rem/1 var(--hand);color:var(--ink)}
+.rval{font:800 .78rem/1 var(--ui);color:var(--muted)}
+.rline{--cell:1.9rem}
+.rline .c.rsub{color:var(--red)}
+/* галочка на листе нужна, в подсказке она только сдвигает строку с середины */
+.rhint .eq::after{content:none}
 .clock .time{display:flex;align-items:center}
 .clock.ok .box{border-color:var(--green)} .clock.ok .box .c{color:var(--green)}
 .clock.bad .box{border-color:var(--red);animation:shake .35s} .clock.bad .box .c{color:var(--red)}

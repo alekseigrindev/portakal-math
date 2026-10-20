@@ -26,10 +26,13 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   .panel{padding:.8rem;gap:.85rem}
   .chip{min-height:2.75rem;padding:.3rem .85rem}
   .sheet{--cell:min(2.6rem,calc((100vw - 3.5rem)/var(--n,10)))}
-  /* кнопка «Начать» всегда под рукой */
-  .startrow{position:sticky;bottom:0;z-index:5;margin-inline:-.75rem;padding:.6rem .75rem calc(.6rem + env(safe-area-inset-bottom));
-    background:linear-gradient(to top,var(--bg) 78%,transparent);justify-items:stretch}
+  /* Прилипание к низу убрано: элемент лежит в ячейке сетки, прилипать ему
+     некуда, и правило всё это время ничего не делало. Первый экран теперь
+     помещается целиком, так что кнопка и без того на виду. */
+  .startrow{justify-items:stretch}
   .startrow .btn{width:100%}
+  /* полоса цели должна идти вровень с кнопкой, а не быть у́же её */
+  .today{max-width:none}
   .stat{text-align:center}
   /* игра: один экран, клавиатура у большого пальца */
   body.playing .wrap{padding-block:.5rem 0;gap:.5rem;min-height:100dvh;grid-template-rows:auto 1fr}
@@ -43,7 +46,7 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   /* отступ под вырез экрана теперь у кнопки выхода — она стоит ниже клавиатуры */
   /* отступ сверху увеличен намеренно: кнопка выхода не должна читаться
      как пятый ряд клавиатуры и ловить случайные нажатия большим пальцем */
-  body.playing .abort{margin-top:.6rem;margin-bottom:env(safe-area-inset-bottom)}
+  body.playing .play-foot{margin-top:.6rem;margin-bottom:env(safe-area-inset-bottom)}
   body.playing .key{min-height:max(3.4rem,6.8dvh);font-size:1.7rem}
   body.playing .key.go{font-size:1rem;padding-inline:.2rem}
   .bond{margin-inline:auto;width:min(14rem,70%)}
@@ -57,7 +60,7 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   body.playing header{display:none}
   body.playing .wrap{max-width:none;padding-block:.4rem;padding-inline:max(1rem,env(safe-area-inset-left))}
   body.playing #play{max-width:none;grid-template-columns:minmax(0,1fr) 15rem;grid-template-rows:auto auto minmax(0,1fr) auto auto;column-gap:1.25rem;row-gap:.35rem}
-  body.playing #play .play-status,body.playing #play .pg,body.playing #play .sheet,body.playing #play .msg,body.playing #play .abort{grid-column:1}
+  body.playing #play .play-status,body.playing #play .pg,body.playing #play .sheet,body.playing #play .msg,body.playing #play .play-foot{grid-column:1}
   body.playing #play .sheet{align-self:center;--cell:min(2.4rem,calc((100vw - 21rem)/var(--n,10)))}
   body.playing #play .pad{grid-column:2;grid-row:1/6;align-self:center;gap:.4rem}
   body.playing .key{min-height:2.7rem;font-size:1.3rem}

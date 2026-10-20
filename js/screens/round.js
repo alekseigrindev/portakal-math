@@ -7,6 +7,7 @@ import {$} from '../view/dom.js';
 import {CATS,earnedCount} from '../cats.js';
 import {buildCat} from '../view/cat.js';
 import {fitRound,buildItem} from '../view/item.js';
+import {hasHint} from '../view/hints.js';
 import {renderPad} from './pad.js';
 import {logEvent} from '../feedback/log.js';
 
@@ -83,6 +84,9 @@ function renderPlay(){
   c.textContent=`${R.i+1} / ${R.items.length}`;
   c.setAttribute('aria-label',t('count',{i:R.i+1,n:R.items.length}));
   renderProgress(); renderPad(R.items[R.i],R.vals[0]); renderEq('',false); setMsg('');
+  // Подсказка есть не у каждого вида. Внутри раунда примеры одного вида, так
+  // что кнопка не появляется и не исчезает между шагами — ряд не дёргается.
+  $('#hintBtn').hidden=!hasHint(R.items[R.i]);
   updateGoLabel();
 }
 function press(d){
@@ -237,6 +241,8 @@ function resumeRound(){
   if(R&&pausedAt!==null){ R.t0+=Date.now()-pausedAt; pausedAt=null; startClock(); }
 }
 const isPlaying=()=>!!R;
+// Текущий пример нужен окну подсказки, чтобы знать, какую подсказку открыть.
+const currentItem=()=>R&&R.i<R.items.length?R.items[R.i]:null;
 
 // Снимок раунда для отчёта об ошибке: только чтение, сам R наружу не отдаём.
 function roundSnapshot(){
@@ -255,4 +261,4 @@ function roundSnapshot(){
   };
 }
 
-export {startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,roundSnapshot,pauseRound,resumeRound};
+export {startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,currentItem,roundSnapshot,pauseRound,resumeRound};

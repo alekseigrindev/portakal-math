@@ -70,17 +70,39 @@ try{
 
 <main class="wrap">
   <section id="setup" class="play" style="max-width:none">
-    <!-- Видно только тем, кто ещё не занимался: пришедшему по ссылке родителю
-         нужно объяснить, что это, а возвращающемуся ребёнку это уже мусор. -->
-    <p class="intro" id="intro" data-i18n="intro"></p>
-    <div class="tabs" role="tablist" id="tabs"></div>
-    <div class="panel">
-      <div id="opts" style="display:grid;gap:1rem"></div>
+    <!-- Виден только тем, кто ещё не занимался: пришедшему по ссылке родителю
+         нужно объяснить пользу, а возвращающемуся ребёнку это уже мусор. -->
+    <div class="intro" id="intro">
+      <p class="intro-lead" data-i18n="intro"></p>
+      <ul class="intro-facts">
+        <li data-i18n="why.mental"></li>
+        <li data-i18n="why.endless"></li>
+        <li data-i18n="why.free"></li>
+      </ul>
     </div>
+
+    <div class="tabs" role="tablist" id="tabs"></div>
+
     <div class="sheet" aria-hidden="true">
       <p class="sheet-cap" data-i18n="sampleCap">Так будет выглядеть пример</p>
       <div id="sample"></div>
     </div>
+
+    <!-- Настройки стоят перед «Начать», в порядке чтения: выбрал раздел,
+         посмотрел образец, при желании поправил условия — и начал. Свёрнуты
+         потому, что у «ритмического счёта» их одиннадцать групп, и развёрнутая
+         стена увела бы кнопку за край экрана. Значения по умолчанию разумные,
+         а выбранное видно в заголовке без раскрытия. -->
+    <details class="opts-box" id="optsBox">
+      <summary class="opts-summary">
+        <span class="opts-title" data-i18n="opts.title"></span>
+        <span class="opts-now" id="optsNow"></span>
+      </summary>
+      <div class="panel">
+        <div id="opts" style="display:grid;gap:1rem"></div>
+      </div>
+    </details>
+
     <div class="startrow">
       <button class="btn" id="start" type="button"></button>
       <div class="today">
@@ -92,8 +114,9 @@ try{
         <div class="goal-bar"><span id="goalFill"></span></div>
       </div>
       <p class="stat" id="stat"></p>
-      <button class="btn link fb-open" id="reportSetup" type="button" data-i18n="fb.open"></button>
     </div>
+
+    <button class="btn link fb-open" id="reportSetup" type="button" data-i18n="fb.open"></button>
   </section>
 
   <section id="play" class="play" hidden>
@@ -116,7 +139,15 @@ try{
     <div class="sheet"><div id="eqHost"></div></div>
     <p class="msg" id="msg" aria-live="polite"></p>
     <div class="pad" id="pad"></div>
-    <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
+    <!-- Нижний ряд: выход слева, подсказка в правом углу. Кнопка подсказки не
+         на поле задания — там она закрыла бы пример, — и не у клавиатуры,
+         чтобы её не задевали большим пальцем при наборе ответа. -->
+    <div class="play-foot">
+      <button class="btn abort" id="back" type="button" data-i18n="abort"></button>
+      <button class="hint-btn" id="hintBtn" type="button" hidden data-i18n-label="hint.open">
+        <span aria-hidden="true">?</span>
+      </button>
+    </div>
   </section>
 
   <section id="cats" class="cats" hidden>

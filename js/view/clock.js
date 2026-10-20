@@ -7,8 +7,9 @@ import {t} from '../i18n/index.js';
 const ROMAN12=['XII','I','II','III','IV','V','VI','VII','VIII','IX','X','XI'];
 const at=(deg,r)=>[120+Math.sin(deg*Math.PI/180)*r,120-Math.cos(deg*Math.PI/180)*r];
 
-function face(it){
-  const svg=mk('svg',{viewBox:'0 0 240 240','aria-hidden':'true'});
+function face(it,opt={}){
+  const {ring=false}=opt;
+  const svg=mk('svg',{viewBox:ring?'-18 -18 276 276':'0 0 240 240','aria-hidden':'true'});
   mk('circle',{class:'cf',cx:120,cy:120,r:110},svg);
   // минутные штрихи
   for(let i=0;i<60;i++){
@@ -30,7 +31,32 @@ function face(it){
   mk('line',{class:'hh',x1:120,y1:120,x2:hx,y2:hy},svg);
   mk('line',{class:'mh',x1:120,y1:120,x2:mx,y2:my},svg);
   mk('circle',{class:'pin',cx:120,cy:120,r:6},svg);
+
+  // Минутное кольцо снаружи — это и есть приём, которым учат читать часы:
+  // длинная стрелка смотрит на «3», а снаружи написано «15». Цифры, а не
+  // слова, поэтому подсказка одинаково работает на всех семи языках.
+  if(ring){
+    for(let i=0;i<12;i++){
+      const [x,y]=at(i*30,128);
+      const node=mk('text',{class:'mr',x,y},svg);
+      node.textContent=String(i*5);
+    }
+  }
   return svg;
+}
+
+// Циферблат для окна подсказки. Показываем не текущий пример, а один и тот же
+// учебный: 2:35. Подсказка объясняет способ, а не выдаёт ответ, а 2:35 удобнее
+// всего для объяснения. Минутная стрелка стоит ровно на «7», но это не 7 минут,
+// а 35 — именно здесь дети и путаются. При этом стрелки смотрят в разные
+// стороны: на 7:35 они почти совпадали, и разобрать, где какая, было нельзя.
+const HINT_TIME={view:'clock',h:2,m:35,numerals:'arabic'};
+
+function buildClockHint(){
+  const wrap=document.createElement('div');
+  wrap.className='clock hintface';
+  wrap.append(face(HINT_TIME,{ring:true}));
+  return wrap;
 }
 
 function buildClock(it,opt={}){
@@ -56,4 +82,4 @@ function buildClock(it,opt={}){
   return wrap;
 }
 
-export {buildClock};
+export {buildClock,buildClockHint};

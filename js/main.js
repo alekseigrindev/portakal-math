@@ -10,6 +10,7 @@ import {renderSetup} from './screens/setup.js';
 import {renderCats} from './screens/cats.js';
 import {startRound, press, back, go, choose, again, redo, quit} from './screens/round.js';
 import {openDialog} from './feedback/dialog.js';
+import {openHint} from './screens/hint.js';
 import {flushQueue} from './feedback/send.js';
 import {applyTheme,toggleTheme} from './screens/theme.js';
 
@@ -33,6 +34,7 @@ $('#again').addEventListener('click',again);
 $('#redo').addEventListener('click',redo);
 $('#toSetup').addEventListener('click',toSetup);
 for(const b of document.querySelectorAll('.fb-open')) b.addEventListener('click',openDialog);
+$('#hintBtn').addEventListener('click',openHint);
 $('#themeToggle').addEventListener('click',toggleTheme);
 $('#food').addEventListener('click',()=>{ renderCats(); show('cats'); });
 $('#catsBack').addEventListener('click',toSetup);

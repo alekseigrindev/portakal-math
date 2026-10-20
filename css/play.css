@@ -50,7 +50,7 @@
 
 /* Выход из раунда. Контурная, а не залитая: заливка такого размера под пальцем
    кричит об опасности, которой здесь нет, и притягивает случайные нажатия. */
-.abort{min-height:2.6rem;margin-top:.25rem;font-size:.95rem;font-weight:700;
+.abort{min-height:2.6rem;font-size:.95rem;font-weight:700;
   background:transparent;color:var(--red);border:1.5px solid var(--line)}
 .abort:hover{border-color:var(--red);background:var(--red);color:var(--ink-fg)}
 .food-gain{font-weight:800;color:var(--orange)}
@@ -81,6 +81,16 @@
 /* Сам значок маленький, чтобы не поднимать строку состояния, но зона нажатия
    расширена псевдоэлементом: на телефоне каждый лишний пиксель высоты
    отнимается у примера. */
+/* Нижний ряд игрового экрана: выход тянется, подсказка стоит в правом углу
+   постоянного размера — ряд не меняет высоту от языка к языку. */
+.play-foot{display:flex;align-items:stretch;gap:.6rem;margin-top:.25rem}
+.play-foot .abort{flex:1}
+.hint-btn{flex:none;width:2.6rem;min-height:2.6rem;border:1.5px solid var(--line);
+  border-radius:50%;background:var(--surface);color:var(--muted);cursor:pointer;
+  font:800 1.3rem/1 var(--ui);display:grid;place-items:center}
+.hint-btn:hover{border-color:var(--orange);color:var(--orange)}
+.hint-btn[hidden]{display:none}
+
 .fb-icon{display:inline-flex;align-items:center;justify-content:center;position:relative;
   width:1.4rem;height:1.4rem;padding:0;flex:none;
   border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}

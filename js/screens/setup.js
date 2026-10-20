@@ -72,6 +72,25 @@ function renderSample(){
   fitSheet(host,it);
   host.append(buildItem(it,{vals:[],cursor:false}));
 }
+// Что выбрано сейчас — коротко, в заголовке свёрнутых настроек.
+// Берём первые три значащих пункта: полный список был бы длиннее самой панели.
+function renderOptsNow(){
+  const cfg=S[S.mode], parts=[];
+  for(const o of [...OPTS[S.mode],COUNT_OPT]){
+    if(o.show&&!o.show(cfg)) continue;
+    if(o.multi){
+      const sel=cfg[o.key]||[];
+      parts.push(sel.length===o.list.length?t('c.all_n'):sel.length+'/'+o.list.length);
+    }else{
+      const target=o.global?S:cfg;
+      const hit=o.choices.find(([v])=>v===target[o.key]);
+      if(hit) parts.push(t(hit[1]));
+    }
+    if(parts.length>=3) break;
+  }
+  $('#optsNow').textContent=parts.join(' · ');
+}
+
 function renderToday(){
   const food=$('#food'), streak=$('#streak'), goal=$('#goal'), fill=$('#goalFill');
 
@@ -102,7 +121,7 @@ function renderStat(){
 function renderSetup(){
   // пояснение показываем, пока ребёнок ещё ни разу не занимался
   $('#intro').hidden=progress.food>0;
-  renderLangs(); renderTabs(); renderOpts(); renderSample(); renderStat(); renderToday();
+  renderLangs(); renderTabs(); renderOpts(); renderSample(); renderStat(); renderToday(); renderOptsNow();
   $('#start').textContent=t('start',{n:S.count});
 }
 
