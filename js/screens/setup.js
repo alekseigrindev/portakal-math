@@ -123,6 +123,9 @@ function renderSetup(){
 // Языков семь, кнопками они занимали бы две строки — выпадающий список компактнее
 // и на телефоне открывается системным выбором.
 // В шапке место дорого: видимой подписи нет, название остаётся для чтения с экрана.
+// В списке — двухбуквенный код: самоназвание вроде «Українська» не влезало и
+// обрезалось. Раз читают коды, по ним и сортируем. Полное имя — в подсказке
+// и для чтения с экрана.
 function renderLangs(){
   const host=$('#langs'); host.replaceChildren();
   const sel=document.createElement('select');
@@ -130,9 +133,10 @@ function renderLangs(){
   sel.id='langSelect';
   sel.setAttribute('aria-label',t('langLabel'));
   sel.title=t('langLabel');
-  for(const [code,name] of LANGS){
+  for(const [code,name] of [...LANGS].sort((a,b)=>a[0].localeCompare(b[0]))){
     const o=document.createElement('option');
-    o.value=code; o.textContent=name; o.lang=code;
+    o.value=code; o.textContent=code.toUpperCase(); o.lang=code;
+    o.title=name; o.setAttribute('aria-label',name);
     if(S.lang===code) o.selected=true;
     sel.append(o);
   }

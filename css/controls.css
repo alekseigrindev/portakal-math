@@ -22,7 +22,7 @@
 .site-header-controls{display:flex;align-items:center;gap:.5rem;flex:none}
 
 /* выбор языка: подпись только для чтения с экрана — в шапке ей места нет */
-.lang-select{min-height:2.5rem;max-width:9.5rem;padding:.3rem 1.9rem .3rem .65rem;
+.lang-select{min-height:2.5rem;padding:.3rem 1.9rem .3rem .65rem;
   border:1.5px solid var(--line);background:var(--surface);color:var(--fg);border-radius:8px;
   font:700 .9rem/1.2 var(--ui);cursor:pointer;appearance:none;
   text-overflow:ellipsis;
@@ -37,6 +37,11 @@
   color:var(--fg);cursor:pointer}
 .theme-toggle:hover{border-color:var(--ink);color:var(--ink)}
 .theme-toggle svg{width:1.25rem;height:1.25rem}
+
+/* QR-код: белая подложка в любой теме, иначе не все камеры его читают */
+.qr-pic{width:min(16rem,100%);border-radius:8px;overflow:hidden;border:1.5px solid var(--line)}
+.qr-pic svg{display:block;width:100%;height:auto}
+.qr-link{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere;text-align:center}
 
 /* вкладки */
 .tabs{display:flex;gap:.5rem;flex-wrap:wrap}

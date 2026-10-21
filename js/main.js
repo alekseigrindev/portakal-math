@@ -13,6 +13,7 @@ import {openDialog} from './feedback/dialog.js';
 import {openHint} from './screens/hint.js';
 import {flushQueue} from './feedback/send.js';
 import {applyTheme,toggleTheme} from './screens/theme.js';
+import {openQr} from './screens/qr.js';
 import {pageLang,goToLang,syncLangUrl} from './screens/langurl.js';
 
 /* ---------- горячие клавиши ---------- */
@@ -37,6 +38,7 @@ $('#toSetup').addEventListener('click',toSetup);
 for(const b of document.querySelectorAll('.fb-open')) b.addEventListener('click',openDialog);
 $('#hintBtn').addEventListener('click',openHint);
 $('#themeToggle').addEventListener('click',toggleTheme);
+$('#qrOpen').addEventListener('click',openQr);
 $('#food').addEventListener('click',()=>{ renderCats(); show('cats'); });
 $('#catsBack').addEventListener('click',toSetup);
 

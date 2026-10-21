@@ -173,6 +173,8 @@ export default {
  'foot.contact':'კონტაქტი',
  'theme.toDark':'მუქი თემა',
  'theme.toLight':'ღია თემა',
+ 'qr.open':'ამ გვერდის QR-კოდი',
+ 'qr.title':'გახსენით ტელეფონზე',
  'abort':'შეწყვეტა',
  'feedCats':'კატების გამოკვება',
  'res.stars':'ვარსკვლავი: {a} / 3',

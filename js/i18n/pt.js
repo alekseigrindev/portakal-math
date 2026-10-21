@@ -99,6 +99,8 @@ export default {
  'foot.contact':'Contato',
  'theme.toDark':'Tema escuro',
  'theme.toLight':'Tema claro',
+ 'qr.open':'QR code desta página',
+ 'qr.title':'Abra no celular',
  'abort':'Parar',
  'feedCats':'Alimentar os gatos',
  'res.stars':'Estrelas: {a} de 3',

@@ -173,6 +173,8 @@ export default {
  'foot.contact':'Байланыс',
  'theme.toDark':'Қараңғы түр',
  'theme.toLight':'Жарық түр',
+ 'qr.open':'Осы беттің QR-коды',
+ 'qr.title':'Телефоннан ашыңыз',
  'abort':'Тоқтату',
  'feedCats':'Мысықтарды тамақтандыру',
  'res.stars':'Жұлдыз: 3-тен {a}',

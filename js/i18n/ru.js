@@ -99,6 +99,8 @@ export default {
  'foot.contact':'Связаться',
  'theme.toDark':'Тёмная тема',
  'theme.toLight':'Светлая тема',
+ 'qr.open':'QR-код этой страницы',
+ 'qr.title':'Откройте на телефоне',
  'abort':'Прервать',
  'feedCats':'Покормить котов',
  'res.stars':'Звёзд: {a} из 3',

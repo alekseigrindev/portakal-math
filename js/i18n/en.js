@@ -173,6 +173,8 @@ export default {
  'foot.contact':'Contact',
  'theme.toDark':'Dark theme',
  'theme.toLight':'Light theme',
+ 'qr.open':'QR code for this page',
+ 'qr.title':'Open on your phone',
  'abort':'Stop',
  'feedCats':'Feed the cats',
  'res.stars':'Stars: {a} of 3',

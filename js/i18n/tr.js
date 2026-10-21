@@ -99,6 +99,8 @@ export default {
  'foot.contact':'İletişim',
  'theme.toDark':'Koyu tema',
  'theme.toLight':'Açık tema',
+ 'qr.open':'Bu sayfanın QR kodu',
+ 'qr.title':'Telefonda açın',
  'abort':'Durdur',
  'feedCats':'Kedileri doyur',
  'res.stars':'{a} / 3 yıldız',

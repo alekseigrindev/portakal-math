@@ -173,6 +173,8 @@ export default {
  'foot.contact':'Зв’язатися',
  'theme.toDark':'Темна тема',
  'theme.toLight':'Світла тема',
+ 'qr.open':'QR-код цієї сторінки',
+ 'qr.title':'Відкрийте на телефоні',
  'abort':'Перервати',
  'feedCats':'Погодувати котів',
  'res.stars':'Зірок: {a} з 3',
