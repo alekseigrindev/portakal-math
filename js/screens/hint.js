@@ -3,7 +3,7 @@
 // сдвинув пример, а сдвигать его между шагами нельзя.
 import {t} from '../i18n/index.js';
 import {S} from '../state.js';
-import {hintSteps,hintArt} from '../view/hints.js';
+import {hintKind,hintSteps,hintArt} from '../view/hints.js';
 import {pauseRound,resumeRound,currentItem} from './round.js';
 import {logEvent} from '../feedback/log.js';
 
@@ -41,19 +41,19 @@ function build(){
 }
 
 function openHint(){
-  const it=currentItem();
-  if(!it) return;
+  const kind=hintKind(currentItem());
+  if(!kind) return;
   if(!dlg) build();
 
-  title.textContent=t('hint.'+it.view+'.title');
+  title.textContent=t('hint.'+kind+'.title');
   okBtn.textContent=t('hint.close');
 
   art.replaceChildren();
-  const pic=hintArt(it.view,S[S.mode]||{});
+  const pic=hintArt(kind,S[S.mode]||{});
   if(pic) art.append(pic);
 
   steps.replaceChildren();
-  for(const s of hintSteps(it.view)){
+  for(const s of hintSteps(kind)){
     const li=document.createElement('li');
     if(s.mark){
       const m=document.createElement('span');
@@ -65,7 +65,7 @@ function openHint(){
     steps.append(li);
   }
 
-  logEvent('hint',{view:it.view});
+  logEvent('hint',{kind});
   pauseRound();
   dlg.showModal();
 }

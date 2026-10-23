@@ -11,6 +11,15 @@
 .orange .shine{fill:none;stroke:var(--paper);stroke-width:2;stroke-linecap:round;opacity:.55}
 .orange .stem{fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round}
 .orange .leaf{fill:var(--green)}
+/* мяч вместо апельсина — только в футбольном оформлении */
+.ball{display:none;width:2.4rem;height:2.4rem;flex:none}
+:root[data-skin="football"] .orange{display:none}
+:root[data-skin="football"] .ball{display:block}
+/* Мяч всегда белый с чёрным: так его узнают и в тёмной теме */
+.ball-skin{fill:#fff;stroke:#1b1b1b;stroke-width:1.4}
+.ball-patch{fill:#1b1b1b}
+.ball-seam{fill:none;stroke:#1b1b1b;stroke-width:1.2;stroke-linecap:round}
+#skinToggle[aria-pressed="true"]{border-color:var(--green);color:var(--green)}
 
 .brand-text{margin:0;display:grid;min-width:0}
 .brand-name{font:400 1.45rem/1.05 var(--hand);letter-spacing:.01em;color:var(--fg);
@@ -166,7 +175,7 @@ body.playing .site-footer{display:none}
   border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
   transform:rotate(-45deg);transition:transform .15s}
 .opts-box[open] .opts-summary::before{transform:rotate(45deg)}
-.opts-title{font-weight:800;font-size:.95rem}
+.opts-title{font-weight:800;font-size:.95rem;color:var(--red)}
 .opts-now{color:var(--muted);font-size:.88rem;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .opts-box .panel{border:0;border-top:1.5px solid var(--line);border-radius:0;background:transparent}
 /* выбор вида обращения в окне обратной связи */

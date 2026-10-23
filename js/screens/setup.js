@@ -7,6 +7,7 @@ import {$} from '../view/dom.js';
 import {fitSheet,buildItem} from '../view/item.js';
 import {applyStatic} from './shell.js';
 import {syncLangUrl} from './langurl.js';
+import {foodIcon} from './skin.js';
 
 function chip(text,pressed,onclick,disabled){
   const b=document.createElement('button');
@@ -96,7 +97,7 @@ function renderToday(){
   const food=$('#food'), streak=$('#streak');
 
   food.hidden=!progress.food;
-  food.textContent=progress.food?'\u{1F408} '+progress.food:'';
+  food.textContent=progress.food?foodIcon()+' '+progress.food:'';
   food.setAttribute('aria-label',t('food.total',{n:progress.food}));
 
   // Один день — это ещё не серия, показываем начиная с двух.

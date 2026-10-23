@@ -7,9 +7,11 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   h1{font-size:2rem}
   .lead{font-size:.92rem;margin-top:.2rem}
   /* язык — в одну строку с заголовком не нужен: компактный ряд */
-  .site-header-inner{padding:.5rem .6rem;gap:.45rem}
-  .site-header-controls{gap:.35rem}
-  .orange{width:2.1rem;height:2.1rem}
+  .site-header-inner{padding:.5rem .6rem;gap:.35rem}
+  /* пять элементов управления: зазоры и кнопки чуть плотнее, чтобы на
+     390 пикселях шапка оставалась в одну строку */
+  .site-header-controls{gap:.25rem}
+  .orange,.ball{width:2.1rem;height:2.1rem}
   .brand-name{font-size:1.25rem}
   /* С кнопкой «покормить котов» в шапке стало четыре элемента, и подзаголовок
      начал обрезаться многоточием вместе с названием языка. Убираем его:
@@ -18,7 +20,7 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   .brand-sub{display:none}
   .lang-select{min-height:2.6rem;font-size:.82rem;
     padding:.3rem 1.5rem .3rem .5rem;background-position:calc(100% - .75rem) 55%,calc(100% - .48rem) 55%}
-  .theme-toggle{width:2.4rem;height:2.4rem}
+  .theme-toggle{width:2.25rem;height:2.4rem}
   /* вкладки — горизонтальная прокрутка вместо трёх строк кнопок */
   .tabs{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;margin-inline:-.75rem;padding:.1rem .75rem .35rem;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
@@ -80,10 +82,10 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   .contacts{gap:.55rem .9rem}
 }
 
-/* Совсем узкие экраны (iPhone SE первого поколения и подобные): четыре элемента
-   в строку не встают. Переносим управление под бренд — шапка выше, но ничего
-   не вылезает за край. */
-@media (max-width:360px){
+/* Узкие экраны (до iPhone 12 mini и SE включительно): бренд и пять элементов
+   управления в строку не встают. Переносим управление под бренд — шапка выше,
+   но ничего не вылезает за край. */
+@media (max-width:389px){
   .site-header-inner{flex-wrap:wrap;justify-content:center;row-gap:.4rem}
   .brand{width:100%;justify-content:center}
 }

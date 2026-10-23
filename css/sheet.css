@@ -102,6 +102,12 @@
 .rline .c.rsub{color:var(--red)}
 /* галочка на листе нужна, в подсказке она только сдвигает строку с середины */
 .rhint .eq::after{content:none}
+
+/* Подсказка по арифметике: задача, стрелка и решение под ней, по центру. */
+.ahint{--cell:1.9rem;display:grid;gap:.35rem;justify-items:center}
+.ahint .eq::after{content:none}
+.ahint-arrow{font:800 1.2rem/1 var(--ui);color:var(--muted)}
+.ahint .bond{width:min(11rem,100%)}
 .clock .time{display:flex;align-items:center}
 .clock.ok .box{border-color:var(--green)} .clock.ok .box .c{color:var(--green)}
 .clock.bad .box{border-color:var(--red);animation:shake .35s} .clock.bad .box .c{color:var(--red)}

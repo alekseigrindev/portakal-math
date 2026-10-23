@@ -38,14 +38,19 @@ function detectLang(){
 let lang=FALLBACK;
 const setLang=code=>{ if(I18N[code]) lang=code; };
 const getLang=()=>lang;
+// Оформление тоже меняет слова: в футбольном корм — это голы. Вариант строки
+// лежит под ключом <оформление>:<ключ>; нет варианта — берётся обычная.
+let skin='';
+const setSkin=s=>{ skin=s||''; };
 
 function t(k,v){
   const d=I18N[lang]||I18N[FALLBACK];
-  let s=d[k];
+  let s=skin?d[skin+':'+k]:undefined;
+  if(s===undefined) s=d[k];
   if(s===undefined) s=I18N[FALLBACK][k];
   if(s===undefined) s=k;
   return v?s.replace(/\{(\w+)\}/g,(m,n)=>v[n]!==undefined?v[n]:m):s;
 }
 const sayOp=op=>t(op==='+'?'say.plus':op==='−'?'say.minus':op==='×'?'say.times':'say.div');
 
-export {I18N,LANGS,CODES,detectLang,setLang,getLang,t,sayOp};
+export {I18N,LANGS,CODES,detectLang,setLang,getLang,setSkin,t,sayOp};

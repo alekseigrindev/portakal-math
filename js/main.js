@@ -5,15 +5,16 @@ import {makeItems} from './core/index.js';
 import {$} from './view/dom.js';
 import {show} from './screens/nav.js';
 import {initPad} from './screens/pad.js';
-import {applyStatic} from './screens/shell.js';
+import {applyStatic,applyLabels} from './screens/shell.js';
 import {renderSetup} from './screens/setup.js';
 import {renderCats} from './screens/cats.js';
-import {startRound, press, back, go, choose, again, redo, quit} from './screens/round.js';
+import {startRound, press, back, go, choose, again, redo, quit, renderResult} from './screens/round.js';
 import {openDialog} from './feedback/dialog.js';
 import {openHint} from './screens/hint.js';
 import {flushQueue} from './feedback/send.js';
 import {applyTheme,toggleTheme} from './screens/theme.js';
 import {openQr} from './screens/qr.js';
+import {applySkin,toggleSkin} from './screens/skin.js';
 import {pageLang,goToLang,syncLangUrl} from './screens/langurl.js';
 
 /* ---------- горячие клавиши ---------- */
@@ -39,6 +40,16 @@ for(const b of document.querySelectorAll('.fb-open')) b.addEventListener('click'
 $('#hintBtn').addEventListener('click',openHint);
 $('#themeToggle').addEventListener('click',toggleTheme);
 $('#qrOpen').addEventListener('click',openQr);
+// Оформление меняет подписи и награды, поэтому открытый экран перерисовываем.
+// Экран решения не трогаем: там от оформления только фон, а перерисовка
+// сбросила бы набранный ответ.
+$('#skinToggle').addEventListener('click',()=>{
+  toggleSkin();
+  applyLabels();
+  if(!$('#setup').hidden) renderSetup();
+  else if(!$('#cats').hidden) renderCats();
+  else if(!$('#result').hidden) renderResult();
+});
 $('#food').addEventListener('click',()=>{ renderCats(); show('cats'); });
 $('#catsBack').addEventListener('click',toSetup);
 
@@ -56,6 +67,7 @@ setLang(S.lang);
 if(fromUrl) syncLangUrl(S.lang);   // адрес можно скопировать и отправить
 else goToLang(S.lang);
 applyTheme();
+applySkin();
 initPad({press,back,go,choose});
 applyStatic();          // здесь же собирается панель ввода — уже на нужном языке
 renderSetup();

@@ -2,8 +2,18 @@
 // рисовать восемь отдельных силуэтов незачем, узнаваемость даёт поза.
 import {mk} from './svg.js';
 
+// Футболки для футбольного оформления: у каждого кота своя команда, номер —
+// его место в коллекции. На жёлтой белый номер не читается, поэтому цвет
+// номера задан к каждой футболке.
+const KITS=[
+  ['#d62828','#fff'],['#1d4ed8','#fff'],['#f6c90e','#1b1b1b'],['#15803d','#fff'],
+  ['#7c3aed','#fff'],['#111827','#fff'],['#ea580c','#fff'],['#0e7490','#fff']
+];
+
+// kit — номер на футболке (1…8); 0 — без футболки. Запертому коту она не
+// положена: силуэт должен оставаться силуэтом.
 function buildCat(cat,opt={}){
-  const {locked=false}=opt;
+  const {locked=false,kit=0}=opt;
   const svg=mk('svg',{viewBox:'0 0 64 64','aria-hidden':'true'});
   const fur=locked?'var(--grid)':cat.fur;
   const belly=locked?'var(--grid)':cat.belly;
@@ -16,6 +26,14 @@ function buildCat(cat,opt={}){
 
   mk('path',{d:'M32 28c-10 0-16 12-17 24 0 3 4 5 17 5s17-2 17-5c-1-12-7-24-17-24z',fill:fur},g);
   if(!locked) mk('path',{d:'M32 38c-5 0-8 8-8 15 0 2 2 3 8 3s8-1 8-3c0-7-3-15-8-15z',fill:belly},g);
+  if(!locked&&kit){
+    const [shirt,num]=KITS[(kit-1)%KITS.length];
+    // Футболка до головы: ворот закрывает голова, рукава торчат по бокам.
+    mk('path',{d:'M24 35l-7 4.5 2.6 5.5 3.6-1.8V54h17.6V43.2l3.6 1.8 2.6-5.5-7-4.5z',fill:shirt},g);
+    const n=mk('text',{x:32,y:51,'text-anchor':'middle','font-size':9,'font-weight':800,
+      'font-family':'Nunito,system-ui,sans-serif',fill:num},g);
+    n.textContent=String(kit);
+  }
 
   // Уши крупные и вынесены за край головы, иначе на 70 пикселях сливаются с ней
   mk('path',{d:'M17 7l3 19 14-9zM47 7l-3 19-14-9z',fill:fur},g);
