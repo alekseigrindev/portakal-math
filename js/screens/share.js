@@ -15,8 +15,7 @@ const NETS=[
   ['Viber','#7360f2',(u,s)=>`viber://forward?text=${e(s+' '+u)}`],
   ['Facebook','#1877f2',u=>`https://www.facebook.com/sharer/sharer.php?u=${e(u)}`],
   ['X','#111111',(u,s)=>`https://x.com/intent/post?url=${e(u)}&text=${e(s)}`],
-  ['VK','#0077ff',u=>`https://vk.com/share.php?url=${e(u)}`],
-  ['E-mail','#6b7280',(u,s)=>`mailto:?subject=${e(s)}&body=${e(u)}`]
+  ['Threads','#000000',(u,s)=>`https://www.threads.com/intent/post?text=${e(s+' '+u)}`]
 ];
 
 let dlg=null, title=null, list=null, copyBtn=null, okBtn=null, url='';
@@ -83,7 +82,7 @@ function openShare(){
     const a=document.createElement('a');
     a.className='chip share-net';
     a.href=href(url,text);
-    // viber:// и mailto: открывают приложение, новая вкладка им не нужна
+    // viber:// открывает приложение, новая вкладка ему не нужна
     if(a.protocol.startsWith('http')){ a.target='_blank'; a.rel='noopener noreferrer'; }
     a.style.setProperty('--net',color);
     a.textContent=name;
