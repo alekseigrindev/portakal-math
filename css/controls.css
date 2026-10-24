@@ -11,15 +11,6 @@
 .orange .shine{fill:none;stroke:var(--paper);stroke-width:2;stroke-linecap:round;opacity:.55}
 .orange .stem{fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round}
 .orange .leaf{fill:var(--green)}
-/* мяч вместо апельсина — только в футбольном оформлении */
-.ball{display:none;width:2.4rem;height:2.4rem;flex:none}
-:root[data-skin="football"] .orange{display:none}
-:root[data-skin="football"] .ball{display:block}
-/* Мяч всегда белый с чёрным: так его узнают и в тёмной теме */
-.ball-skin{fill:#fff;stroke:#1b1b1b;stroke-width:1.4}
-.ball-patch{fill:#1b1b1b}
-.ball-seam{fill:none;stroke:#1b1b1b;stroke-width:1.2;stroke-linecap:round}
-#skinToggle[aria-pressed="true"]{border-color:var(--green);color:var(--green)}
 
 .brand-text{margin:0;display:grid;min-width:0}
 .brand-name{font:400 1.45rem/1.05 var(--hand);letter-spacing:.01em;color:var(--fg);
@@ -50,7 +41,12 @@
 /* QR-код: белая подложка в любой теме, иначе не все камеры его читают */
 .qr-pic{width:min(16rem,100%);border-radius:8px;overflow:hidden;border:1.5px solid var(--line)}
 .qr-pic svg{display:block;width:100%;height:auto}
-.qr-link{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere;text-align:center}
+/* «Поделиться»: соцсети сеткой, у каждой метка её цвета — узнают по цвету
+   быстрее, чем читают название */
+.share-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;width:min(18rem,100%)}
+.share-net{display:flex;align-items:center;gap:.5rem;text-decoration:none;font-weight:700}
+.share-net::before{content:"";width:.7rem;height:.7rem;border-radius:50%;background:var(--net);flex:none}
+.share-copy{width:min(18rem,100%);font-weight:800}
 
 /* вкладки */
 .tabs{display:flex;gap:.5rem;flex-wrap:wrap}

@@ -37,12 +37,6 @@
 .stars svg{width:2.6rem;height:2.6rem}
 .stars .on{fill:var(--orange)}
 .stars .off{fill:none;stroke:var(--line);stroke-width:1.8}
-/* мячи вместо звёзд: незаработанный — бледный контур, как пустая звезда */
-.stars .ball-skin.on{fill:#fff;stroke:#1b1b1b;stroke-width:1.2}
-.stars .ball-patch.on{fill:#1b1b1b}
-.stars .ball-seam.on{fill:none;stroke:#1b1b1b;stroke-width:1.1}
-.stars .ball-patch.off{fill:var(--line);stroke:none}
-.stars .ball-seam.off{stroke-width:1.1}
 .res-text{display:grid;gap:.15rem}
 .res-text b{font-size:1.25rem}
 .miss-list{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:.45rem}

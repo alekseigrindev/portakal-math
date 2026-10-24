@@ -1,16 +1,13 @@
 // QR-код открытой языковой версии: навёл камеру телефона — и тренажёр уже на
-// нужном языке. Ссылка берётся из адреса языка, а не из location.href: настройки
-// и прочее в ?/# сюда не нужны, а сам адрес короче — и код крупнее.
+// нужном языке. Адрес — из pageUrl: без ?/# он короче, и код крупнее.
 import {S} from '../state.js';
 import {t} from '../i18n/index.js';
-import {langHref} from './langurl.js';
+import {pageUrl} from './langurl.js';
 import {pauseRound,resumeRound} from './round.js';
 import qrcode from '../vendor/qrcode.mjs';
 
 const NS='http://www.w3.org/2000/svg';
-let dlg=null, title=null, pic=null, link=null, okBtn=null;
-
-const pageUrl=()=>new URL(langHref(S.lang),location.href).href;
+let dlg=null, title=null, pic=null, okBtn=null;
 
 // Каждый тёмный модуль — квадрат 1×1 в одном пути. Поля в 4 модуля требует
 // стандарт: без них камера путает край кода с тем, что вокруг.
@@ -47,9 +44,6 @@ function build(){
   pic=document.createElement('div');
   pic.className='qr-pic';
 
-  link=document.createElement('a');
-  link.className='qr-link';
-
   const row=document.createElement('div');
   row.className='fb-row';
   okBtn=document.createElement('button');
@@ -58,7 +52,7 @@ function build(){
   okBtn.addEventListener('click',()=>dlg.close());
   row.append(okBtn);
 
-  body.append(title,pic,link,row);
+  body.append(title,pic,row);
   dlg.append(body);
   dlg.addEventListener('close',resumeRound);
   // щелчок по затемнению вокруг окна тоже закрывает
@@ -68,14 +62,12 @@ function build(){
 
 function openQr(){
   if(!dlg) build();
-  const url=pageUrl();
+  const url=pageUrl(S.lang);
   title.textContent=t('qr.title');
-  okBtn.textContent=t('qr.ok');
+  okBtn.textContent=t('ok');
   const svg=qrSvg(url);
   svg.setAttribute('aria-label',t('qr.title'));
   pic.replaceChildren(svg);
-  link.href=url;
-  link.textContent=url.replace(/^https?:\/\//,'');
   pauseRound();
   dlg.showModal();
 }

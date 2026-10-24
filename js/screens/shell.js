@@ -6,20 +6,6 @@ import {updateGoLabel} from './round.js';
 import {invalidatePad,renderPad} from './pad.js';
 import {renderFooter} from './footer.js';
 import {renderToggle} from './theme.js';
-import {renderSkinToggle} from './skin.js';
-
-// Подписи из разметки. Отдельно от applyStatic: их же обновляет смена
-// оформления, а пересобирать панель ввода посреди раунда ей нельзя.
-function applyLabels(){
-  for(const el of document.querySelectorAll('[data-i18n]')) el.textContent=t(el.dataset.i18n);
-  // для элементов, у которых подпись прячется на узком экране: смысл остаётся
-  // в aria-label и во всплывающей подсказке
-  for(const el of document.querySelectorAll('[data-i18n-label]')){
-    const v=t(el.dataset.i18nLabel);
-    el.setAttribute('aria-label',v);
-    el.title=v;
-  }
-}
 
 function applyStatic(){
   // панель пересобирается целиком: её подписи тоже переводятся
@@ -30,12 +16,18 @@ function applyStatic(){
   document.title='portakal-math — '+t('title');
   const desc=document.querySelector('meta[name="description"]');
   if(desc) desc.content=t('lead');   // с экрана убрали, для ссылок и поиска оставили
-  applyLabels();
+  for(const el of document.querySelectorAll('[data-i18n]')) el.textContent=t(el.dataset.i18n);
+  // для элементов, у которых подпись прячется на узком экране: смысл остаётся
+  // в aria-label и во всплывающей подсказке
+  for(const el of document.querySelectorAll('[data-i18n-label]')){
+    const v=t(el.dataset.i18nLabel);
+    el.setAttribute('aria-label',v);
+    el.title=v;
+  }
   const bs=$('#bsKey'); if(bs) bs.setAttribute('aria-label',t('erase'));
   renderFooter();
   renderToggle();
-  renderSkinToggle();
   updateGoLabel();
 }
 
-export {applyStatic,applyLabels};
+export {applyStatic};

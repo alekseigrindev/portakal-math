@@ -28,40 +28,6 @@
   --ink:#93b8ff; --ink-fg:#0e1320; --red:#ff8a80; --green:#72d99c; --orange:#ffa24d; color-scheme:dark;
   --warn:#f0b429; --warn-bg:#3a2d10;
 }
-/* Футбольное оформление: поверх темы, а не вместо неё. Меняется зелень
-   палитры и фон — газон с полосами покоса и разметкой центра поля. Лист с
-   примером остаётся тетрадным: на нём пишут, и клетка там нужна. Правила
-   стоят после тёмной темы и сильнее её на один атрибут, поэтому сами
-   переопределяют тёмные значения. */
-:root[data-skin="football"]{
-  --bg:#dff0da; --pitch-stripe:#d2e9cc; --pitch-line:rgba(255,255,255,.85);
-  --grid-faint:#cfe5ca; --paper:#fcfefb; --grid:#c4ddc3;
-  --surface:#ffffff; --line:#a9cbab; --fg:#15281b; --muted:#4b6553;
-}
-@media (prefers-color-scheme:dark){
-  :root[data-skin="football"]:not([data-theme="light"]){
-    --bg:#0e1d13; --pitch-stripe:#112418; --pitch-line:rgba(255,255,255,.12);
-    --grid-faint:#15281b; --paper:#111f16; --grid:#24402e;
-    --surface:#15241a; --line:#2f4b39; --fg:#e2f1e6; --muted:#97b4a0;
-  }
-}
-:root[data-skin="football"][data-theme="dark"]{
-  --bg:#0e1d13; --pitch-stripe:#112418; --pitch-line:rgba(255,255,255,.12);
-  --grid-faint:#15281b; --paper:#111f16; --grid:#24402e;
-  --surface:#15241a; --line:#2f4b39; --fg:#e2f1e6; --muted:#97b4a0;
-}
-/* Разметка привязана к окну, а не к странице: центральный круг и средняя
-   линия всегда посреди экрана, сколько ни листай. */
-:root[data-skin="football"] body{
-  background-color:var(--bg);
-  background-image:
-    radial-gradient(circle at 50% 50%,transparent 0 7rem,var(--pitch-line) 7rem calc(7rem + 3px),transparent calc(7rem + 3px)),
-    linear-gradient(transparent calc(50% - 1.5px),var(--pitch-line) calc(50% - 1.5px) calc(50% + 1.5px),transparent calc(50% + 1.5px)),
-    repeating-linear-gradient(var(--bg) 0 3.5rem,var(--pitch-stripe) 3.5rem 7rem);
-  background-size:auto;
-  background-attachment:fixed;
-}
-
 /* В Neucha нет казахских букв, и слово «жаттықтырғышы» рисовалось двумя шрифтами
    сразу. Caveat покрывает весь казахский алфавит, поэтому для него берём её целиком.
    Грузинскому отдельное правило не нужно: грузинских букв в Neucha нет вовсе,

@@ -25,6 +25,9 @@ const BASE=(()=>{
 })();
 
 const langHref=code=>BASE+code+'/';
+// Полный адрес языковой версии — для QR-кода и «Поделиться». Без location.search
+// и hash: настройки и прочее в ?/# тому, кто откроет ссылку, не нужны.
+const pageUrl=code=>new URL(langHref(code),location.href).href;
 
 // Переход на языковую версию по-настоящему, с перезагрузкой. Нужен только на
 // корне: там в адресе языка нет, а значит и <html lang>, и заголовок, и
@@ -43,4 +46,4 @@ function syncLangUrl(code){
   catch(e){}                       // file:// и прочие адреса, где история запрещена
 }
 
-export {pageLang,langHref,goToLang,syncLangUrl};
+export {pageLang,langHref,pageUrl,goToLang,syncLangUrl};

@@ -10,7 +10,6 @@ import {fitRound,buildItem} from '../view/item.js';
 import {hasHint} from '../view/hints.js';
 import {renderPad} from './pad.js';
 import {logEvent} from '../feedback/log.js';
-import {foodIcon,football,BALL,PATCH,SEAMS} from './skin.js';
 
 let R=null;
 let clock=null;
@@ -152,24 +151,18 @@ function advance(){
 }
 const STAR='M12 2.4l2.9 6 6.6.9-4.8 4.6 1.2 6.6L12 17.4 6.1 20.5l1.2-6.6L2.5 9.3l6.6-.9z';
 
-// В футбольном оформлении вместо звёзд мячи: заработанный — белый с
-// чёрными заплатками, незаработанный — контур, как пустая звезда.
 function renderStars(earned){
   const host=$('#stars');
   host.replaceChildren();
   host.setAttribute('aria-label',t('res.stars',{a:earned}));
-  const ns='http://www.w3.org/2000/svg';
   for(let i=1;i<=3;i++){
-    const svg=document.createElementNS(ns,'svg');
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
     svg.setAttribute('viewBox','0 0 24 24');
     svg.setAttribute('aria-hidden','true');
-    const parts=football()?[[BALL,'ball-skin'],[PATCH,'ball-patch'],[SEAMS,'ball-seam']]:[[STAR,'']];
-    for(const [d,cls] of parts){
-      const p=document.createElementNS(ns,'path');
-      p.setAttribute('d',d);
-      p.setAttribute('class',(i<=earned?'on':'off')+(cls?' '+cls:''));
-      svg.append(p);
-    }
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',STAR);
+    p.setAttribute('class',i<=earned?'on':'off');
+    svg.append(p);
     host.append(svg);
   }
 }
@@ -182,23 +175,7 @@ function showNewCat(before){
   box.hidden=now<=before;
   const art=$('#newCatArt');
   art.replaceChildren();
-  if(!box.hidden) art.append(buildCat(CATS[now-1],{kit:football()?now:0}));
-}
-
-function renderResult(){
-  if(!R||!R.sum) return;
-  const {catsBefore,earned,first,n,secs}=R.sum;
-  showNewCat(catsBefore);
-  renderStars(earned);
-
-  const rt=$('#resText'); rt.replaceChildren();
-  const b=document.createElement('b'); b.textContent=t('res.try',{a:first,n});
-  const p=document.createElement('span'); p.textContent=t('res.time',{t:Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0')});
-  const food=document.createElement('span');
-  food.className='food-gain';
-  food.textContent=foodIcon()+' +'+n;
-  food.setAttribute('aria-label',t('res.food',{n}));
-  rt.append(b,p,food);
+  if(!box.hidden) art.append(buildCat(CATS[now-1]));
 }
 
 function finish(){
@@ -218,13 +195,21 @@ function finish(){
   // награда за усилие, а не за точность.
   const catsBefore=earnedCount(progress.food);
   addProgress(n);
+  showNewCat(catsBefore);
 
   // Одна звезда даётся за сам факт пройденного раунда — «провалить» тренировку
   // нельзя. Вторая и третья — за аккуратность.
   const earned=pct>=0.9?3:pct>=0.7?2:1;
-  // Итог запоминаем: при смене оформления на экране итога его перерисовывают.
-  R.sum={catsBefore,earned,first,n,secs};
-  renderResult();
+  renderStars(earned);
+
+  const rt=$('#resText'); rt.replaceChildren();
+  const b=document.createElement('b'); b.textContent=t('res.try',{a:first,n});
+  const p=document.createElement('span'); p.textContent=t('res.time',{t:Math.floor(secs/60)+':'+String(secs%60).padStart(2,'0')});
+  const food=document.createElement('span');
+  food.className='food-gain';
+  food.textContent='\u{1F408} +'+n;
+  food.setAttribute('aria-label',t('res.food',{n}));
+  rt.append(b,p,food);
 
   const miss=R.res.filter(r=>!r.first).map(r=>r.item);
   R.miss=miss;
@@ -273,4 +258,4 @@ function roundSnapshot(){
   };
 }
 
-export {renderResult,startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,currentItem,roundSnapshot,pauseRound,resumeRound};
+export {startRound,press,back,go,choose,updateGoLabel,again,redo,quit,isPlaying,currentItem,roundSnapshot,pauseRound,resumeRound};

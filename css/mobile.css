@@ -11,7 +11,7 @@ body{margin:0;-webkit-text-size-adjust:100%;touch-action:manipulation}
   /* пять элементов управления: зазоры и кнопки чуть плотнее, чтобы на
      390 пикселях шапка оставалась в одну строку */
   .site-header-controls{gap:.25rem}
-  .orange,.ball{width:2.1rem;height:2.1rem}
+  .orange{width:2.1rem;height:2.1rem}
   .brand-name{font-size:1.25rem}
   /* С кнопкой «покормить котов» в шапке стало четыре элемента, и подзаголовок
      начал обрезаться многоточием вместе с названием языка. Убираем его:
