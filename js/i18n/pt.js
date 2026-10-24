@@ -101,6 +101,7 @@ export default {
  'theme.toLight':'Tema claro',
  'qr.open':'QR code desta página',
  'qr.title':'Abra no celular',
+ 'qr.ok':'OK',
  'skin.toFootball':'Visual de futebol',
  'skin.toBase':'Visual normal',
  'football:res.food':'Gols: +{n}',

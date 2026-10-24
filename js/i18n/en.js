@@ -175,6 +175,7 @@ export default {
  'theme.toLight':'Light theme',
  'qr.open':'QR code for this page',
  'qr.title':'Open on your phone',
+ 'qr.ok':'OK',
  'skin.toFootball':'Football look',
  'skin.toBase':'Regular look',
  'football:res.food':'Goals: +{n}',

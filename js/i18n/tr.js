@@ -101,6 +101,7 @@ export default {
  'theme.toLight':'Açık tema',
  'qr.open':'Bu sayfanın QR kodu',
  'qr.title':'Telefonda açın',
+ 'qr.ok':'OK',
  'skin.toFootball':'Futbol görünümü',
  'skin.toBase':'Normal görünüm',
  'football:res.food':'Goller: +{n}',

@@ -175,6 +175,7 @@ export default {
  'theme.toLight':'Світла тема',
  'qr.open':'QR-код цієї сторінки',
  'qr.title':'Відкрийте на телефоні',
+ 'qr.ok':'OK',
  'skin.toFootball':'Футбольне оформлення',
  'skin.toBase':'Звичайне оформлення',
  'football:res.food':'Голи: +{n}',

@@ -101,6 +101,7 @@ export default {
  'theme.toLight':'Светлая тема',
  'qr.open':'QR-код этой страницы',
  'qr.title':'Откройте на телефоне',
+ 'qr.ok':'OK',
  'skin.toFootball':'Футбольное оформление',
  'skin.toBase':'Обычное оформление',
  'football:res.food':'Голы: +{n}',

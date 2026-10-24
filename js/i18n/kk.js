@@ -175,6 +175,7 @@ export default {
  'theme.toLight':'Жарық түр',
  'qr.open':'Осы беттің QR-коды',
  'qr.title':'Телефоннан ашыңыз',
+ 'qr.ok':'OK',
  'skin.toFootball':'Футбол безендіруі',
  'skin.toBase':'Қалыпты безендіру',
  'football:res.food':'Голдар: +{n}',

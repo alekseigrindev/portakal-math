@@ -175,6 +175,7 @@ export default {
  'theme.toLight':'ღია თემა',
  'qr.open':'ამ გვერდის QR-კოდი',
  'qr.title':'გახსენით ტელეფონზე',
+ 'qr.ok':'OK',
  'skin.toFootball':'ფეხბურთის იერსახე',
  'skin.toBase':'ჩვეულებრივი იერსახე',
  'football:res.food':'გოლები: +{n}',

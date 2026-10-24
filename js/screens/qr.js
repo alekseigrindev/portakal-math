@@ -70,7 +70,7 @@ function openQr(){
   if(!dlg) build();
   const url=pageUrl();
   title.textContent=t('qr.title');
-  okBtn.textContent=t('hint.close');
+  okBtn.textContent=t('qr.ok');
   const svg=qrSvg(url);
   svg.setAttribute('aria-label',t('qr.title'));
   pic.replaceChildren(svg);
